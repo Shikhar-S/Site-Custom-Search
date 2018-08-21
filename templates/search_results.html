@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<body>
+<table class="table">
+
+
+          {% for json in response %}
+            <tr>
+              <td>
+                  <a href="{{json.url}}" >{{json.title}}</a>
+                  {{json.description}}
+
+              </td>
+
+
+            </tr>
+          {% endfor %}
+
+      </table>
+</body>
+</html>
