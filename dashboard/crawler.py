@@ -33,7 +33,7 @@ def crawl(Crawler,base_url):
     while(queue):
         url,depth=queue.pop(0)
         print(url)
-        if(url in crawled_set or not url.startswith(base_url)):
+        if(url in crawled_set or urlparse(url).netloc != urlparse(base_url).netloc):
             continue
         crawled_set.add(url)
         print("Crawling "+url + " at depth: "+str(depth))
@@ -61,11 +61,11 @@ def crawl(Crawler,base_url):
                 if(lnk is not None and lnk[:4]=='http'):
                     queue.append((lnk,depth+1))
                     counter+=1
-                    
+
                     if(counter>MAX_BREADTH):
                         counter=0
                         break
-                            
+
         except  RequestException:
             print("Can't index: "+url)
 
