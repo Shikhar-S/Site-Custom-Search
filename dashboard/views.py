@@ -7,6 +7,7 @@ from .forms import NewCrawlerForm
 # Create your views here.
 from .crawler import crawl
 from django.views.decorators.csrf import csrf_exempt
+from .searcher import search
 import threading
 import asyncio
 
@@ -61,7 +62,13 @@ def crawldomain(request):
         crawl(crawler,domain)
         return HttpResponse("OK")
 
-
-def getresult(request):
+@csrf_exempt
+def getresult(request,pk):
+    crawler=get_object_or_404(Crawler,pk=pk)
     if request.method=='POST':
-        domain=request.POST.get('')
+        search_term=request.POST.get('search_term')
+        res=search(crawler.name,search_term)
+        print(res)
+        print(type(res))
+        return render(request,'search_results.html',{'response':res})
+

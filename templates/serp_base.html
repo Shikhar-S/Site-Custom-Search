@@ -88,15 +88,17 @@ body {
 <p><strong>Note:</strong> The Grid Layout Module is not supported in Internet Explorer or Edge 15 eand earlier versions.</p>
 
 <div class="grid-container">
-  <div class="header">header
+  <div class="header" >header
     {% block head %}
       {% endblock %}
   </div>
    <div class="search_bar">
-     <form method="post">
-       <input type="text">
-        <input type="button" name="Submit" value="Submit">
+     <form method="post" id="search_query">
+         {% csrf_token %}
+       <input type="text" id="search_term" name="search_term">
+        <input type="submit" name="Submit" value="Submit" id="Search"/>
      </form>
+
      </div>
 
 
@@ -106,9 +108,10 @@ body {
         {% endblock %}
   </div>
   <div class="middle">
-
+    <div class="search_container" id="display_search">
   {% block middle %}
         {% endblock %}
+        </div>
   </div>
   <div class="right">
 
@@ -120,6 +123,33 @@ body {
   </div>
 </div>
 
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+<script type="text/javascript">
+// setup some JSON to use
+
+window.onload = function() {
+	// setup the button click
+	document.getElementById("search_query").onsubmit = function() {
+		doWork()
+	};
+}
+
+function doWork() {
+	// ajax the JSON to the server
+
+  var query=document.getElementById("search_term").value;
+  console.log(query);
+
+  var data = { "search_term":query };
+
+	$.post("getresult", data, function(resp){
+       var content=$(resp);
+       $("#display_search").empty().append(resp);
+	});
+	// stop link reloading the page
+ event.preventDefault();
+}
+</script>
 
 </body>
 </html>

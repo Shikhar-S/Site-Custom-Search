@@ -9,4 +9,7 @@ def search(Crawler,user_query):
     s=s.query(q)
     s=s.filter('term',crawler_name=Crawler)
     response=s.execute()
-    return json.dumps([{"title":hit.title,"description":hit.description,"url":hit.url} for hit in s])
+    print(type(s))
+    for h in response:
+        print(h.title, h.description,h.url)
+    return [{"title":hit.title,"description":hit.description,"url":hit.url} for hit in s]
