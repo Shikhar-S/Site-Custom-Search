@@ -30,5 +30,5 @@ urlpatterns = [
     url(r'^new_crawler/$',dashboard_views.new_crawler,name='new_crawler'),
     url(r'^crawler/(?P<pk>\d+)/$',dashboard_views.serp,name='serp'),
     url(r'crawldomain$',dashboard_views.crawldomain,name='crawldomain'),
-    url('admin/', admin.site.urls),
+
 ]
