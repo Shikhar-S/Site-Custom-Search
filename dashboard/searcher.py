@@ -1,6 +1,7 @@
 from elasticsearch import Elasticsearch
 from elasticsearch_dsl import Search, Q
 from .article import Article
+import json
 
 def search(Crawler,user_query):
     s=Search(using=Elasticsearch())
@@ -8,8 +9,4 @@ def search(Crawler,user_query):
     s=s.query(q)
     s=s.filter('term',crawler_name=Crawler)
     response=s.execute()
-    for hit in s:
-        print(hit.title)
-    return [(hit.title,hit.description,hit.url) for hit in s]
-
-search('test_crawler','algorithms')
+    return json.dumps([{"title":hit.title,"description":hit.description,"url":hit.url} for hit in s])
