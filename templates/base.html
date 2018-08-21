@@ -2,27 +2,19 @@
 <html>
   <head>
     <meta charset="utf-8">
-    <title>{% block title %}Site Custom Search{% endblock %}</title>
-    <link href="https://fonts.googleapis.com/css?family=Peralta" rel="stylesheet">
+    <title>{% block title %}Crawlers{% endblock %}</title>
     <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
-    <link rel="stylesheet" href="{% static 'css/app.css' %}">
-    {% block stylesheet %}{% endblock %}  <!-- HERE -->
   </head>
   <body>
-    {% block body %}  <!-- HERE -->
-      <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-        <div class="container">
-		<a class="navbar-brand" href="{% url 'signup' %}">Site Custom Search</a> <!--link to dashboard-->
-        </div>
-      </nav>
-      <div class="container">
-        <ol class="breadcrumb my-4">
-          {% block breadcrumb %}
-          {% endblock %}
-        </ol>
-        {% block content %}
+    <div class="container">
+      <ol class="breadcrumb my-4">
+        {% block breadcrumb %}
         {% endblock %}
-      </div>
-    {% endblock body %}  <!-- AND HERE -->
+      </ol>
+      {% block content %}
+      {% endblock %}
+    </div>
+  {% block script %}
+  {% endblock %}
   </body>
 </html>

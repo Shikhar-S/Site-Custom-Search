@@ -1,0 +1,40 @@
+{% load static %}<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Boards</title>
+    <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
+  </head>
+  <body>
+
+    <div class="container">
+      <ol class="breadcrumb my-4">
+        <li class="breadcrumb-item active">Crawlers</li>
+      </ol>
+        <div class="mb-4">
+    <a href="{% url 'new_crawler' %}" class="btn btn-primary">New topic</a>
+  </div>
+      <table class="table">
+        <thead class="thead-inverse">
+          <tr>
+            <th>Name</th>
+            <th>Description</th>
+
+          </tr>
+        </thead>
+        <tbody>
+          {% for crawler in crawlers %}
+            <tr>
+              <td>
+                  <a href="{% url 'serp' crawler.pk %}">{{ crawler.name }}</a>
+                <small class="text-muted d-block">{{ crawler.description }}</small>
+              </td>
+
+
+            </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+  </body>
+</html>

@@ -26,7 +26,7 @@ SECRET_KEY = '*es-3ypn2*-8w!ws*(0j54xvj#(6brp4_u+utr1ek^h5=4j)k='
 DEBUG = True
 
 ALLOWED_HOSTS = []
-
+APPEND_SLASH=False
 
 # Application definition
 
@@ -39,6 +39,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'accounts',
     'widget_tweaks',
+    'dashboard'
 ]
 
 

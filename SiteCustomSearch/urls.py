@@ -19,10 +19,16 @@ from django.conf.urls import url
 from django.contrib import admin
 from accounts import views as accounts_views
 from django.contrib.auth import views as auth_views
+from dashboard import views as dashboard_views
 urlpatterns = [
     path('admin/', admin.site.urls),
     url(r'^login/$', auth_views.LoginView.as_view(template_name='login.html'), name='login'),
     url(r'^signup/$', accounts_views.signup, name='signup'),
     url(r'^signup/login/$',auth_views.LoginView.as_view(template_name='login.html'),name='login'),
     url(r'^logout/$', auth_views.LogoutView.as_view(), name='logout'),
+    url(r'^$',dashboard_views.home,name='home'),
+    url(r'^new_crawler/$',dashboard_views.new_crawler,name='new_crawler'),
+    url(r'^crawler/(?P<pk>\d+)/$',dashboard_views.serp,name='serp'),
+    url(r'crawldomain$',dashboard_views.crawldomain,name='crawldomain'),
+    url('admin/', admin.site.urls),
 ]

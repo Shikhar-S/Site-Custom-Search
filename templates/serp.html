@@ -1,0 +1,48 @@
+{% extends 'serp_base.html' %}
+{% load static %}
+<!--{% block title %}Start a New Topic{% endblock %}-->
+<style>
+    .img {
+
+    }
+</style>
+{% block header %}
+{% endblock %}
+{% block st %}
+
+.header {
+  grid-area: header5;
+  background-color: #f1f1f1;
+  padding: 30px;
+  text-align: center;
+  font-size: 35px;
+}
+
+{% endblock %}
+{% block right %}
+
+{% if adDisplayRight is False %}
+<style>.right {display:none}</style>
+{% endif %}
+<ul style="list-style: none;">
+{% for c in adRightCount %}
+    <li>
+        <img src="{% static 'images/sample.jpeg' %}"/>
+    </li>
+    {% endfor %}
+</ul>
+
+
+{% endblock %}
+
+{% block left %}
+{% if adDisplayLeft is False %}
+<style>.left {display:none}</style>
+{% endif %}
+
+<ul style="list-style: none;">
+{% for c in adleftcount %}
+    <li><img src="{% static 'images/sample.jpeg' %}"></li>
+    {% endfor %}
+</ul>
+{% endblock %}
