@@ -19,7 +19,7 @@
           <tr>
             <th>Name</th>
             <th>Description</th>
-
+            <th>Domain</th>
           </tr>
         </thead>
         <tbody>
@@ -27,9 +27,10 @@
             <tr>
               <td>
                   <a href="{% url 'serp' crawler.pk %}">{{ crawler.name }}</a>
-                <small class="text-muted d-block">{{ crawler.description }}</small>
-              </td>
 
+              </td>
+                    <td>{{crawler.description}}</td>
+                <td>{{crawler.domain}}</td>
 
             </tr>
           {% endfor %}

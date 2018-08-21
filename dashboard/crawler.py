@@ -2,7 +2,7 @@ import requests
 from requests.exceptions import RequestException
 from bs4 import BeautifulSoup as Soup
 from datetime import datetime
-from article import Article
+from .article import Article
 from urllib.parse import urlparse
 MAX_DEPTH=2
 MAX_BREADTH=30
@@ -69,4 +69,4 @@ def crawl(Crawler,base_url):
         except  RequestException:
             print("Can't index: "+url)
 
-crawl('test_crawler','https://www.webmd.com')
+# crawl('test_crawler','https://www.webmd.com')
