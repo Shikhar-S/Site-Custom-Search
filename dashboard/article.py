@@ -10,6 +10,7 @@ class Article(Document):
     keywords=Text()
     crawler_name=Text()
     description=Text()
+    url=Text()
     class Index():
         name='article'
     def save(self,** kwargs):
