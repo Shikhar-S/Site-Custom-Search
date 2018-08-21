@@ -3,9 +3,9 @@ from requests.exceptions import RequestException
 from bs4 import BeautifulSoup as Soup
 from datetime import datetime
 from .article import Article
-
+from urllib.parse import urlparse
 MAX_DEPTH=2
-
+MAX_BREADTH=30
 
 def add_to_elastic_search(soup,c_url,Crawler):
     obj=Article(title=soup.title.string,content=soup.get_text(),crawler_name=Crawler,url=c_url)
@@ -35,6 +35,7 @@ def crawl(Crawler,base_url):
         print("Crawling "+url + " at depth: "+str(depth))
         if(depth>MAX_DEPTH):
             continue
+        counter=0 # counter for branches
         try:
             response=requests.get(url)
             if(response.status_code!=200):
@@ -46,9 +47,13 @@ def crawl(Crawler,base_url):
 
             for link in soup.find_all('a'):
                 lnk=link.get('href')
+                if(not bool(urlparse(lnk).netloc)):
+                    lnk=base_url+lnk
                 if(lnk is not None and lnk[:4]=='http'):
                     queue.append((lnk,depth+1))
+                    counter+=1
+                    if(counter>MAX_BREADTH):
+                        break
         except  RequestException:
             print("Can't index: "+url)
-
 
