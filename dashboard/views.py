@@ -70,5 +70,9 @@ def getresult(request,pk):
         res=search(crawler.name,search_term)
         print(res)
         print(type(res))
+        if(len(res)==0):
+            return HttpResponse("No results found for the search query")
+
+
         return render(request,'search_results.html',{'response':res})
 

@@ -23,4 +23,6 @@ class Article(Document):
             self.title=""
         return super().save(**kwargs)
 
+
+
 Article.init()

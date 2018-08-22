@@ -1,6 +1,8 @@
-<!DOCTYPE html>
+{% load static %}<!DOCTYPE html>
 <html lang="en">
-
+<head>
+    <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
+</head>
 <body>
 <table class="table">
 
@@ -8,13 +10,15 @@
           {% for json in response %}
             <tr>
               <td>
-                  <a href="{{json.url}}" >{{json.title}}</a>
-                  {{json.description}}
+                  <a href="{{json.url}}" target="_blank">{{json.title}}</a><br>
+                  <small class="text-muted d-block">{{ json.title }}</small>
+
 
               </td>
 
 
             </tr>
+
           {% endfor %}
 
       </table>

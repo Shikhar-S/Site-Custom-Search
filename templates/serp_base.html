@@ -78,25 +78,26 @@ body {
 }
 { % block st %}
 { % endblock %}
+
 </style>
+<link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
 </head>
 <body>
 
-<h2>CSS Template using Grid</h2>
-<p>In this example, we have created a header, three unequal columns and a footer. On smaller screens, the columns will stack on top of each other.</p>
-<p>Resize the browser window to see the responsive effect.</p>
-<p><strong>Note:</strong> The Grid Layout Module is not supported in Internet Explorer or Edge 15 eand earlier versions.</p>
+
 
 <div class="grid-container">
   <div class="header" >header
     {% block head %}
       {% endblock %}
   </div>
+    <br>
+    <br>
    <div class="search_bar">
      <form method="post" id="search_query">
          {% csrf_token %}
        <input type="text" id="search_term" name="search_term">
-        <input type="submit" name="Submit" value="Submit" id="Search"/>
+        <input type="submit" name="Submit" value="Search" id="Search"/>
      </form>
 
      </div>
@@ -118,9 +119,7 @@ body {
       {% block right %}
         {% endblock %}
   </div>
-  <div class="footer" style="{'vertical-align':}">
-    <p>Footer</p>
-  </div>
+
 </div>
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
