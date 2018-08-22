@@ -2,7 +2,7 @@ import requests
 from requests.exceptions import RequestException
 from bs4 import BeautifulSoup as Soup
 from datetime import datetime
-from article import Article
+from .schema import Article, SavedCrawler
 from urllib.parse import urlparse
 MAX_DEPTH=2
 MAX_BREADTH=30
@@ -29,10 +29,9 @@ def crawl(Crawler,base_url):
         return
     queue=[]
     queue.append((base_url,0))
-
+    
     while(queue):
         url,depth=queue.pop(0)
-        print(url)
         if(url in crawled_set or urlparse(url).netloc != urlparse(base_url).netloc):
             continue
         crawled_set.add(url)
@@ -57,7 +56,10 @@ def crawl(Crawler,base_url):
 
                 if(not bool(urlparse(lnk).netloc)):
                     lnk=base_url+lnk
-
+                
+                if(lnk.startswith(base_url+"#")):
+                    continue
+                
                 if(lnk is not None and lnk[:4]=='http'):
                     queue.append((lnk,depth+1))
                     counter+=1
@@ -68,5 +70,7 @@ def crawl(Crawler,base_url):
 
         except  RequestException:
             print("Can't index: "+url)
+    Crawler_obj=SavedCrawler(name=Crawler,domain=base_url,crawled_urls=[x for x in crawled_set])
+    Crawler_obj.save()
 
 crawl('test_crawler','https://www.webmd.com')
