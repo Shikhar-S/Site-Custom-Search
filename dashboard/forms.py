@@ -1,6 +1,6 @@
 from django import forms
 from .models import Crawler
-
+from .models import Image
 
 
 class NewCrawlerForm(forms.ModelForm):
@@ -13,11 +13,18 @@ class NewCrawlerForm(forms.ModelForm):
     adDisplayLeftCount = forms.IntegerField(required=False)
     adDisplayRight = forms.BooleanField()
     adDisplayRightCount = forms.IntegerField()
-
+    companyLogo=forms.ImageField()
 
 
     class Meta:
         model = Crawler
         fields = ['name', 'description','domain']+\
-                  ['adDisplayLeft','adDisplayRight','adDisplayLeftCount','adDisplayRightCount']
+                  ['adDisplayLeft','adDisplayRight','adDisplayLeftCount','adDisplayRightCount','companyLogo']
 
+
+class NewImageUploadForm(forms.ModelForm):
+    image=forms.ImageField()
+
+    class Meta:
+        model=Image
+        fields=['image']

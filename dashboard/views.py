@@ -2,8 +2,10 @@ from django.http import HttpResponse
 from django.shortcuts import render
 from .models import Crawler
 from .models import ResultPage
+from .models import Image
 from django.shortcuts import render, redirect, get_object_or_404
 from .forms import NewCrawlerForm
+from .forms import NewImageUploadForm
 # Create your views here.
 from .crawler import crawl
 from django.views.decorators.csrf import csrf_exempt
@@ -21,7 +23,7 @@ def new_crawler(request):
     # board = get_object_or_404(Board, pk=pk)
     # user = User.objects.first()  # TODO: get the currently logged in user
     if request.method == 'POST':
-        form = NewCrawlerForm(request.POST)
+        form = NewCrawlerForm(request.POST,request.FILES)
         if form.is_valid():
             crawlerX = form.save(commit=False)
             # topic.board = board
@@ -35,6 +37,7 @@ def new_crawler(request):
                 adDisplayRight=form.cleaned_data.get('adDisplayRight'),
                 adDisplayLeftCount=form.cleaned_data.get('adDisplayLeftCount'),
                 adDisplayRightCount=form.cleaned_data.get('adDisplayRightCount'),
+                companyLogo=form.cleaned_data.get('companyLogo'),
 
                 crawler=crawlerX
             )
@@ -47,11 +50,12 @@ def serp(request,pk):
     crawler=get_object_or_404(Crawler,pk=pk)
     #attr=Crawler.objects.get(pk=pk)
     res=crawler.resultpage.first()
-
+    logopath=str(res.companyLogo)[7:]
+    print(logopath)
 
 
     return render(request,'serp.html',{'name':crawler.name,'domain':crawler.domain,'adleftcount':range(res.adDisplayLeftCount),'adDisplayLeft':res.adDisplayLeft,
-                                       'adDisplayRight':res.adDisplayRight,'adRightCount':range(res.adDisplayRightCount)})
+                                       'adDisplayRight':res.adDisplayRight,'adRightCount':range(res.adDisplayRightCount),'logo':logopath})
 
 
 @csrf_exempt
@@ -69,10 +73,27 @@ def getresult(request,pk):
         search_term=request.POST.get('search_term')
         res=search(crawler.name,search_term)
         print(res)
-        print(type(res))
+        print(len(res))
         if(len(res)==0):
             return HttpResponse("No results found for the search query")
 
 
         return render(request,'search_results.html',{'response':res})
 
+
+def showImage(request):
+        images=Image.objects.get(id=2)
+        imagespath=str(images.image)[7:]
+        return render(request,'test1.html',{'Image':imagespath})
+
+def insertImage(request):
+    if request.method=='POST':
+        form=NewImageUploadForm(request.POST,request.FILES)
+        if form.is_valid():
+            formx=form.save(commit=False)
+            formx.save()
+        return redirect('showImage')
+    else:
+        form=NewImageUploadForm()
+
+    return render(request,'formtest.html',{'form':form})
