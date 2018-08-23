@@ -71,9 +71,9 @@ def getresult(request,pk):
     crawler=get_object_or_404(Crawler,pk=pk)
     if request.method=='POST':
         search_term=request.POST.get('search_term')
-        res=search(crawler.name,search_term)
-        print(res)
-        print(len(res))
+        res=search(crawler.name,search_term,15)
+        print(res[1]['content'])
+        # print(len(res))
         if(len(res)==0):
             return HttpResponse("No results found for the search query")
 
@@ -97,3 +97,34 @@ def insertImage(request):
         form=NewImageUploadForm()
 
     return render(request,'formtest.html',{'form':form})
+
+
+def savehtml(request):
+    print('yes')
+    if request.method=='POST':
+        htmlcontent=request.POST.get('html')
+        print(htmlcontent)
+        file=open("./templates/xyz.html",'w')
+        file.write(htmlcontent)
+        file.close()
+        return HttpResponse('OK')
+
+    return render(request,'draganddrop.html')
+
+@csrf_exempt
+def savexxx(request):
+    if request.method=='POST':
+        htmlcontent=request.POST.get('html')
+        print(htmlcontent)
+        file=open("./templates/xyz.html",'w')
+        file.write(htmlcontent)
+        file.close()
+        return HttpResponse('OK')
+
+
+@csrf_exempt
+def getelement(request):
+    if request.method=='POST':
+        element_req=request.POST.get('type')
+        return HttpResponse("<div class='ad_smallsquare'>small square ad</div>")
+    return render(request,'test4.html')

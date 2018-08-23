@@ -18,12 +18,16 @@ body {
   text-align: center;
   font-size: 35px;
 }
-
-.search_bar {
-  grid-area: header1;
+.header1 {
+ grid-area:header1;
+  background-color: #f1f1f1;
+  padding: 30px;
   text-align: center;
+  font-size: 35px;
 
 }
+
+
 
 /* The grid container */
 .grid-container {
@@ -40,7 +44,8 @@ body {
 .middle,
 .right {
   padding: 10px;
-  height: 80vh
+  height: 100%;
+  min-height:100%;
 }
 
 /* Style the left column */
@@ -65,6 +70,10 @@ body {
   padding: 10px;
   text-align: center;
 }
+.img {
+
+
+}
 
 /* Responsive layout - makes the three columns stack on top of each other instead of next to each other */
 @media (max-width: 600px) {
@@ -88,12 +97,10 @@ body {
 
 <div class="grid-container">
   <div class="header" >header
-    {% block head %}
-      {% endblock %}
+<img src="{% static logo %}" id="header-image"/>
   </div>
-    <br>
-    <br>
-   <div class="search_bar">
+  <div class="header1">
+   <div class="search_bar" style="border-style:double;min-height:30;min-width:100;overflow:hidden">
      <form method="post" id="search_query">
          {% csrf_token %}
        <input type="text" id="search_term" name="search_term">
@@ -101,12 +108,18 @@ body {
      </form>
 
      </div>
-
+</div>
 
   <div class="left">
-  {% block left %}
+ {% if adDisplayLeft is False %}
+<style>.left {display:none}</style>
+{% endif %}
 
-        {% endblock %}
+<ul style="list-style: none;">
+{% for c in adleftcount %}
+    <li><div class="ad-container-left"><img src="{% static 'img/sample.jpeg' %}" ></div></li>
+    {% endfor %}
+</ul>
   </div>
   <div class="middle">
     <div class="search_container" id="display_search">
@@ -116,8 +129,16 @@ body {
   </div>
   <div class="right">
 
-      {% block right %}
-        {% endblock %}
+ {% if adDisplayRight is False %}
+<style>.right {display:none}</style>
+{% endif %}
+<ul style="list-style: none;">
+{% for c in adRightCount %}
+    <li>
+        <div class="ad-container-right"><img src="{% static 'img/sample.jpeg' %}"></div>
+    </li>
+    {% endfor %}
+</ul>
   </div>
 
 </div>
@@ -148,7 +169,22 @@ function doWork() {
 	// stop link reloading the page
  event.preventDefault();
 }
+
+
+
 </script>
+<script>
+         $(function() {
+            $( ".ad-container-left" ).draggable({ containment: ".left" });
+             $( ".ad-container-right" ).draggable({ containment: ".right" });
+            $( ".search_query" ).draggable({ containment: ".header1" });
+            $( ".ad-container-left" ).resizable({ containment: ".left" });
+         });
+      </script>
+<link href = "https://code.jquery.com/ui/1.10.4/themes/ui-lightness/jquery-ui.css"
+         rel = "stylesheet">
+      <script src = "https://code.jquery.com/jquery-1.10.2.js"></script>
+      <script src = "https://code.jquery.com/ui/1.10.4/jquery-ui.js"></script>
 
 </body>
 </html>

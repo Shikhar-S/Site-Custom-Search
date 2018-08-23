@@ -15,6 +15,6 @@ def search(Crawler,user_query,num_results):
     response=s.execute()
 
 
-    return [{"title":hit.title,"description":hit.description,"url":hit.url} for hit in s]
+    return [{"title":hit.title,"content":hit.content[:100],"url":hit.url} for hit in s]
 
 

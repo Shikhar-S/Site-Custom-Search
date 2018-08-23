@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+   <head>
+      <link href = "https://code.jquery.com/ui/1.10.4/themes/ui-lightness/jquery-ui.css"
+         rel = "stylesheet">
+      <script src = "https://code.jquery.com/jquery-1.10.2.js"></script>
+      <script src = "https://code.jquery.com/ui/1.10.4/jquery-ui.js"></script>
+
+      <style>
+         #draggable { width: 150px; height: 150px; padding: 0.5em; background:#eee;}
+      </style>
+
+      <script>
+         $(function() {
+            $( ".ui-widget-content" ).draggable();
+         });
+      </script>
+   </head>
+
+   <body>
+      <div id = "draggable1" class = "ui-widget-content">
+         <p>Drag me !!!</p>
+      </div>
+   <div id = "draggable2" class = "ui-widget-content">
+         <p>Drag me !!!</p>
+      </div>
+   <div id = "draggable3" class = "ui-widget-content">
+         <p>Drag me !!!</p>
+      </div>
+   <div id = "draggable4" class = "ui-widget-content">
+         <p>Drag me !!!</p>
+      </div>
+      <form id="save" method="post">
+         {% csrf_token %}
+   <input type="submit" id="xx">
+</form>
+       <script>
+       window.onload = function() {
+	// setup the button click
+	document.getElementById("save").onsubmit = function() {
+		myfunction();
+	};
+}
+function myfunction() {
+    var domstruct=document.documentElement.innerHTML;
+    console.log(domstruct);
+    var data = { "html":domstruct};
+	$.post("savexxx", data, function(){
+
+	});
+	event.preventDefault();
+}
+</script>
+
+   </body>
+</html>

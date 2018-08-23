@@ -1,0 +1,53 @@
+<head>
+      <link href="https://code.jquery.com/ui/1.10.4/themes/ui-lightness/jquery-ui.css" rel="stylesheet">
+      <script src="https://code.jquery.com/jquery-1.10.2.js"></script>
+      <script src="https://code.jquery.com/ui/1.10.4/jquery-ui.js"></script>
+
+      <style>
+         #draggable { width: 150px; height: 150px; padding: 0.5em; background:#eee;}
+      </style>
+
+      <script>
+         $(function() {
+            $( ".ui-widget-content" ).draggable();
+         });
+      </script>
+   </head>
+
+   <body style="cursor: auto;">
+      <div id="draggable1" class="ui-widget-content ui-draggable" style="position: relative;">
+         <p>Drag me !!!</p>
+      </div>
+   <div id="draggable2" class="ui-widget-content ui-draggable" style="position: relative;">
+         <p>Drag me !!!</p>
+      </div>
+   <div id="draggable3" class="ui-widget-content ui-draggable" style="position: relative; left: 0px; top: 252px;">
+         <p>Drag me !!!</p>
+      </div>
+   <div id="draggable4" class="ui-widget-content ui-draggable" style="position: relative; left: -2px; top: 86px;">
+         <p>Drag me !!!</p>
+      </div>
+      <form id="save" method="post">
+         <input type="hidden" name="csrfmiddlewaretoken" value="RN51pmgggu5vdkOXmoBITfiDSvjMxzP8maJXlPgqpEVokKOXB0LFqIQSzjeurQ49">
+   <input type="submit" id="xx">
+</form>
+       <script>
+       window.onload = function() {
+	// setup the button click
+	document.getElementById("save").onsubmit = function() {
+		myfunction();
+	};
+}
+function myfunction() {
+    var domstruct=document.documentElement.innerHTML;
+    console.log(domstruct);
+    var data = { "html":domstruct};
+	$.post("savexxx", data, function(){
+
+	});
+	event.preventDefault();
+}
+</script>
+
+   
+<div id="extension-is-installed"></div></body>
