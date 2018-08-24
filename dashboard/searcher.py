@@ -14,8 +14,10 @@ def search(Crawler,user_query,num_results):
     response=s.execute()
     return [{"title":hit.title,"description":hit.meta.highlight.content,"url":hit.url} for hit in s]
 
+
 def getCount(Crawler):
     s=Search(using=Elasticsearch(),index=('articles'),doc_type=Crawler)
     returb s.count()
     
+
 

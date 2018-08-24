@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+
+    <meta charset="UTF-8">
+    <title>Title</title>
+     <link href = "https://code.jquery.com/ui/1.10.4/themes/ui-lightness/jquery-ui.css"
+         rel = "stylesheet">
+      <script src = "https://code.jquery.com/jquery-1.10.2.js"></script>
+      <script src = "https://code.jquery.com/ui/1.10.4/jquery-ui.js"></script>
+    <style>
+        .ad_square {
+        min-height:50px;
+        min-width:50px;
+        border-style:solid;
+        padding:10px;
+        height:250px;
+        width:250px;
+        position:relative;
+
+        }
+        .ad_smallsquare {
+        min-height:50px;
+        min-width:50px;
+        border-style:solid;
+        padding:10px;
+        height:200px;
+        width:200px;
+        position:relative;
+
+        }
+        .ad_banner {
+        min-height:50px;
+        min-width:50px;
+        border-style:solid;
+        padding:10px;
+        height:60px;
+        width:468px;
+        position:relative;
+
+        }
+        .ad_leaderboard {
+        min-height:50px;
+        min-width:50px;
+        border-style:solid;
+        padding:10px;
+        height:90px;
+        width:728px;
+        position:relative;
+
+        }
+        .ad_inlinerectangle {
+        min-height:50px;
+        min-width:50px;
+        border-style:solid;
+        padding:10px;
+        height:300px;
+        width:250px;
+        position:relative;
+        }
+
+        .ad_skyscraper {
+        min-height:50px;
+        min-width:50px;
+        border-style:solid;
+        padding:10px;
+        height:336px;
+        width:280px;
+        position:relative;
+        }
+
+        .content_container {
+        min-height:50px;
+        min-width:50px;
+        border-style:solid;
+        padding:10px;
+        height:30px;
+        width:30px;
+
+        }
+
+        .logo_image {
+        min-height:50px;
+        min-width:50px;
+        border-style:solid;
+        padding:10px;
+        height:200px;
+        width:250px;
+        position:relative;
+
+        }
+
+        .search_form {
+        min-height:50px;
+        min-width:50px;
+        border-style:solid;
+        padding:10px;
+        height:100px;
+        width:150px;
+        position:fixed;
+
+        }
+
+        .getxelement {
+        min-height:50px;
+        min-width:50px;
+        <!--border-style:solid;-->
+        padding:10px;
+        height:200px;
+        width:250px;
+        position:relative;
+
+        }
+         .search_form {
+        min-height:50px;
+        min-width:50px;
+        <!--border-style:solid;-->
+        padding:10px;
+        height:200px;
+        width:250px;
+        position:relative;
+
+        }
+
+
+    </style>
+
+        <script>
+            $(function() {
+            $(".ad_square").draggable();
+            $( ".ad_smallsquare" ).draggable();
+            $( ".ad_banner" ).draggable();
+            $( ".ad_leaderboard" ).draggable();
+            $( ".ad_inlinerectangle" ).draggable();
+            $( ".ad_skyscraper" ).draggable();
+            $( ".content_container" ).draggable();
+            $( ".logo_image" ).draggable();
+            $( ".search_form" ).draggable({containment: ""});
+            <!--$( ".ad_small" ).resizable();-->
+            <!--$( ".ad_large" ).resizable();-->
+            <!--$( ".content_container" ).resizable();-->
+            <!--$( ".logo_image" ).resizable();-->
+            <!--$( ".search_form" ).resizable();-->
+         });
+
+        </script>
+
+
+    <!--<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>-->
+<script type="text/javascript">
+// setup some JSON to use
+
+function addcomponent(x){
+    if(x=='ad_smallsquare'){
+        itemToAdd = '<div class="ad_smallsquare"><p>ad_smallsquare</p></div>';
+        $("#el").append(itemToAdd);
+        $(".ad_smallsquare").draggable();
+    }
+    if(x=='ad_square'){
+        itemToAdd = '<div class="ad_square"><p>ad_square</p></div>';
+        $("#el").append(itemToAdd);
+        $(".ad_square").draggable();
+    }
+    if(x=='ad_banner'){
+        itemToAdd = '<div class="ad_banner"><p>ad_banner</p></div>';
+        $("#el").append(itemToAdd);
+        $(".ad_banner").draggable();
+    }
+    if(x=='ad_leaderboard'){
+        itemToAdd = '<div class="ad_leaderboard"><p>ad_leaderboard<p></div>';
+        $("#el").append(itemToAdd);
+        $(".ad_leaderboard").draggable();
+    }
+    if(x=='ad_inlinerectangle'){
+        itemToAdd = '<div class="ad_inlinerectangle"><p>ad_inlinerectangle</p></div>';
+        $("#el").prepend(itemToAdd);
+        $(".ad_inlinerectangle").draggable();
+    }
+    if(x=='ad_skyscraper'){
+        itemToAdd = '<div class="ad_skyscraper"><p>ad_skyscraper</p></div>';
+        $("#el").append(itemToAdd);
+        $(".ad_skyscraper").draggable();
+    }
+
+}
+
+
+</script>
+</head>
+<body>
+<div class='getxelement' id="el"></div>
+<!--<div class="ad_square">square ad</div>-->
+<!--<div class="ad_smallsquare">small square ad</div>-->
+<!--<div class="ad_banner">banner ad</div>-->
+<!--<div class="ad_leaderboard">leaderboard ad</div>-->
+<!--<div class="ad_inlinerectangle">inlinerectangle ad</div>-->
+<!--<div class="ad_skyscraper">skyscraper ad</div>-->
+
+<div class="search_form"><form method="post" id="search_query">
+         {% csrf_token %}
+       <input type="text" id="search_term" name="search_term">
+        <input type="submit" name="Submit" value="Search" id="Search"/>
+     </form></div>
+<div class="logo_image"><img src=""></div>
+<div class="content_container"><div class="search_container" id="display_search">search results</div></div>
+<input type="button" value="smallsquare" onclick="addcomponent('ad_smallsquare')"/>
+<input type="button" value="square" onclick="addcomponent('ad_square')"/>
+<input type="button"   value="banner" onclick="addcomponent('ad_banner')"/>
+<input type="button"  value="skyscraper" onclick="addcomponent('ad_skyscraper')"/>
+<input type="button" value="inlinerectangle" onclick="addcomponent('ad_inlinerectangle')"/>
+<input type="button"  value="leaderboard" onclick="addcomponent('ad_leaderboard')"/>
+
+</body>
+</html>
