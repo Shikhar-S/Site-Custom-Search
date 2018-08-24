@@ -63,23 +63,26 @@ def new_crawler(request):
 
 
 def new_crawlerx(request):
-    # board = get_object_or_404(Board, pk=pk)
-    # user = User.objects.first()  # TODO: get the currently logged in user
+
+
     if request.method == 'POST':
         form = NewCrawlerFormX(request.POST,request.FILES)
         if form.is_valid():
             print("yessfdasdf")
             crawlerX = form.save(commit=False)
-            # topic.board = board
-            # topic.starter = user
 
             crawlerX.save()
             resultPage = ResultPageX.objects.create(
-                # message=form.cleaned_data.get('message'),
-
+                tagline=form.cleaned_data.get('tagline'),
+                adDisplayLeftCount=form.cleaned_data.get('adDisplayLeftCount'),
+                adDisplayRightCount=form.cleaned_data.get('adDisplayRightCount'),
+                adDisplayCenterTopCount=form.cleaned_data.get('adDisplayCenterTopCount'),
+                adDisplayCenterBottomCount=form.cleaned_data.get('adDisplayCenterBottomCount'),
                 companyLogo=form.cleaned_data.get('companyLogo'),
 
                 crawler=crawlerX
+
+
             )
             return redirect('home')  # TODO: redirect to the created topic page
     else:
@@ -88,14 +91,21 @@ def new_crawlerx(request):
 
 def serp(request,pk):
     crawler=get_object_or_404(Crawler,pk=pk)
-    #attr=Crawler.objects.get(pk=pk)
+
     res=crawler.resultpagex.first()
     logopath=str(res.companyLogo)[7:]
-    tname=crawler.name+".html";
+    leftadcount=res.adDisplayLeftCount
+    rightadcount=res.adDisplayRightCount
+    centertadcount=res.adDisplayCenterTopCount
+    centerbadcount=res.adDisplayCenterBottomCount
+    tagline=res.tagline
+
     print(logopath)
 
 
-    return render(request,tname,{'name':crawler.name,'domain':crawler.domain,'logo':logopath})
+    return render(request,'serppage.html',{'name':crawler.name,'domain':crawler.domain,'logo':logopath,'leftc':range(leftadcount),
+                                        'rightc':range(rightadcount),'ctc':range(centertadcount),'cbc':range(centerbadcount),'tagline':tagline
+                                        })
 
 
 @csrf_exempt
@@ -112,7 +122,7 @@ def getresult(request,pk):
     if request.method=='POST':
         search_term=request.POST.get('search_term')
         res=search(crawler.name,search_term,15)
-        print(res[1]['content'])
+        # print(res[1]['content'])
         # print(len(res))
         if(len(res)==0):
             return HttpResponse("No results found for the search query")
