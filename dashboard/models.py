@@ -8,7 +8,6 @@ class Crawler(models.Model):
 
 
 class ResultPage(models.Model):
-
     adDisplayLeft=models.BooleanField()
     adDisplayLeftCount=models.IntegerField(default=0)
     adDisplayRight=models.BooleanField()

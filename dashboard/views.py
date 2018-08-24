@@ -12,38 +12,53 @@ from django.views.decorators.csrf import csrf_exempt
 from .searcher import search
 import threading
 import asyncio
+import redis
+redisQ=redis.StrictRedis(host='localhost',port=6379,db=0)
 
 def home(request):
 
     crawlers=Crawler.objects.all()
     return render(request,'home.html',{'crawlers':crawlers})
 
+def crawler_already_exists(form):
+    try:
+        dummy_result = Crawler.objects.filter(name=form.cleaned_data.get('domain'))
+        print('crawler with this domain already exists')
+        return True
+    except Crawler.DoesNotExist:
+        try:
+            dummy_result = Crawler.objects.filter(name=form.cleaned_data.get('name'))
+            print('crawler with this name already exists')
+            return True
+        except Crawler.DoesNotExist:
+            return False
 
 def new_crawler(request):
-    # board = get_object_or_404(Board, pk=pk)
-    # user = User.objects.first()  # TODO: get the currently logged in user
     if request.method == 'POST':
         form = NewCrawlerForm(request.POST,request.FILES)
         if form.is_valid():
             crawlerX = form.save(commit=False)
-            # topic.board = board
-            # topic.starter = user
 
-            crawlerX.save()
-            resultPage = ResultPage.objects.create(
-                # message=form.cleaned_data.get('message'),
-
+            if not crawler_already_exists(form):
+                print ("Crawler not in the database yet. Creating new crawler")
+                resultPage = ResultPage.objects.create(
                 adDisplayLeft=form.cleaned_data.get('adDisplayLeft'),
                 adDisplayRight=form.cleaned_data.get('adDisplayRight'),
                 adDisplayLeftCount=form.cleaned_data.get('adDisplayLeftCount'),
                 adDisplayRightCount=form.cleaned_data.get('adDisplayRightCount'),
                 companyLogo=form.cleaned_data.get('companyLogo'),
-
-                crawler=crawlerX
-            )
-            return redirect('home')  # TODO: redirect to the created topic page
+                crawler=crawlerX)
+                crawlerX.save()
+                #Adding message to Redis Q
+                url=form.cleaned_data.get('domain')
+                crawler=form.cleaned_data.get('name')
+                while(redisQ.publish('messagequeue',crawler+" "+url)==0):
+                    continue
+            
+            return redirect('home')
     else:
         form = NewCrawlerForm()
+    
     return render(request, 'new_crawler.html', {'form': form})
 
 def serp(request,pk):
@@ -97,3 +112,8 @@ def insertImage(request):
         form=NewImageUploadForm()
 
     return render(request,'formtest.html',{'form':form})
+
+def doesitwork(request):
+    print("YES!!!")
+    return redirect('home')
+

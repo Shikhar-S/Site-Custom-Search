@@ -8,40 +8,13 @@
 {% endblock %}
 
 {% block content %}
-  <form method="post" id="crawl_form" enctype="multipart/form-data">
+  <form method="POST" id="crawl_form" enctype="multipart/form-data">
     {% csrf_token %}
     {{ form.as_p }}
-    <input type="submit" class="btn btn-success" id="post"/>
+    <button type="submit" href="{% url 'new_crawler' %} class="btn btn-primary btn-block"> Submit </button>
   </form>
 
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
-<script type="text/javascript">
-// setup some JSON to use
 
-
-
-window.onload = function() {
-	// setup the button click
-	document.getElementById("crawl_form").onsubmit = function() {
-		doWork()
-	};
-}
-
-function doWork() {
-	// ajax the JSON to the server
-	var domain=document.getElementById("id_domain").value;
-  var crawler=document.getElementById("id_name").value;
-  console.log(domain);
-  console.log(crawler);
-  var data = { "crawler":crawler, "domain":domain };
-	$.post("crawldomain", data, function(){
-
-	});
-	// stop link reloading the page
- <!--event.preventDefault();-->
-}
-
-</script>
 {% endblock %}
 
 {% block script %}
