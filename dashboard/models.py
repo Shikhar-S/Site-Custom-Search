@@ -17,7 +17,6 @@ class ResultPage(models.Model):
 
 
 
-
 class ResultPageX(models.Model):
     tagline = models.CharField(max_length=50)
     adDisplayLeftCount = models.IntegerField(default=0)
