@@ -17,7 +17,7 @@ def search(Crawler,user_query,num_results):
 
 def getCount(Crawler):
     s=Search(using=Elasticsearch(),index=('articles'),doc_type=Crawler)
-    returb s.count()
+    return s.count()
     
 
 

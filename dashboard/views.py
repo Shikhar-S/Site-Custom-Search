@@ -21,25 +21,27 @@ def home(request):
     return render(request,'home.html',{'crawlers':crawlers})
 
 def crawler_already_exists(form):
-    try:
         dummy_result = Crawler.objects.filter(name=form.cleaned_data.get('domain'))
-        print('crawler with this domain already exists')
-        return True
-    except Crawler.DoesNotExist:
-        try:
-            dummy_result = Crawler.objects.filter(name=form.cleaned_data.get('name'))
-            print('crawler with this name already exists')
+        if(dummy_result.count()>0):
+            print('crawler with this domain already exists')
             return True
-        except Crawler.DoesNotExist:
-            return False
+        else:
+            dummy_result = Crawler.objects.filter(name=form.cleaned_data.get('name'))
+            if dummy_result.count()>0:
+                print('crawler with this name already exists')
+                print(dummy_result)
+                return True
+        return False
 
 def new_crawler(request):
     if request.method == 'POST':
         form = NewCrawlerForm(request.POST,request.FILES)
         if form.is_valid():
-            crawlerX = form.save(commit=False)
+            
 
             if not crawler_already_exists(form):
+                crawlerX = form.save(commit=False)
+                crawlerX.save()
                 print ("Crawler not in the database yet. Creating new crawler")
                 resultPage = ResultPage.objects.create(
                 adDisplayLeft=form.cleaned_data.get('adDisplayLeft'),
@@ -48,12 +50,13 @@ def new_crawler(request):
                 adDisplayRightCount=form.cleaned_data.get('adDisplayRightCount'),
                 companyLogo=form.cleaned_data.get('companyLogo'),
                 crawler=crawlerX)
-                crawlerX.save()
+                
                 #Adding message to Redis Q
                 url=form.cleaned_data.get('domain')
                 crawler=form.cleaned_data.get('name')
-                while(redisQ.publish('messagequeue',crawler+" "+url)==0):
-                    continue
+                    #while(redisQ.publish('messagequeue',crawler+" "+url)==0):
+                    #continue
+                print('added to redis Queue')
             
             return redirect('home')
     else:
@@ -63,28 +66,32 @@ def new_crawler(request):
 
 
 def new_crawlerx(request):
-
-
     if request.method == 'POST':
         form = NewCrawlerFormX(request.POST,request.FILES)
         if form.is_valid():
-            print("yessfdasdf")
-            crawlerX = form.save(commit=False)
-
-            crawlerX.save()
-            resultPage = ResultPageX.objects.create(
+            
+            
+            if not crawler_already_exists(form):
+                crawlerX = form.save(commit=False)
+                crawlerX.save()
+                print ("Crawler not in the database yet. Creating new crawler")
+                resultPage = ResultPageX.objects.create(
                 tagline=form.cleaned_data.get('tagline'),
                 adDisplayLeftCount=form.cleaned_data.get('adDisplayLeftCount'),
                 adDisplayRightCount=form.cleaned_data.get('adDisplayRightCount'),
                 adDisplayCenterTopCount=form.cleaned_data.get('adDisplayCenterTopCount'),
                 adDisplayCenterBottomCount=form.cleaned_data.get('adDisplayCenterBottomCount'),
                 companyLogo=form.cleaned_data.get('companyLogo'),
-
-                crawler=crawlerX
-
-
-            )
-            return redirect('home')  # TODO: redirect to the created topic page
+                crawler=crawlerX)
+                
+                #Adding message to Redis Q
+                url=form.cleaned_data.get('domain')
+                crawler=form.cleaned_data.get('name')
+                #while(redisQ.publish('messagequeue',crawler+" "+url)==0):
+                #continue
+                print('added to redis Queue')
+            
+            return redirect('home')
     else:
         form = NewCrawlerFormX()
     return render(request, 'test3.html', {'form': form})

@@ -25,3 +25,7 @@ class ResultPageX(models.Model):
     adDisplayCenterBottomCount = models.IntegerField(default=0)
     companyLogo = models.ImageField(upload_to='./static/pic_folder/', default='img/sample.jpeg')
     crawler = models.ForeignKey(Crawler, related_name="resultpagex", on_delete=models.CASCADE)
+
+class Image(models.Model):
+    image=models.ImageField(upload_to = './static/pic_folder/',default='img/sample.jpeg')
+
