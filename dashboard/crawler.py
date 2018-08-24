@@ -6,7 +6,7 @@ from datetime import datetime
 from .schema import Article, SavedCrawler
 
 from urllib.parse import urlparse
-MAX_DEPTH=2
+MAX_DEPTH=5
 MAX_BREADTH=30
 
 def add_to_elastic_search(soup,c_url,Crawler):

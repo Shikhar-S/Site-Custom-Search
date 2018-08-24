@@ -31,10 +31,14 @@ class NewImageUploadForm(forms.ModelForm):
 
 
 class NewCrawlerFormX(forms.ModelForm):
-    name = forms.CharField(max_length=30)
+    name = forms.CharField(max_length=30,required=True)
     description=forms.CharField(max_length=100)
-    domain=forms.CharField(max_length=100)
-
+    domain=forms.CharField(max_length=100,required=True)
+    tagline=forms.CharField(max_length=50,initial="Science behind adverd",required=True)
+    adDisplayLeftCount = forms.IntegerField(required=True,initial=0)
+    adDisplayRightCount = forms.IntegerField(required=True,initial=0)
+    adDisplayCenterTopCount = forms.IntegerField(required=True,initial=0)
+    adDisplayCenterBottomCount = forms.IntegerField(required=True,initial=0)
 
 
     companyLogo=forms.ImageField()
@@ -42,5 +46,5 @@ class NewCrawlerFormX(forms.ModelForm):
 
     class Meta:
         model = Crawler
-        fields = ['name', 'description','domain']+\
-                  ['companyLogo']
+        fields = ['name', 'description','domain']+ \
+                 ['tagline','adDisplayLeftCount', 'adDisplayRightCount','adDisplayCenterTopCount','adDisplayCenterBottomCount', 'companyLogo']
