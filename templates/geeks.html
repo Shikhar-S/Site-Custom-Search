@@ -1,8 +1,5 @@
-{% load static %}<!DOCTYPE html>
-<html>
 <head>
-    <link href="https://code.jquery.com/ui/1.10.4/themes/ui-lightness/jquery-ui.css"
-          rel="stylesheet">
+    <link href="https://code.jquery.com/ui/1.10.4/themes/ui-lightness/jquery-ui.css" rel="stylesheet">
     <script src="https://code.jquery.com/jquery-1.10.2.js"></script>
     <script src="https://code.jquery.com/ui/1.10.4/jquery-ui.js"></script>
     <script type="text/javascript">
@@ -50,7 +47,7 @@ function addcomponent(){
 	document.getElementById("crawlerForm").onsubmit = function() {
 		myfunction();
 	};
-	document.getElementById("search_query").onsubmit=function(){getsearchresults();};
+	document.getElementById("search_query").onsubmit=function(){getserachresults();};
 }
 function myfunction() {
     var domain=document.getElementById("id_domain").value;
@@ -187,69 +184,62 @@ float:left;
 
     </style>
 </head>
-<body>
-{% block h %}{% endblock %}
+<body style="">
+
 <div class="crawlform">
-    <div class="submitform1" align="center" style="border-style:solid">
+    <div class="submitform1" align="center" style="border-style: solid; display: none;">
         <form enctype="multipart/form-data" method="post" id="crawlerForm">
-            {% csrf_token %}
-            {{ form.as_p }}
+            <input type="hidden" name="csrfmiddlewaretoken" value="ATlEVnJPac60bbSH5UznQzdVEk78VIYx5gZARQJZjmWTiBSHkwJkn2Lal82QPZdy">
+            <p><label for="id_name">Name:</label> <input type="text" name="name" maxlength="30" required="" id="id_name"></p>
+<p><label for="id_description">Description:</label> <input type="text" name="description" maxlength="100" required="" id="id_description"></p>
+<p><label for="id_domain">Domain:</label> <input type="text" name="domain" maxlength="100" required="" id="id_domain"></p>
+<p><label for="id_companyLogo">Companylogo:</label> <input type="file" name="companyLogo" accept="image/*" required="" id="id_companyLogo"></p>
             <!--<p style="font-size:10px">Left Width:<input type="text" id="left_width"></p>-->
             <!--<p style="font-size:10px">Center Width:<input type="text" id="center_width"></p>-->
             <!--<p style="font-size:10px">Right Width:<input type="text" id="right_width"></p>-->
             <!--<input type="button" value="Render view" onclick="setwidth()"/>-->
-            <p style="font-size:10px"><input type="radio" name="location" value="Left" id="left_option" checked>Left
+            <p style="font-size:10px"><input type="radio" name="location" value="Left" id="left_option" checked="">Left
                 <input type="radio" name="location" value="Centert" id="center_optiont">Center Top
                 <input type="radio" name="location" value="Centerb" id="centercoptionb">Center Bottom
                 <input type="radio" name="location" value="Right" id="right_option">Right</p>
-            <input type="button" value="Ad Slot" onclick="addcomponent()"/>
+            <input type="button" value="Ad Slot" onclick="addcomponent()">
             <input type="submit" id="submit_crawler">
         </form>
     </div>
 </div>
 <div class="header">
-    <div class="header-item" style="border-style:solid;width:30%;height:150px"><img src="{% block logo %}{% endblock %}" id="header-image"/></div><h2>Science behind advert </h2>
+    <div class="header-item" style="border-style:solid;width:30%;height:150px"><img src="" id="header-image"></div><h2>Science behind advert </h2>
 
 
 </div>
 <div class="search-bar">
     <div class="submitform" align="center">
         <form method="post" id="search_query">
-            {% csrf_token %}
+            <input type="hidden" name="csrfmiddlewaretoken" value="ATlEVnJPac60bbSH5UznQzdVEk78VIYx5gZARQJZjmWTiBSHkwJkn2Lal82QPZdy">
             <input type="text" id="search_term" name="search_term">
-            <input type="submit" name="Submit" value="Search" id="Search"/>
+            <input type="submit" name="Submit" value="Search" id="Search">
         </form>
     </div>
 </div>
 
 <div class="row">
-    <div class="leftcolumn">
+    <div class="leftcolumn"><div class="card ui-draggable" id="id_ad" style="position: relative;"><div class="fakeimg" style="height:200px;"></div></div>
 
-        <div class="card" id="sample_left_ad">
-            <h2>sample ad block</h2>
-            <!--<div class="fakeimg" style="height:100px;">Image</div>-->
-            <!--<p>Some text about me in culpa qui officia deserunt mollit anim..</p>-->
-        </div>
+        
     </div>
-    <div class="centrecolumn">
+    <div class="centrecolumn"><div class="card" id="id_ad"><div class="fakeimg" style="height:200px;"></div></div>
 
 
-        <div class="card" >
-        <iframe id="search_results">
-            <h2>sample search results</h2>
+        <div class="card" id="search_results">
+        <h2>sample search results</h2>
 
 
         <p>Some text..</p>
         <p>Sunt in culpa qui officia deserunt mollit anim id est laborum consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco.</p>
-            </iframe>
         </div>
     </div>
-    <div class="rightcolumn">
-        <div class="card" id="sample_right_ad">
-            <h2>sample ad block</h2>
-            <!--<div class="fakeimg" style="height:100px;">Image</div>-->
-            <!--<p>Some text about me in culpa qui officia deserunt mollit anim..</p>-->
-        </div>
+    <div class="rightcolumn"><div class="card" id="id_ad"><div class="fakeimg" style="height:200px;"></div></div>
+        
         <!--<div class="card">-->
         <!--<h3>Popular Post</h3>-->
         <!--<div class="fakeimg">Image</div><br>-->
@@ -267,5 +257,6 @@ float:left;
     <h2>Footer</h2>
 </div>
 
-</body>
-</html>
+
+
+<div id="extension-is-installed"></div></body>

@@ -1,10 +1,10 @@
 from django.http import HttpResponse
 from django.shortcuts import render
 from .models import Crawler
-from .models import ResultPage
+from .models import ResultPage,ResultPageX
 from .models import Image
 from django.shortcuts import render, redirect, get_object_or_404
-from .forms import NewCrawlerForm
+from .forms import NewCrawlerForm,NewCrawlerFormX
 from .forms import NewImageUploadForm
 # Create your views here.
 from .crawler import crawl
@@ -46,16 +46,41 @@ def new_crawler(request):
         form = NewCrawlerForm()
     return render(request, 'new_crawler.html', {'form': form})
 
+
+def new_crawlerx(request):
+    # board = get_object_or_404(Board, pk=pk)
+    # user = User.objects.first()  # TODO: get the currently logged in user
+    if request.method == 'POST':
+        form = NewCrawlerFormX(request.POST,request.FILES)
+        if form.is_valid():
+            print("yessfdasdf")
+            crawlerX = form.save(commit=False)
+            # topic.board = board
+            # topic.starter = user
+
+            crawlerX.save()
+            resultPage = ResultPageX.objects.create(
+                # message=form.cleaned_data.get('message'),
+
+                companyLogo=form.cleaned_data.get('companyLogo'),
+
+                crawler=crawlerX
+            )
+            return redirect('home')  # TODO: redirect to the created topic page
+    else:
+        form = NewCrawlerFormX()
+    return render(request, 'test3.html', {'form': form})
+
 def serp(request,pk):
     crawler=get_object_or_404(Crawler,pk=pk)
     #attr=Crawler.objects.get(pk=pk)
-    res=crawler.resultpage.first()
+    res=crawler.resultpagex.first()
     logopath=str(res.companyLogo)[7:]
+    tname=crawler.name+".html";
     print(logopath)
 
 
-    return render(request,'serp.html',{'name':crawler.name,'domain':crawler.domain,'adleftcount':range(res.adDisplayLeftCount),'adDisplayLeft':res.adDisplayLeft,
-                                       'adDisplayRight':res.adDisplayRight,'adRightCount':range(res.adDisplayRightCount),'logo':logopath})
+    return render(request,tname,{'name':crawler.name,'domain':crawler.domain,'logo':logopath})
 
 
 @csrf_exempt
@@ -99,27 +124,20 @@ def insertImage(request):
     return render(request,'formtest.html',{'form':form})
 
 
+@csrf_exempt
 def savehtml(request):
     print('yes')
     if request.method=='POST':
         htmlcontent=request.POST.get('html')
         print(htmlcontent)
-        file=open("./templates/xyz.html",'w')
+        name = request.POST.get('name')
+        domain = request.POST.get('domain')
+        file = open("./templates/" + name + ".html", 'w')
         file.write(htmlcontent)
         file.close()
         return HttpResponse('OK')
 
     return render(request,'draganddrop.html')
-
-@csrf_exempt
-def savexxx(request):
-    if request.method=='POST':
-        htmlcontent=request.POST.get('html')
-        print(htmlcontent)
-        file=open("./templates/xyz.html",'w')
-        file.write(htmlcontent)
-        file.close()
-        return HttpResponse('OK')
 
 
 @csrf_exempt

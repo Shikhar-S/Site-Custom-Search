@@ -28,3 +28,19 @@ class NewImageUploadForm(forms.ModelForm):
     class Meta:
         model=Image
         fields=['image']
+
+
+class NewCrawlerFormX(forms.ModelForm):
+    name = forms.CharField(max_length=30)
+    description=forms.CharField(max_length=100)
+    domain=forms.CharField(max_length=100)
+
+
+
+    companyLogo=forms.ImageField()
+
+
+    class Meta:
+        model = Crawler
+        fields = ['name', 'description','domain']+\
+                  ['companyLogo']

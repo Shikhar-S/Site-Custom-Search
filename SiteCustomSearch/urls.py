@@ -26,14 +26,14 @@ urlpatterns = [
     url(r'^signup/$', accounts_views.signup, name='signup'),
     url(r'^signup/login/$',auth_views.LoginView.as_view(template_name='login.html'),name='login'),
     url(r'^logout/$', auth_views.LogoutView.as_view(), name='logout'),
-    url(r'^$',dashboard_views.getelement,name='home'),
-    url(r'^new_crawler/$',dashboard_views.new_crawler,name='new_crawler'),
+    url(r'^$',dashboard_views.home,name='home'),
+    url(r'^new_crawler/$',dashboard_views.new_crawlerx,name='new_crawler'),
     url(r'^crawler/(?P<pk>\d+)/$',dashboard_views.serp,name='serp'),
     url(r'crawldomain$',dashboard_views.crawldomain,name='crawldomain'),
     url(r'crawler/(?P<pk>\d+)/getresult$',dashboard_views.getresult,name='getresult'),
     url(r'formimage/$',dashboard_views.insertImage,name='insertImage'),
     url(r'image/$',dashboard_views.showImage,name='showImage'),
-    url(r'savehtml$',dashboard_views.savehtml,name='savehtml'),
+    url(r'new_crawler/savehtml$',dashboard_views.savehtml,name='savehtml'),
     url(r'getelement$',dashboard_views.getelement,name='getelement')
 
 

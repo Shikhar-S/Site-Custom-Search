@@ -19,3 +19,8 @@ class ResultPage(models.Model):
 
 class Image(models.Model):
     image=models.ImageField(upload_to = './static/pic_folder/',default='img/sample.jpeg')
+
+
+class ResultPageX(models.Model):
+    companyLogo = models.ImageField(upload_to='./static/pic_folder/', default='img/sample.jpeg')
+    crawler = models.ForeignKey(Crawler, related_name="resultpagex", on_delete=models.CASCADE)
