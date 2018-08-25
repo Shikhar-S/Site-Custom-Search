@@ -12,6 +12,7 @@ import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
+import redis.clients.jedis.Jedis;
 
 import java.math.BigInteger;
 import java.net.InetAddress;
@@ -32,13 +33,12 @@ public class Crawler extends Thread {
     UserAgentManager userAgentManager=null;
     CrawlerConfig crawlerConfig=null;
     final int MAX_DEPTH=4;
-    final int MAX_BREADTH=20;
+    final int MAX_BREADTH=15;
     public Crawler(String message)
     {
         int splitAt=message.indexOf(' ');
         this.crawlerName=message.substring(0,splitAt);
         this.crawlURL=message.substring(splitAt+1);
-
         try{
             this.userAgentManager = new RotatingUserAgentManager();
             this.crawlerConfig=new DefaultProxyCrawlerConfig("Crawler",userAgentManager);
@@ -49,13 +49,12 @@ public class Crawler extends Thread {
         {
             e.printStackTrace();
         }
-
     }
     public void run()
     {
         System.out.println("Starting crawling on: "+crawlURL);
         try {
-            crawl(crawlURL);
+            crawl(true,true,1000);
             this.SqlConnection.close();
         }
         catch(Exception e)
@@ -63,14 +62,54 @@ public class Crawler extends Thread {
             e.printStackTrace();
         }
     }
-    public void crawl(String baseURL)throws Exception
+    public void crawl(boolean save,boolean restore,int saveAt)throws Exception
     {
-        //check for repetition in crawlername, domainURL :Sanity checks both should be unique
+        //check for repetition in crawlername, domainURL : both should be unique
+        Queue<Pair> Q=new LinkedList<Pair>();
+        int iter=0;
+        if(restore)
+        {
+            try {
+                Jedis jedis = new Jedis();
+                String value;
+                while (true) {
+                    try {
+                        value = jedis.lpop(crawlerName);
+                        if (value == null) { //end of redis frontier
+                            break;
+                        }
+                        int sp_idx = value.indexOf(' ');
+                        int depth = Integer.parseInt(value.substring(0, sp_idx));
+                        String url = value.substring(sp_idx + 1);
+                        Q.add(new Pair(url, depth));
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                }
+                if(!Q.isEmpty())
+                    System.out.println("Loaded from saved state");
+            }
+            catch (Exception e)
+            {
+                e.printStackTrace();
+                Q.add(new Pair(crawlURL,0)); //if jedis restoration fails crawl again
+            }
+        }
+        else
+        {
+            Q.add(new Pair(crawlURL,0));
+        }
 
-        //System.out.println("here");
 
-
+        String baseURL=crawlURL;
         HashMap<String, Boolean> set=new HashMap<String, Boolean>();
+        if(Q.isEmpty())
+        {
+            Q.add(new Pair(baseURL,0));
+        }
+
+
+        set.put(baseURL,true);
 
 
         MessageDigest m = MessageDigest.getInstance("MD5");
@@ -82,17 +121,29 @@ public class Crawler extends Thread {
 
         Indexer indexer=new Indexer();
 
-
-
-        Queue<Pair> Q=new LinkedList<Pair>();
-        Q.add(new Pair(baseURL,0));
-        set.put(baseURL,true);
         SyncCrawler syncCrawler = new SyncCrawler(crawlerConfig);
 
         while(!(Q.isEmpty()))
         {
+            iter++;
+            if(save && (iter%saveAt)==0)
+            {
+             try
+             {
+                 Jedis jedis=new Jedis();
+                 jedis.del(crawlerName);
+                 for(Pair p: Q)
+                 {
+                     jedis.rpush(crawlerName,p.depth+" "+p.url);
+                 }
+                 System.out.println("Saved frontier at iteration: "+iter);
+             }
+             catch (Exception e)
+             {
+                 e.printStackTrace();
+             }
+            }
             int breadth_counter=0;
-
             Pair x=Q.poll();
             String URL=x.url;
             int depth_counter=x.depth;
@@ -107,12 +158,11 @@ public class Crawler extends Thread {
             {
                 continue;
             }
-            ////////////////////Extract fields///////////////////
+
+            ////////////////Extract fields//////////////
             String content=response.getContent();
             Document soup= Jsoup.parse(content);
             soup.setBaseUri(URL);
-
-
             Elements headings_e=soup.select("h1,h2,h3,h4,h5,h6");
             String headings="";
             for(Element heading : headings_e)
@@ -120,16 +170,16 @@ public class Crawler extends Thread {
 
             String title=soup.select("title").text();
             String body=soup.body().text();
-            //////////////////////////////////////////////
+            ////////////////////////////////////////////
 
-            ////////////////Generate hash////////////////
+            ////////////////Generate hash///////////////
             String getHashof=title+body+headings;
             m.reset();
             m.update(getHashof.getBytes());
             byte[] digest = m.digest();
             BigInteger bigInt = new BigInteger(1,digest);
             String hashtext = bigInt.toString(16);
-            /////////////////////////////////////////////
+            ////////////////////////////////////////////
 
             //////////////Check if in SQL///////////////
             //doesnt worry about repeat entries in sql table. Worries about repeat entries in ES index.
@@ -145,7 +195,7 @@ public class Crawler extends Thread {
             }
             if(resultExists) //dont add to index if values are same
             {
-                System.out.println("Crawler: Already in database: "+rs.getString("url")+" hash:"+rs.getString("hash"));
+                System.out.println("Crawler: Already in database: "+URL+" hash:"+hashtext);
             }
             else{
 
@@ -165,10 +215,7 @@ public class Crawler extends Thread {
                 {
                     e.printStackTrace();
                 }
-
-
             }
-
 
 
             Elements links=soup.select("a[href]");
@@ -176,13 +223,10 @@ public class Crawler extends Thread {
             int added=0;
             for ( Element link : links)
             {
-
-
-
                 if(breadth_counter>MAX_BREADTH)
                     break;
                 String childURL=link.attr("abs:href");
-                if(childURL.indexOf('#')>0) //ignore pointer urls on same page
+                if(childURL.indexOf('#')>=0) //ignore pointer urls on same page
                     continue;
 
                 if(childURL.startsWith(baseURL))
@@ -207,6 +251,7 @@ public class Crawler extends Thread {
         }
         System.out.println("Finished crawling on: "+baseURL);
         System.out.println("Q size-> "+Q.size());
+
 
     }
 }

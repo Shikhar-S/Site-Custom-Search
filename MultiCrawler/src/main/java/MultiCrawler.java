@@ -17,7 +17,8 @@ public class MultiCrawler {
     public static void main(String args[])throws Exception
     {
 
-        boolean makeNewDatabase=true;
+        boolean makeNewDatabase=false;
+        boolean startUpdater=false;
         Connection sqlConnection=null;
         try{
             sqlConnection=DriverManager.getConnection("jdbc:sqlite:sample.db");
@@ -34,18 +35,17 @@ public class MultiCrawler {
             }
 
             IndexUpdater updater=new IndexUpdater();
-            updater.start();
-            System.out.println("Started updater");
+            if(startUpdater)
+            {
+                updater.start();
+                System.out.println("Started updater");
+            }
+
 
             Jedis jedisSubscriber=new Jedis();
-            System.out.println("Started Redis server");
+            System.out.println("Connected to Redis server");
             System.out.println("Waiting for URLs");
-
-
-
             jedisSubscriber.subscribe(new QueueListener(),"messagequeue");
-
-
 
         }
         catch(Exception e)
@@ -62,62 +62,5 @@ public class MultiCrawler {
                 e.printStackTrace();
             }
         }
-
-
-        /*
-
-        try
-        {
-            // create a database connection
-
-            Statement statement = connection.createStatement();
-            statement.setQueryTimeout(30);  // set timeout to 30 sec.
-
-            statement.executeUpdate("drop table if exists crawled_urls");
-            statement.executeUpdate("create table crawled_urls (url string)");
-            statement.executeUpdate("insert into crawled_urls values('leo')");
-            ResultSet rs = statement.executeQuery("select * from crawled_urls where url='leo'");
-            while(rs.next())
-            {
-                // read the result set
-                System.out.println("name = " + rs.getString("url"));
-            }
-        }
-        catch(SQLException e)
-        {
-            // if the error message is "out of memory",
-            // it probably means no database file is found
-            System.err.println(e.getMessage());
-        }
-        finally
-        {
-            try
-            {
-                if(connection != null)
-                    connection.close();
-            }
-            catch(SQLException e)
-            {
-                // connection close failed.
-                System.err.println(e);
-            }
-        }
-
-
-        */
-
-        /*String url="https://www.thehindu.com";
-        try{
-            UserAgentManager userAgentManager = new RotatingUserAgentManager();
-            CrawlerConfig crawlerConfig=new DefaultProxyCrawlerConfig("Crawler",userAgentManager);
-            crawl(url,crawlerConfig);
-        }
-        catch(Exception e)
-        {
-            e.printStackTrace();
-        }*/
     }
-
-
-
 }
