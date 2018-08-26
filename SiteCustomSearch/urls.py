@@ -34,7 +34,6 @@ urlpatterns = [
     url(r'formimage/$',dashboard_views.insertImage,name='insertImage'),
     url(r'image/$',dashboard_views.showImage,name='showImage'),
     url(r'new_crawler/savehtml$',dashboard_views.savehtml,name='savehtml'),
-    url(r'getelement$',dashboard_views.getelement,name='getelement')
-
-
+    url(r'getelement$',dashboard_views.getelement,name='getelement'),
+    url(r'crawler/(?P<crawler_name>[a-zA-Z]+)/$',dashboard_views.show_metrics,name='metrics_page'),
 ]

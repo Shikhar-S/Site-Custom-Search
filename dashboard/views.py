@@ -2,7 +2,7 @@ from django.http import HttpResponse
 from django.shortcuts import render
 from .models import Crawler
 from .models import ResultPage,ResultPageX
-from .models import Image
+from .models import Image , Metrics
 from django.shortcuts import render, redirect, get_object_or_404
 from .forms import NewCrawlerForm,NewCrawlerFormX
 from .forms import NewImageUploadForm
@@ -155,7 +155,19 @@ def insertImage(request):
 
     return render(request,'formtest.html',{'form':form})
 
-
+def show_metrics(request,crawler_name):
+    if(request.method=='GET'):
+        try:
+            result=Metrics.objects.filter(crawlerName=crawler_name)
+            print(result)
+            result=result.order_by('-queryCount')[:10]
+            print(result)
+            res=[]
+            for entry in result:
+                res.append({'Query':entry.userQuery,'Count':entry.queryCount})
+            return render(request,'metrics.html',{'response':res})
+        except:
+            return HttpResponse("No metrics to show yet")
 
 @csrf_exempt
 def savehtml(request):

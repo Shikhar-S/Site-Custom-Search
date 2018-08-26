@@ -1,6 +1,8 @@
 from elasticsearch import Elasticsearch
 from elasticsearch_dsl import Search, Q
+from .models import Metrics, Crawler
 import json
+from django.db.models import F
 
 def search(Crawler,user_query,num_results):
     s=Search(using=Elasticsearch(),index=('articles'),doc_type=(Crawler))
@@ -26,13 +28,25 @@ def search(Crawler,user_query,num_results):
         if current_pos>total_matches:
             current_pos=total_matches
 
-    print(len(unique_list))
+    storeMetric(Crawler,user_query)
+#add condition for reducing metric size
     return ret_list
 
 
 def getCount(Crawler):
     s=Search(using=Elasticsearch(),index=('articles'),doc_type=Crawler)
     return s.count()
+
+def storeMetric(crawler,user_query):
+    Metrics.objects.get_or_create(crawlerName=crawler,userQuery=user_query)
+    Metrics.objects.filter(userQuery=user_query,crawlerName=crawler).update(queryCount=F('queryCount')+1)
+
+def reduceMetric(crawler):
+    pass
+
+
+
+
 
 
         
