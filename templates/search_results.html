@@ -11,7 +11,11 @@
             <tr>
               <td>
                   <a href="{{json.url}}" target="_blank">{{json.title}}</a><br>
-                  <small class="text-muted d-block">{{ json.description }}</small>
+                  <small class="text-muted d-block">
+                      
+                  {{ json.description | safe}}
+                  
+                  </small>
 
 
               </td>
