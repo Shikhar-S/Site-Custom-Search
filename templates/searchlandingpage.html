@@ -1,0 +1,275 @@
+{% load static %}<!DOCTYPE html>
+<html>
+<head>
+    <link href="https://code.jquery.com/ui/1.10.4/themes/ui-lightness/jquery-ui.css"
+          rel="stylesheet">
+    <script src="https://code.jquery.com/jquery-1.10.2.js"></script>
+
+
+    <script>
+       window.onload = function() {
+	// setup the button click
+	document.getElementById("search_query").onsubmit=function(){getsearchresults();};
+}
+
+
+function getsearchresults() {
+	// ajax the JSON to the server
+
+  var query=document.getElementById("search_term").value;
+  console.log(query);
+
+  var data = { "search_term":query };
+
+	$.post("getresult", data, function(resp){
+       var content=$(resp);
+       $("#searchresults").empty().append(resp);
+	});
+	// stop link reloading the page
+ event.preventDefault();
+}
+
+    </script>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
+    <style>
+* {
+    box-sizing: border-box;
+}
+
+/* Add a gray background color with some padding */
+body {
+    font-family: Arial;
+    padding: 20px;
+    background-color: #92a8d1;
+}
+
+/* Header/Blog Title */
+.header {
+    padding: 30px;
+    font-size: 40px;
+    text-align: left;
+    background: white;
+
+}
+.header-item{
+float:left;
+}
+
+
+/* Create two unequal columns that floats next to each other */
+/* Left column */
+.leftcolumn {
+    float: left;
+    width: 20%;
+     padding-right: 20px;
+
+
+}
+
+/* Right column */
+.rightcolumn {
+    float: left;
+    width: 20%;
+    padding-left: 20px;
+}
+.centrecolumn{
+    float:left;
+    width:60%;
+
+
+}
+
+/* Fake image */
+.fakeimg {
+    background-color: #aaa;
+    width: 100%;
+    padding: 20px;
+}
+
+/* Add a card effect for articles */
+.card {
+     background-color: white;
+     padding: 0px;
+     margin-top: 20px;
+
+}
+
+/* Clear floats after the columns */
+.row:after {
+    content: "";
+    display: table;
+    clear: both;
+}
+
+/* Footer */
+.footer {
+    padding: 0px;
+    text-align: center;
+    background: #ddd;
+    margin-top: 20px;
+    height:100%;
+}
+
+/* Responsive layout - when the screen is less than 800px wide, make the two columns stack on top of each other instead of next to each other */
+@media screen and (max-width: 800px) {
+    .leftcolumn, .centrecolumn, .rightcolumn {
+        width: 100%;
+        padding: 0;
+    }
+}
+
+    </style>
+    <style>@import url('https://fonts.googleapis.com/css?family=Open+Sans');
+body {
+    font-family: Open+Sans;
+    font-size: 15px;
+    font-weight: normal;
+    line-height: 1.5;
+    color: #212529;
+    background-color: #fff;
+}
+section.hero {
+    color: #fff;
+    background-size: cover !important;
+}
+p.text-hero {
+    font-size: 1.2em;
+    font-weight: 300;
+}
+section {
+    padding: 150px 0;
+}
+.align-items-center {
+    -ms-flex-align: center!important;
+    align-items: center!important;
+}
+p.small-text-hero {
+    font-size: 1em;
+}
+.text-primary {
+    color: #4dcb44 !important;
+}
+.search-bar {
+    border-radius: 100px;
+    background: #fff;
+    box-shadow: 0 0 5px rgba(0,0,0,0.15);
+    padding: 5px;
+    margin-top: 30px;
+    padding-left: 30px;
+}
+group {
+    margin-bottom: 0;
+    position: relative;
+}
+.search-bar input, .search-bar .bootstrap-select {
+    background: none;
+    border: none;
+    padding: 20px 0 15px;
+    width: 100%;
+}
+.form-group{
+    margin-bottom:0;
+}
+.search-bar .rightLine::after {
+    content: '';
+    display: block;
+    height: 60%;
+    width: 1px;
+    background: #ddd;
+    position: absolute;
+    top: 20%;
+    right: 0;
+}
+.search-bar input, .search-bar .bootstrap-select {
+    background: none;
+    border: none;
+    padding: 20px 0 15px;
+    width: 100%;
+}
+.search-bar .form-group label {
+    position: absolute;
+    top: 50%;
+    right: 15px;
+    cursor: pointer;
+    transform: translateY(-50%);
+    color: #aaa;
+    font-size: 0.8em;
+}
+label {
+    display: inline-block;
+    margin-bottom: .5rem;
+}
+.search-bar .submit {
+    background: #4dcb44;
+    color: #fff;
+    font-family: "Vidaloka",serif;
+    border-radius: 100px;
+    font-size: 1.3em;
+    cursor: pointer;
+}
+.search-bar input, .search-bar .bootstrap-select {
+    background: none;
+    border: none;
+    padding: 20px 0 15px;
+    width: 100%;
+}
+.search-bar .bootstrap-select {
+    width: 100% !important;
+    padding: 0;
+}
+.search-bar input, .search-bar .bootstrap-select {
+    background: none;
+    border: none;
+    padding: 20px 0 15px;
+    width: 100%;
+}
+.search-bar .bootstrap-select button {
+    background: none !important;
+    outline: 0 !important;
+    box-shadow: none;
+    padding: 20px 0 15px;
+    color: #aaa;
+    font-weight: 300;
+    font-family: "Poppins",sans-serif;
+    border: 0;
+    width: 100%;
+    text-align: left;
+    padding: 0;
+}
+.bootstrap-select.btn-group .dropdown-toggle .filter-option {
+    display: inline-block;
+    overflow: hidden;
+    width: 100%;
+    text-align: left;
+}
+.btn-group.open .dropdown-toggle {
+    -webkit-box-shadow: none;
+    box-shadow: none;
+}
+.open>.dropdown-menu {
+    width: 100%;
+}
+.dropdown-menu p{
+    color:#000; margin: 0 10px; cursor:pointer;
+}
+
+</style>
+
+
+
+</head>
+<body>
+{% include headerTemplate %}
+{% include bodyTemplate %}
+
+<div class="footer">
+    <div class="jumbotron" style="background:blue;height:100%"><h2>Powered</h2>
+        <h3>Team </h3>
+
+    </div>
+
+</div>
+
+</body>
+</html>

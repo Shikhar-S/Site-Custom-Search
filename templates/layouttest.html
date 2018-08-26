@@ -1,0 +1,197 @@
+{% load static %}<!DOCTYPE html>
+<html>
+<head>
+
+    <script src="https://code.jquery.com/jquery-1.10.2.js"></script>
+
+
+    <script>
+       window.onload = function() {
+	// setup the button click
+	document.getElementById("search_query").onsubmit=function(){getsearchresults();};
+}
+
+
+function getsearchresults() {
+	// ajax the JSON to the server
+
+  var query=document.getElementById("search_term").value;
+  console.log(query);
+
+  var data = { "search_term":query };
+
+	$.post("getresult", data, function(resp){
+       var content=$(resp);
+       $("#search_results").empty().append(resp);
+	});
+	// stop link reloading the page
+ event.preventDefault();
+}
+
+    </script>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
+    <style>
+* {
+    box-sizing: border-box;
+}
+
+/* Add a gray background color with some padding */
+body {
+    font-family: Arial;
+    padding: 20px;
+    background-color: #92a8d1;
+}
+
+/* Header/Blog Title */
+.header {
+    padding: 30px;
+    font-size: 40px;
+    text-align: left;
+    background: white;
+
+}
+.header-item{
+float:left;
+}
+
+
+/* Create two unequal columns that floats next to each other */
+/* Left column */
+.leftcolumn {
+    float: left;
+    width: 20%;
+     padding-right: 20px;
+
+
+}
+
+/* Right column */
+.rightcolumn {
+    float: left;
+    width: 20%;
+    padding-left: 20px;
+}
+.centrecolumn{
+    float:left;
+    width:60%;
+
+
+}
+
+/* Fake image */
+.fakeimg {
+    background-color: #aaa;
+    width: 100%;
+    padding: 20px;
+}
+
+/* Add a card effect for articles */
+.card {
+     background-color: white;
+     padding: 20px;
+     margin-top: 20px;
+
+}
+
+/* Clear floats after the columns */
+.row:after {
+    content: "";
+    display: table;
+    clear: both;
+}
+
+/* Footer */
+.footer {
+    padding: 20px;
+    text-align: center;
+    background: #ddd;
+    margin-top: 20px;
+}
+
+/* Responsive layout - when the screen is less than 800px wide, make the two columns stack on top of each other instead of next to each other */
+@media screen and (max-width: 800px) {
+    .leftcolumn, .centrecolumn, .rightcolumn {
+        width: 100%;
+        padding: 0;
+    }
+}
+
+    </style>
+</head>
+<body>
+{% block h %}{% endblock %}
+
+<div class="header">
+    <div class="header-item" style="width:50px;height:100%"><img src="{% static logo %}" id="header-image" style="max-width:100%;
+max-height:100%;"/></div><h2>{{ tagline }} </h2>
+
+
+</div>
+<div class="search-bar">
+    <div class="submitform" align="center">
+        <form method="post" id="search_query">
+            {% csrf_token %}
+            <input type="text" id="search_term" name="search_term">
+            <input type="submit" name="Submit" value="Search" id="Search"/>
+        </form>
+    </div>
+</div>
+
+<div class="row">
+    <div class="leftcolumn">
+        <ul style="list-style: none;">
+            {% for c in leftc %}
+    <li>
+        <div class="card" id="ad_slots"><div class="fakeimg" style="height:200px;"></div></div>
+    </li>
+    {% endfor %}
+
+            </ul>
+    </div>
+    <div class="centrecolumn">
+
+       <ul style="list-style: none;">
+            {% for c in ctc %}
+    <li>
+        <div class="card" id="ad_slotsct"><div class="fakeimg" style="height:200px;"></div></div>
+    </li>
+    {% endfor %}
+
+            </ul>
+        <div class="card" id="search_results">
+
+
+
+        <p><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+
+        </p>
+
+        </div>
+               <ul style="list-style: none;">
+            {% for c in cbc %}
+    <li>
+       <div class="card" id="ad_slotscb"><div class="fakeimg" style="height:200px;"></div></div>
+    </li>
+    {% endfor %}
+
+            </ul>
+    </div>
+    <div class="rightcolumn">
+               <ul style="list-style: none;">
+            {% for c in rightc %}
+    <li>
+        <div class="card" id="ad_slotsr"><div class="fakeimg" style="height:200px;"></div></div>
+    </li>
+    {% endfor %}
+
+            </ul>
+    </div>
+</div>
+
+<div class="footer">
+    <h2>Footer</h2>
+</div>
+
+</body>
+</html>
