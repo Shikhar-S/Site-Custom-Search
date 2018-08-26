@@ -1,0 +1,292 @@
+{% load static %}
+<html>
+<head>
+
+    <script src="https://code.jquery.com/jquery-1.10.2.js"></script>
+
+    <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
+    <script type="text/javascript">
+// setup some JSON to use
+var x=0;
+function addcomponent(){
+
+
+        a = '<div class="card"><img src="/static/img/ad_ibm.jpeg" class="img-rounded" style="width:100%"></div>';
+        b='<div class="card"><img src="/static/img/ad_pizza.jpeg" class="img-rounded" style="width:100%;"></div>';
+        c='<div class="card"><img src="/static/img/ad_car.jpeg" class="img-rounded" style="width:100%;"></div>';
+        var ar=[a,b,c];
+        itemToAdd=ar[x];
+        x=(x+1)%3;
+        itemToAddc='<div class="card"><img src="/static/img/banner.jpeg" class="img-rounded" style="height:200px;width:100%"></div>';
+
+        var radioValue = $("input[name='location']:checked").val();
+        if(radioValue=='Left'){
+        $(".leftcolumn").prepend(itemToAdd);
+        }
+        else if(radioValue=='Centert'){
+        $(".centrecolumn").prepend(itemToAddc);
+        }
+        else if(radioValue=='Centerb'){
+        $(".centrecolumn").append(itemToAddc);
+        }
+        else {
+
+        $(".rightcolumn").prepend(itemToAdd);
+
+        }
+
+
+        <!--$(".rightcolumn").prepend(itemToAdd);-->
+        <!--$(".ad_smallsquare").draggable();-->
+        <!--$(".submitform1").remove();-->
+
+
+}
+
+    </script>
+    <script>
+ window.onload = function() {
+	// setup the button click
+	document.getElementById("crawler_form").onsubmit = function() {
+		myfunction();
+	};
+	$("input:radio[name=headerTemplate]").click(function() {
+    myfunction2();
+});
+    $("#id_websiteName").change(function(){
+    myfunction3();
+    });
+
+}
+
+function myfunction2()
+{
+var radioValue = $("input[name='headerTemplate']:checked").val();
+console.log(radioValue);
+$("#id_headerTemplate").val(radioValue);
+data={"header":radioValue}
+$.post("getheader", data, function(resp){
+    <!--$("#header").empty().append(resp);-->
+
+    document.getElementById("header").innerHTML=resp;
+	});
+
+
+
+
+
+}
+function myfunction3(){
+var webname=document.getElementById("id_websiteName").value;
+
+webname=webname.replace(/\s/g, "") ;
+$("#id_name").val(webname);
+
+}
+function myfunction() {
+
+    var name=document.getElementById("id_name").value
+    var domain=document.getElementById("id_domain").value
+    var domstruct=document.getElementById("tosave").innerHTML;
+    console.log(domstruct);
+    var data1 = { "html":domstruct,"name":name,"domain":domain};
+	$.post("savehtml", data1, function(){
+
+	});
+	<!--event.preventDefault();-->
+}
+
+
+    </script>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style>
+
+* {
+    box-sizing: border-box;
+}
+
+/* Add a gray background color with some padding */
+body {
+    font-family: Arial;
+    padding: 20px;
+    background: #f1f1f1;
+}
+
+/* Header/Blog Title */
+.header {
+    padding: 30px;
+    font-size: 10px;
+    text-align: center;
+    background: white;
+}
+
+/* Create two unequal columns that floats next to each other */
+/* Left column */
+.leftcolumn {
+    float: left;
+    width: 20%;
+     padding-right: 20px;
+
+
+}
+
+/* Right column */
+.rightcolumn {
+    float: left;
+    width: 20%;
+    padding-left: 20px;
+}
+.centrecolumn{
+    float:left;
+    width:60%;
+
+
+}
+
+/* Fake image */
+.fakeimg {
+    background-color: #aaa;
+    width: 100%;
+    padding: 20px;
+}
+
+/* Add a card effect for articles */
+.card {
+     background-color: white;
+     padding: 0px;
+     margin-top: 20px;
+
+}
+
+/* Clear floats after the columns */
+.row:after {
+    content: "";
+    display: table;
+    clear: both;
+}
+
+/* Footer */
+.footer {
+    padding: 20px;
+    text-align: center;
+    background: #ddd;
+    margin-top: 20px;
+}
+
+/* Responsive layout - when the screen is less than 800px wide, make the two columns stack on top of each other instead of next to each other */
+@media screen and (max-width: 800px) {
+    .leftcolumn, .centrecolumn, .rightcolumn {
+        width: 100%;
+        padding: 0;
+    }
+}
+
+
+    </style>
+
+</head>
+<body id="body">
+
+
+    <div class="submitform" align="center">
+        <form method="post" id="crawler_form" enctype="multipart/form-data">
+            {% csrf_token %}
+            <div class="form-group" hidden>
+                {{ form.name.label_tag }}
+                {{ form.name }}
+
+            </div>
+             <div class="form-group">
+                {{ form.websiteName.label_tag }}
+                {{ form.websiteName }}
+
+            </div>
+            <div class="form-group">
+                {{ form.domain.label_tag }}
+                {{ form.domain }}
+
+            </div>
+            <div class="form-group">
+                {{ form.description.label_tag }}
+                {{ form.description }}
+
+            </div>
+
+
+            <div class="form-group">
+                {{ form.tagline.label_tag }}
+                {{ form.tagline }}
+
+            </div>
+            <div class="form-group">
+                {{ form.companyLogo.label_tag }}
+                {{ form.companyLogo }}
+
+            </div>
+
+            <div class="form-group">
+                {{ form.headerTemplate.label_tag }}
+                {{ form.headerTemplate }}
+
+                <input type="radio" name="headerTemplate" value="header1" checked>
+                <input type="radio" name="headerTemplate" value="header2">
+                <input type="radio" name="headerTemplate" value="header3">
+
+            </div>
+
+            <div class="form-group">
+                {{ form.bodyTemplate.label_tag }}
+                {{ form.bodyTemplate }}
+
+            </div>
+
+
+            <div class="form-group">
+                Left
+                <input type="radio" name="location" value="Left" checked>
+                Center Top<input type="radio" name="location" value="Centert">
+                Center Bottom<input type="radio" name="location" value="Centerb">
+                Right<input type="radio" name="location" value="Right">
+            </div>
+
+
+            <input type="button" name="Add" value="Add" id="Add" onclick="addcomponent()">
+            <input type="submit" name="Submit" value="Save" id="Save">
+        </form>
+    </div>
+
+<div id="header">
+
+
+</div>
+<div id="tosave">
+    <div class="container">
+        <div class="row">
+            <div class="leftcolumn">
+
+
+            </div>
+            <div class="centrecolumn">
+
+
+                <div class="card" id="searchresults">
+
+
+                    <p>Some text..</p>
+                    <p>Sunt in culpa qui officia deserunt mollit anim id est laborum consectetur adipiscing elit, sed do
+                        eiusmod
+                        tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud
+                        exercitation
+                        ullamco.</p>
+                </div>
+            </div>
+            <div class="rightcolumn"></div>
+        </div>
+    </div>
+
+</div>
+
+
+</body>
+</html>

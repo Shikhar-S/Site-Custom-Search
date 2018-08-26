@@ -23,7 +23,7 @@ function getsearchresults() {
 
 	$.post("getresult", data, function(resp){
        var content=$(resp);
-       $("#search_results").empty().append(resp);
+       $("#searchresults").empty().append(resp);
 	});
 	// stop link reloading the page
  event.preventDefault();
@@ -90,7 +90,7 @@ float:left;
 /* Add a card effect for articles */
 .card {
      background-color: white;
-     padding: 20px;
+     padding: 0px;
      margin-top: 20px;
 
 }
@@ -104,10 +104,11 @@ float:left;
 
 /* Footer */
 .footer {
-    padding: 20px;
+    padding: 0px;
     text-align: center;
     background: #ddd;
     margin-top: 20px;
+    height:100%;
 }
 
 /* Responsive layout - when the screen is less than 800px wide, make the two columns stack on top of each other instead of next to each other */
@@ -254,65 +255,20 @@ label {
 }
 
 </style>
+
+
+
 </head>
 <body>
-{% block h %}{% endblock %}
-
-
-{% include 'header2.html' %}
-<div class="row">
-    <div class="leftcolumn">
-        <ul style="list-style: none;">
-            {% for c in leftc %}
-    <li>
-        <div class="card" id="ad_slots"><div class="fakeimg" style="height:200px;"></div></div>
-    </li>
-    {% endfor %}
-
-            </ul>
-    </div>
-    <div class="centrecolumn">
-
-       <ul style="list-style: none;">
-            {% for c in ctc %}
-    <li>
-        <div class="card" id="ad_slotsct"><div class="fakeimg" style="height:200px;"></div></div>
-    </li>
-    {% endfor %}
-
-            </ul>
-        <div class="card" id="search_results">
-
-
-
-        <p><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
-
-        </p>
-
-        </div>
-               <ul style="list-style: none;">
-            {% for c in cbc %}
-    <li>
-       <div class="card" id="ad_slotscb"><div class="fakeimg" style="height:200px;"></div></div>
-    </li>
-    {% endfor %}
-
-            </ul>
-    </div>
-    <div class="rightcolumn">
-               <ul style="list-style: none;">
-            {% for c in rightc %}
-    <li>
-        <div class="card" id="ad_slotsr"><div class="fakeimg" style="height:200px;"></div></div>
-    </li>
-    {% endfor %}
-
-            </ul>
-    </div>
-</div>
+{% include headerTemplate %}
+{% include bodyTemplate %}
 
 <div class="footer">
-    <h2>Footer</h2>
+    <div class="jumbotron" style="background:blue;height:100%"><h2>Powered</h2>
+        <h3>Team </h3>
+
+    </div>
+
 </div>
 
 </body>

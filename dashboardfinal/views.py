@@ -6,7 +6,7 @@ from .models import Metrics
 from django.shortcuts import render, redirect, get_object_or_404
 from .forms import NewCrawlerFormX
 # Create your views here.
-from .crawler import crawl
+
 from django.views.decorators.csrf import csrf_exempt
 from .searcher import search
 import threading
@@ -65,7 +65,7 @@ def new_crawlerx(request):
             return redirect('home')
     else:
         form = NewCrawlerFormX()
-    return render(request, 'test3.html', {'form': form})
+    return render(request, 'newcrawlform.html', {'form': form})
 
 def serp(request,pk):
     crawler=get_object_or_404(Crawler,pk=pk)

@@ -53,7 +53,33 @@ var searchres='<div class="card" id="search_results"><h2>sample search results</
 
 }
     </script>
-    
+    <script type="text/javascript">
+// setup some JSON to use
+
+
+
+window.onload = function() {
+	// setup the button click
+	document.getElementById("crawlerForm").onsubmit = function() {
+		doWork()
+	};
+}
+
+function doWork() {
+	// ajax the JSON to the server
+	var domain=document.getElementById("id_domain").value;
+  var crawler=document.getElementById("id_name").value;
+  console.log(domain);
+  console.log(crawler);
+  var data = { "crawler":crawler, "domain":domain };
+	$.post("crawldomain", data, function(){
+
+	});
+	// stop link reloading the page
+ <!--event.preventDefault();-->
+}
+
+</script>
 
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <style>

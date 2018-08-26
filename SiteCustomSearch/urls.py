@@ -19,21 +19,31 @@ from django.conf.urls import url
 from django.contrib import admin
 from accounts import views as accounts_views
 from django.contrib.auth import views as auth_views
-from dashboard import views as dashboard_views
-urlpatterns = [
-    path('admin/', admin.site.urls),
-    url(r'^login/$', auth_views.LoginView.as_view(template_name='login.html'), name='login'),
-    url(r'^signup/$', accounts_views.signup, name='signup'),
-    url(r'^signup/login/$',auth_views.LoginView.as_view(template_name='login.html'),name='login'),
-    url(r'^logout/$', auth_views.LogoutView.as_view(), name='logout'),
-    url(r'^$',dashboard_views.home,name='home'),
-    url(r'^new_crawler/$',dashboard_views.new_crawlerx,name='new_crawler'),
-    url(r'^crawler/(?P<pk>\d+)/$',dashboard_views.serp,name='serp'),
-    url(r'crawldomain$',dashboard_views.crawldomain,name='crawldomain'),
-    url(r'crawler/(?P<pk>\d+)/getresult$',dashboard_views.getresult,name='getresult'),
-    url(r'formimage/$',dashboard_views.insertImage,name='insertImage'),
-    url(r'image/$',dashboard_views.showImage,name='showImage'),
-    url(r'new_crawler/savehtml$',dashboard_views.savehtml,name='savehtml'),
-    url(r'getelement$',dashboard_views.getelement,name='getelement'),
-    url(r'crawler/(?P<crawler_name>[a-zA-Z]+)/$',dashboard_views.show_metrics,name='metrics_page'),
-]
+from dashboardfinal import views as dviews
+#urlpatterns = [
+#    path('admin/', admin.site.urls),
+#    url(r'^login/$', auth_views.LoginView.as_view(template_name='login.html'), name='login'),
+#    url(r'^signup/$', accounts_views.signup, name='signup'),
+#    url(r'^signup/login/$',auth_views.LoginView.as_view(template_name='login.html'),name='login'),
+#    url(r'^logout/$', auth_views.LogoutView.as_view(), name='logout'),
+#    url(r'^$',dashboard_views.home,name='home'),
+#    url(r'^new_crawler/$',dashboard_views.new_crawlerx,name='new_crawler'),
+#    url(r'^crawler/(?P<pk>\d+)/$',dashboard_views.serp,name='serp'),
+#    url(r'crawldomain$',dashboard_views.crawldomain,name='crawldomain'),
+#    url(r'crawler/(?P<pk>\d+)/getresult$',dashboard_views.getresult,name='getresult'),
+#    url(r'formimage/$',dashboard_views.insertImage,name='insertImage'),
+#    url(r'image/$',dashboard_views.showImage,name='showImage'),
+#    url(r'new_crawler/savehtml$',dashboard_views.savehtml,name='savehtml'),
+#    url(r'getelement$',dashboard_views.getelement,name='getelement'),
+#
+#]
+urlpatterns=[
+             path('admin/', admin.site.urls),
+             url(r'^$',dviews.home,name='home'),
+             url(r'^new_crawler/$',dviews.new_crawlerx,name='new_crawler'),
+             url(r'new_crawler/savehtml$',dviews.savehtml,name='savehtml'),
+             url(r'^crawler/(?P<pk>\d+)/$',dviews.serp,name='serp'),
+             url(r'crawler/(?P<pk>\d+)/getresult$',dviews.getresult,name='getresult'),
+             url(r'crawler/(?P<crawler_name>[a-zA-Z]+)/$',dviews.show_metrics,name='metrics_page'),
+             url(r'new_crawler/getheader$',dviews.getheader,name='getheader')
+             ]
