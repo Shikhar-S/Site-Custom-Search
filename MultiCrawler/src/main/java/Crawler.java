@@ -226,7 +226,7 @@ public class Crawler extends Thread {
                 if(breadth_counter>MAX_BREADTH)
                     break;
                 String childURL=link.attr("abs:href");
-                if(childURL.indexOf('#')>=0) //ignore pointer urls on same page
+                if(childURL.indexOf('#')>=0) //ignore pointer urls on same page //////Remove for demo!
                     continue;
 
                 if(childURL.startsWith(baseURL))
