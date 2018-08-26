@@ -3,6 +3,8 @@ from elasticsearch_dsl import Search, Q
 from .models import Metrics, Crawler
 import json
 from django.db.models import F
+from django.db import transaction
+import random
 
 def search(Crawler,user_query,num_results):
     s=Search(using=Elasticsearch(),index=('articles'),doc_type=(Crawler))
@@ -30,6 +32,8 @@ def search(Crawler,user_query,num_results):
 
     storeMetric(Crawler,user_query)
 #add condition for reducing metric size
+    if(random.randint(1,10000)<=10):
+        compactMetrics(Crawler)
     return ret_list
 
 
@@ -38,11 +42,18 @@ def getCount(Crawler):
     return s.count()
 
 def storeMetric(crawler,user_query):
-    Metrics.objects.get_or_create(crawlerName=crawler,userQuery=user_query)
-    Metrics.objects.filter(userQuery=user_query,crawlerName=crawler).update(queryCount=F('queryCount')+1)
+    try:
+        Metrics.objects.get_or_create(crawlerName=crawler,userQuery=user_query)
+        Metrics.objects.filter(userQuery=user_query,crawlerName=crawler).update(queryCount=F('queryCount')+1)
+    except :
+        print('row deleted  by Metrics compactor')
 
-def reduceMetric(crawler):
-    pass
+@transaction.atomic
+def compactMetrics(crawler):
+    records=Metrics.objects.filter(crawlerName=crawler).order_by('-queryCount')[:100].values_list("id", flat=True)
+    Metrics.objects.exclude(pk__in=list(records)).delete()
+
+
 
 
 
