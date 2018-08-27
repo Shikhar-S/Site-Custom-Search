@@ -31,12 +31,12 @@ class NewCrawlerFormX(forms.ModelForm):
     tagline=forms.CharField(max_length=50,initial="Science behind adverd",required=True,label="Tagline")
     websiteName=forms.CharField(max_length=50,label="Website Name")
     headerTemplate=forms.CharField(widget = forms.TextInput(attrs={'readonly':'readonly'}))
+    numberOfResults=forms.IntegerField(max_value=15)
 
-    bodyTemplate=forms.CharField(max_length=50)
     companyLogo=forms.ImageField()
 
 
     class Meta:
         model = Crawler
         fields = ['name', 'description','domain']+ \
-                 ['tagline','websiteName','headerTemplate','bodyTemplate', 'companyLogo']
+                 ['tagline','websiteName','headerTemplate', 'companyLogo']

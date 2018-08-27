@@ -3,45 +3,84 @@
 <head>
 
     <script src="https://code.jquery.com/jquery-1.10.2.js"></script>
-
+    <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/jquery-ui.min.js"
+            type="text/javascript"></script>
     <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
     <script type="text/javascript">
 // setup some JSON to use
 var x=0;
+var y=0;
+var z=0;
+
+
 function addcomponent(){
 
+var idn='id_'+y;
 
-        a = '<div class="card"><img src="/static/img/ad_ibm.jpeg" class="img-rounded" style="width:100%"></div>';
-        b='<div class="card"><img src="/static/img/ad_pizza.jpeg" class="img-rounded" style="width:100%;"></div>';
-        c='<div class="card"><img src="/static/img/ad_car.jpeg" class="img-rounded" style="width:100%;"></div>';
-        var ar=[a,b,c];
+a = '<div class="card" id='+idn+'><img src="/static/img/ad_ibm.jpeg" class="img-rounded" style="width:100%"></div>';
+        b='<div class="card" id='+idn+'><img src="/static/img/ad_pizza.jpeg" class="img-rounded" style="width:100%;"></div>';
+        c='<div class="card" id='+idn+'><img src="/static/img/ad_car.jpeg" class="img-rounded" style="width:100%;"></div>';
+        d='<div class="card" id='+idn+'><img src="/static/img/ad_stack.jpeg" class="img-rounded" style="width:100%;"></div>';
+
+
+
+        var ar=[a,b,c,d];
+
+        e='<div class="card" id='+idn+'><img src="/static/img/banner.jpeg" class="img-rounded" style="height:130px;width:100%"></div>';
+        f='<div class="card" id='+idn+'><img src="/static/img/ad_stack2.jpeg" class="img-rounded" style="height:130px;width:100%"></div>';
+        g='<div class="card" id='+idn+'><img src="/static/img/ad_flock.jpeg" class="img-rounded" style="height:130px;width:100%"></div>';
+        h='<div class="card" id='+idn+'><img src="/static/img/ad_wp.jpeg" class="img-rounded" style="height:130px;width:100%"></div>';
+
+
+        var br=[e,f,g,h]
+
+console.log(idn);
+
         itemToAdd=ar[x];
-        x=(x+1)%3;
-        itemToAddc='<div class="card"><img src="/static/img/banner.jpeg" class="img-rounded" style="height:200px;width:100%"></div>';
+        itemToAddc=br[z];
+
+        <!--itemToAddc='<div class="card"><img src="/static/img/banner.jpeg" class="img-rounded" style="height:130px;width:100%"></div>';-->
 
         var radioValue = $("input[name='location']:checked").val();
         if(radioValue=='Left'){
-        $(".leftcolumn").prepend(itemToAdd);
+        $(".leftcolumn").append(itemToAdd);
+
+    $("#"+idn).draggable({'containment':'.leftcolumn'});
+    x=(x+1)%4;
         }
         else if(radioValue=='Centert'){
         $(".centrecolumn").prepend(itemToAddc);
+        z=(z+1)%4;
+        $("#"+idn).draggable({'containment':'.centrecolumn'});
+
         }
         else if(radioValue=='Centerb'){
         $(".centrecolumn").append(itemToAddc);
+        z=(z+1)%4;
+        $("#"+idn).draggable({'containment':'.centrecolumn'});
         }
         else {
 
-        $(".rightcolumn").prepend(itemToAdd);
-
+        $(".rightcolumn").append(itemToAdd);
+        $("#"+idn).draggable({'containment':'.rightcolumn'});
+        x=(x+1)%4;
         }
 
 
         <!--$(".rightcolumn").prepend(itemToAdd);-->
-        <!--$(".ad_smallsquare").draggable();-->
-        <!--$(".submitform1").remove();-->
 
+        <!--$(".submitform1").remove();-->
+ y=y+1;
 
 }
+
+function deletecomponent(){
+if(y>0){
+y=y-1;
+var idn='id_'+y;
+$("#"+idn).remove();}
+}
+
 
     </script>
     <script>
@@ -97,6 +136,7 @@ function myfunction() {
 }
 
 
+
     </script>
 
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -136,10 +176,12 @@ body {
     float: left;
     width: 20%;
     padding-left: 20px;
+
 }
 .centrecolumn{
     float:left;
     width:60%;
+
 
 
 }
@@ -183,78 +225,84 @@ body {
 }
 
 
+
     </style>
 
 </head>
 <body id="body">
 
 
-    <div class="submitform" align="center">
-        <form method="post" id="crawler_form" enctype="multipart/form-data">
-            {% csrf_token %}
-            <div class="form-group" hidden>
-                {{ form.name.label_tag }}
-                {{ form.name }}
+<div class="submitform" align="center">
+    <form method="post" id="crawler_form" enctype="multipart/form-data">
+        {% csrf_token %}
+        <div class="form-group" hidden>
+            {{ form.name.label_tag }}
+            {{ form.name }}
 
-            </div>
-             <div class="form-group">
-                {{ form.websiteName.label_tag }}
-                {{ form.websiteName }}
+        </div>
+        <div class="form-group">
+            {{ form.websiteName.label_tag }}
+            {{ form.websiteName }}
 
-            </div>
-            <div class="form-group">
-                {{ form.domain.label_tag }}
-                {{ form.domain }}
+        </div>
+        <div class="form-group">
+            {{ form.domain.label_tag }}
+            {{ form.domain }}
 
-            </div>
-            <div class="form-group">
-                {{ form.description.label_tag }}
-                {{ form.description }}
+        </div>
+        <div class="form-group">
+            {{ form.description.label_tag }}
+            {{ form.description }}
 
-            </div>
-
-
-            <div class="form-group">
-                {{ form.tagline.label_tag }}
-                {{ form.tagline }}
-
-            </div>
-            <div class="form-group">
-                {{ form.companyLogo.label_tag }}
-                {{ form.companyLogo }}
-
-            </div>
-
-            <div class="form-group">
-                {{ form.headerTemplate.label_tag }}
-                {{ form.headerTemplate }}
-
-                <input type="radio" name="headerTemplate" value="header1" checked>
-                <input type="radio" name="headerTemplate" value="header2">
-                <input type="radio" name="headerTemplate" value="header3">
-
-            </div>
-
-            <div class="form-group">
-                {{ form.bodyTemplate.label_tag }}
-                {{ form.bodyTemplate }}
-
-            </div>
+        </div>
 
 
-            <div class="form-group">
-                Left
-                <input type="radio" name="location" value="Left" checked>
-                Center Top<input type="radio" name="location" value="Centert">
-                Center Bottom<input type="radio" name="location" value="Centerb">
-                Right<input type="radio" name="location" value="Right">
-            </div>
+        <div class="form-group">
+            {{ form.tagline.label_tag }}
+            {{ form.tagline }}
+
+        </div>
+        <div class="form-group">
+            {{ form.companyLogo.label_tag }}
+            {{ form.companyLogo }}
+
+        </div>
+
+        <div class="form-group">
+            {{ form.headerTemplate.label_tag }}
+            {{ form.headerTemplate }}
+
+            <input type="radio" name="headerTemplate" value="header1" checked>
+            <input type="radio" name="headerTemplate" value="header2">
+            <input type="radio" name="headerTemplate" value="header3">
+
+        </div>
+        <div class="form-group">
+            {{ form.numberOfResults.label_tag }}
+            {{ form.numberOfResults }}
+
+        </div>
+        <div class="form-group">
+            {{ form.bodyTemplate.label_tag }}
+            {{ form.bodyTemplate }}
+
+        </div>
 
 
-            <input type="button" name="Add" value="Add" id="Add" onclick="addcomponent()">
-            <input type="submit" name="Submit" value="Save" id="Save">
-        </form>
-    </div>
+        <div class="form-group">
+            Left
+            <input type="radio" name="location" value="Left" checked>
+            Center Top<input type="radio" name="location" value="Centert">
+            Center Bottom<input type="radio" name="location" value="Centerb">
+            Right<input type="radio" name="location" value="Right">
+        </div>
+
+
+        <input type="button" name="Add" value="Add" id="Add" onclick="addcomponent()">
+        <input type="button" name="Delete" value="Delete" id="Delete" onclick="deletecomponent()">
+        <input type="submit" name="Submit" value="Save" id="Save">
+    </form>
+</div>
 
 <div id="header">
 

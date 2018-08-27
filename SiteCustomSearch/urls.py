@@ -44,6 +44,6 @@ urlpatterns=[
              url(r'new_crawler/savehtml$',dviews.savehtml,name='savehtml'),
              url(r'^crawler/(?P<pk>\d+)/$',dviews.serp,name='serp'),
              url(r'crawler/(?P<pk>\d+)/getresult$',dviews.getresult,name='getresult'),
-             url(r'crawler/(?P<crawler_name>[a-zA-Z]+)/$',dviews.show_metrics,name='metrics_page'),
+             url(r'crawler/(?P<pk>\d+)/metric/$',dviews.show_metrics,name='metrics_page'),
              url(r'new_crawler/getheader$',dviews.getheader,name='getheader')
              ]

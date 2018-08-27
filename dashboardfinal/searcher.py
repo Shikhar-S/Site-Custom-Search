@@ -7,7 +7,7 @@ from django.db import transaction
 import random
 
 def search(Crawler,user_query,num_results):
-    s=Search(using=Elasticsearch(),index=('articles'),doc_type=(Crawler))
+    s=Search(using=Elasticsearch(),index=('article'),doc_type=(Crawler))
     q=Q("multi_match",query=user_query,fields=['title^3','content'])
     s=s.query(q)
     s=s.highlight('content',fragment_size=20)
@@ -34,9 +34,9 @@ def search(Crawler,user_query,num_results):
             ret_list=[]
             break
 
-#    storeMetric(Crawler,user_query)
-#    if(random.randint(1,10000)<=10):
-#       compactMetrics(Crawler)
+    storeMetric(Crawler,user_query)
+    if(random.randint(1,10000)<=10):
+        compactMetrics(Crawler)
     return ret_list
 
 

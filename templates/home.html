@@ -1,47 +1,48 @@
 {% load static %}<!DOCTYPE html>
 <html>
-  <head>
+<head>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
     <meta charset="utf-8">
     <title>Boards</title>
     <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
-  </head>
-  <body>
+</head>
+<body>
 
-    <div class="container">
-      <ol class="breadcrumb my-4">
+<div class="container">
+    <ol class="breadcrumb my-4">
         <li class="breadcrumb-item active">Crawlers</li>
-      </ol>
-        <div class="mb-4">
-    <a href="{% url 'new_crawler' %}" class="btn btn-primary">New topic</a>
-  </div>
-      <table class="table">
+    </ol>
+    <div class="mb-4">
+        <a href="{% url 'new_crawler' %}" class="btn btn-primary">New topic</a>
+    </div>
+    <table class="table">
         <thead class="thead-inverse">
-          <tr>
+        <tr>
             <th>Name</th>
             <th>Description</th>
             <th>Domain</th>
-          </tr>
+        </tr>
         </thead>
         <tbody>
-          {% for crawler in crawlers %}
-            <tr>
-              <td>
-                  <a href="{% url 'serp' crawler.pk %}">{{ crawler.name }}</a>
+        {% for crawler in crawlers %}
+        <tr>
+            <td>
+                <a href="{% url 'serp' crawler.pk %}">{{ crawler.name }}</a>
 
-              </td>
-                    <td>{{crawler.description}}</td>
-                <td>{{crawler.domain}}</td>
+            </td>
+            <td>{{crawler.description}}</td>
+            <td>{{crawler.domain}}</td>
 
-            </tr>
-          {% endfor %}
+        </tr>
+        {% endfor %}
         </tbody>
-      </table>
-    </div>
-  <script>
+    </table>
+</div>
+<script>
   var resp=document.documentElement.innerHTML
 console.log(resp)
+
 </script>
 
-  </body>
+</body>
 </html>

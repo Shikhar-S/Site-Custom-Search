@@ -17,7 +17,7 @@ redisQ=redis.StrictRedis(host='localhost',port=6379,db=0)
 def home(request):
 
     crawlers=Crawler.objects.all()
-    return render(request,'home.html',{'crawlers':crawlers})
+    return render(request,'hometemplate.html',{'crawlers':crawlers})
 
 def crawler_already_exists(form):
         dummy_result = Crawler.objects.filter(name=form.cleaned_data.get('domain'))
@@ -48,7 +48,7 @@ def new_crawlerx(request):
                 websitename=form.cleaned_data.get('websiteName'),
                 headerTemplate=form.cleaned_data.get('headerTemplate'),
                 companyLogo=form.cleaned_data.get('companyLogo'),
-                bodyTemplate=form.cleaned_data.get('bodyTemplate'),
+
                 
                 crawler=crawlerX
                 
@@ -98,7 +98,9 @@ def getresult(request,pk):
     crawler=get_object_or_404(Crawler,pk=pk)
     if request.method=='POST':
         search_term=request.POST.get('search_term')
-        res=search(crawler.name,search_term,15)
+        search_term=search_term.lower()
+        numres=crawler.resultpagex.first().numberOfResults
+        res=search(crawler.name,search_term,numres)
         # print(res[1]['content'])
         # print(len(res))
         if(len(res)==0):
@@ -118,10 +120,11 @@ def getheader(request):
     return render(request,'header3.html')
 
 
-def show_metrics(request,crawler_name):
+def show_metrics(request,pk):
+    crawler=get_object_or_404(Crawler,pk=pk)
     if(request.method=='GET'):
         try:
-            result=Metrics.objects.filter(crawlerName=crawler_name)
+            result=Metrics.objects.filter(crawlerName=crawler.name)
             print(result)
             result=result.order_by('-queryCount')[:10]
             print(result)
