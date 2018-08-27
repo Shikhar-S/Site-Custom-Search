@@ -1,23 +1,49 @@
-{% load static %}<!DOCTYPE html>
-<html lang="en">
-<head>
-    <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
-</head>
-<body>
-<table class="table">
-            <th> Query</th>
-            <th> Count </th>
-          {% for dic in response %}
-            <tr>
-              <td>
-                  {{dic.Query}}
-              </td>
-              <td>
-                {{ dic.Count }}
-              </td>
-            </tr>
-          {% endfor %}
+{%load static%}
+<link href="{% static 'css/bootstrap.min.css' %}" rel="stylesheet" id="bootstrap-css">
+    <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+    <!------ Include the above in your HEAD tag ---------->
+    
+    
+    <head>
+        
+            <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
+                <link rel="stylesheet" href="{% static 'css/font.css' %}">
+                    <style>
+                        body { background-color:#fafafa;}
+                        .container { margin:150px auto;}
+                    </style>
+    </head>
+    
+    <body>
+        <div class="container">
+            <h1 class="text-center">Metrics</h1>
+            <table class="table table-bordered table-striped ">
+                
+                <caption>
+                    Refresh for latest results.
+                </caption>
+                <thead>
+                    <tr>
+                        <th data-defaultsign="_19">#</th>
+                        <th data-defaultsign="AZ"> Query</th>
+                        <th>Count</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    
+                    {% for dic in response %}
+                    <tr>
+                        <td data-value="1">{{forloop.counter}}</th>
+                            <td>{{dic.Query}}</td>
+                            <td>{{ dic.Count }}</td>
+                    </tr>
+                    
+                    {% endfor %}
+                    
+                </tbody>
+            </table>
+            
 
-      </table>
-</body>
-</html>
+        </div>
+    </body>
+

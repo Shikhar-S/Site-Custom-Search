@@ -34,9 +34,9 @@ def search(Crawler,user_query,num_results):
             ret_list=[]
             break
 
-#    storeMetric(Crawler,user_query)
-#    if(random.randint(1,10000)<=10):
-#       compactMetrics(Crawler)
+    storeMetric(Crawler,user_query)
+    if(random.randint(1,10000)<=10):
+       compactMetrics(Crawler)
     return ret_list
 
 

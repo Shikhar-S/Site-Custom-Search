@@ -129,7 +129,8 @@ def show_metrics(request,crawler_name):
             for entry in result:
                 res.append({'Query':entry.userQuery,'Count':entry.queryCount})
             return render(request,'metrics.html',{'response':res})
-        except:
+        except Exception as e:
+            print(e)
             return HttpResponse("No metrics to show yet")
 
 @csrf_exempt
