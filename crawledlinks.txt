@@ -1,0 +1,19 @@
+https://www.thehindu.com/news/international/
+https://www.thehindu.com/business/
+https://www.thehindu.com/news/national/
+https://www.thehindu.com/opinion/editorial/
+https://www.thehindu.com/news/
+https://www.thehindu.com/opinion/
+https://www.thehindu.com/thread/
+https://www.thehindu.com/sci-tech/science/
+https://www.thehindu.com/entertainment/
+AndrejKarpathy
+PetrMitrichev
+GeeksForGeeks
+WebMD
+WebMDhttps://www.webmd.com/news/articles
+MSN
+
+To-Do
+Forbes crawler
+
