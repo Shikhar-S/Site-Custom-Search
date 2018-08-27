@@ -30,7 +30,7 @@ public class IndexUpdater extends Thread{
             this.userAgentManager = new RotatingUserAgentManager();
             this.crawlerConfig=new DefaultProxyCrawlerConfig("Updater",userAgentManager);
             //Class.forName("org.sqlite.JDBC");
-            this.SqlConnection= DriverManager.getConnection("jdbc:sqlite:sample.db");
+            this.SqlConnection= DriverManager.getConnection("jdbc:sqlite:newsamplef.db");
         }
         catch (Exception e)
         {

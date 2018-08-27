@@ -17,11 +17,11 @@ public class MultiCrawler {
     public static void main(String args[])throws Exception
     {
 
-        boolean makeNewDatabase=false;
+        boolean makeNewDatabase=true;
         boolean startUpdater=false;
         Connection sqlConnection=null;
         try{
-            sqlConnection=DriverManager.getConnection("jdbc:sqlite:sample.db");
+            sqlConnection=DriverManager.getConnection("jdbc:sqlite:newsamplef.db");
             Statement statement = sqlConnection.createStatement();
             statement.setQueryTimeout(30);  // set timeout to 30 sec.
 

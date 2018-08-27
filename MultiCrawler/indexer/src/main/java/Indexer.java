@@ -46,7 +46,7 @@ public class Indexer {
                     .field("content", body)
                     .field("heading",headings)
                     .endObject();
-            elasticSearchresponse = client.prepareIndex("articles",crawlerName)
+            elasticSearchresponse = client.prepareIndex("articlef",crawlerName)
                     .setSource(builder).get();
 
             return (elasticSearchresponse.getId());
@@ -54,7 +54,7 @@ public class Indexer {
         }
         else
         {
-            IndexRequest indexRequest = new IndexRequest("articles", crawlerName, id)
+            IndexRequest indexRequest = new IndexRequest("articlef", crawlerName, id)
                     .source(jsonBuilder()
                             .startObject()
                             .field("title", title)
@@ -63,7 +63,7 @@ public class Indexer {
                             .field("content", body)
                             .field("heading",headings)
                             .endObject());
-            UpdateRequest updateRequest = new UpdateRequest("articles", crawlerName, id)
+            UpdateRequest updateRequest = new UpdateRequest("articlef", crawlerName, id)
                     .doc(jsonBuilder()
                             .startObject()
                             .field("title", title)

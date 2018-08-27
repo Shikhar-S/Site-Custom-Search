@@ -17,10 +17,7 @@ import redis.clients.jedis.Jedis;
 import java.math.BigInteger;
 import java.net.InetAddress;
 import java.security.MessageDigest;
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.ResultSet;
-import java.sql.Statement;
+import java.sql.*;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.Queue;
@@ -33,7 +30,7 @@ public class Crawler extends Thread {
     UserAgentManager userAgentManager=null;
     CrawlerConfig crawlerConfig=null;
     final int MAX_DEPTH=4;
-    final int MAX_BREADTH=15;
+    final int MAX_BREADTH=100;
     public Crawler(String message)
     {
         int splitAt=message.indexOf(' ');
@@ -43,7 +40,7 @@ public class Crawler extends Thread {
             this.userAgentManager = new RotatingUserAgentManager();
             this.crawlerConfig=new DefaultProxyCrawlerConfig("Crawler",userAgentManager);
             //Class.forName("org.sqlite.JDBC");
-            this.SqlConnection= DriverManager.getConnection("jdbc:sqlite:sample.db");
+            this.SqlConnection= DriverManager.getConnection("jdbc:sqlite:newsamplef.db");
         }
         catch (Exception e)
         {
@@ -52,9 +49,10 @@ public class Crawler extends Thread {
     }
     public void run()
     {
-        System.out.println("Starting crawling on: "+crawlURL);
+
         try {
-            crawl(true,true,1000);
+            System.out.println("Starting crawling on: "+crawlURL);
+            crawl(true,false,1000);
             this.SqlConnection.close();
         }
         catch(Exception e)
@@ -74,7 +72,7 @@ public class Crawler extends Thread {
                 String value;
                 while (true) {
                     try {
-                        value = jedis.lpop(crawlerName);
+                        value = jedis.lpop(crawlerName+crawlURL);
                         if (value == null) { //end of redis frontier
                             break;
                         }
@@ -87,7 +85,7 @@ public class Crawler extends Thread {
                     }
                 }
                 if(!Q.isEmpty())
-                    System.out.println("Loaded from saved state");
+                    System.out.println("Loaded from saved state: "+crawlURL);
             }
             catch (Exception e)
             {
@@ -131,10 +129,10 @@ public class Crawler extends Thread {
              try
              {
                  Jedis jedis=new Jedis();
-                 jedis.del(crawlerName);
+                 jedis.del(crawlerName+crawlURL);
                  for(Pair p: Q)
                  {
-                     jedis.rpush(crawlerName,p.depth+" "+p.url);
+                     jedis.rpush(crawlerName+crawlURL,p.depth+" "+p.url);
                  }
                  System.out.println("Saved frontier at iteration: "+iter);
              }
@@ -151,6 +149,7 @@ public class Crawler extends Thread {
                 continue;
 
             SyncCrawlResponse response;
+
             try {
                 response = syncCrawler.crawl(URL);
             }
@@ -183,8 +182,12 @@ public class Crawler extends Thread {
 
             //////////////Check if in SQL///////////////
             //doesnt worry about repeat entries in sql table. Worries about repeat entries in ES index.
-            String searchQuery=String.format("select * from crawled_urls where url='%s' and hash='%s'",URL,hashtext);
-            ResultSet rs = statement.executeQuery(searchQuery);
+//          String searchQuery=String.format("select * from crawled_urls where url='%s' and hash='%s'",URL,hashtext);
+            PreparedStatement ptsmt=SqlConnection.prepareStatement("select * from crawled_urls where url= ? and hash= ?");
+            ptsmt.setString(1,URL);
+            ptsmt.setString(2,hashtext);
+            ResultSet rs = ptsmt.executeQuery();
+
             boolean resultExists=rs.next();
             try {
                 rs.close();
@@ -207,8 +210,15 @@ public class Crawler extends Thread {
                     System.out.println("Added : "+URL );
                     /////////////////Add to SQL//////////////////
                     long timeinMilli=Calendar.getInstance().getTimeInMillis();
-                    String sqlQuery = String.format("insert into crawled_urls values('%s','%s','%s','%s','%s',%d)", URL, hashtext, baseURL, crawlerName, ESid,timeinMilli);
-                    statement.executeUpdate(sqlQuery);
+                    PreparedStatement preapared_stmt=SqlConnection.prepareStatement("insert into crawled_urls values(?,?,?,?,?,?)");
+                    preapared_stmt.setString(1,URL);
+                    preapared_stmt.setString(2,hashtext);
+                    preapared_stmt.setString(3,baseURL);
+                    preapared_stmt.setString(4,crawlerName);
+                    preapared_stmt.setString(5,ESid);
+                    preapared_stmt.setLong(6,timeinMilli);
+//                    String sqlQuery = String.format("insert into crawled_urls values('%s','%s','%s','%s','%s',%d)", URL, hashtext, baseURL, crawlerName, ESid,timeinMilli);
+                    preapared_stmt.executeUpdate();
                     System.out.println("Added to SQL- hash: " + hashtext);
                 }
                 catch(Exception e) //already in database, got updated from updater
@@ -250,7 +260,7 @@ public class Crawler extends Thread {
 
         }
         System.out.println("Finished crawling on: "+baseURL);
-        System.out.println("Q size-> "+Q.size());
+        System.out.println("Q size:  "+Q.size());
 
 
     }
