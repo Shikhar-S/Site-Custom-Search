@@ -1,0 +1,299 @@
+[2018-08-29T11:22:54,099][INFO ][o.e.c.m.MetaDataCreateIndexService] [ulljGDa] [article_other] creating index, cause [auto(index api)], templates [], shards [5]/[1], mappings []
+[2018-08-29T11:22:54,402][INFO ][o.e.c.m.MetaDataMappingService] [ulljGDa] [article_other/z3XkSf6kSAWF459WyuLjiw] create_mapping [PetrMitrichev]
+[2018-08-29T11:25:12,738][INFO ][o.e.c.m.MetaDataCreateIndexService] [ulljGDa] [article_other] creating index, cause [auto(index api)], templates [], shards [5]/[1], mappings []
+[2018-08-29T11:25:13,013][INFO ][o.e.c.m.MetaDataMappingService] [ulljGDa] [article_other/4xEpByIpSXS_hxGR5XOG0Q] create_mapping [PetrMitrichev]
+[2018-08-29T11:33:11,497][INFO ][o.e.c.m.MetaDataCreateIndexService] [ulljGDa] [article_other] creating index, cause [auto(index api)], templates [], shards [5]/[1], mappings []
+[2018-08-29T11:33:11,764][INFO ][o.e.c.m.MetaDataMappingService] [ulljGDa] [article_other/RUbSXhkQTEKh3mgWiYDAZw] create_mapping [PetrMitrichev]
+[2018-08-29T15:23:21,437][DEBUG][o.e.a.s.TransportSearchAction] [ulljGDa] [articlef][0], node[ulljGDafTlqwo9lyGJYBIw], [P], s[STARTED], a[id=LPDKNE-6TqWs1hn6za_tsg]: Failed to execute [SearchRequest{searchType=QUERY_THEN_FETCH, indices=[articlef], indicesOptions=IndicesOptions[id=38, ignore_unavailable=false, allow_no_indices=true, expand_wildcards_open=true, expand_wildcards_closed=false, allow_alisases_to_multiple_indices=true, forbid_closed_indices=true], types=[TheHindu], routing='null', preference='null', requestCache=null, scroll=null, source={
+  "from" : 0,
+  "size" : 20,
+  "query" : {
+    "multi_match" : {
+      "query" : "modi",
+      "fields" : [
+        "content^1.0",
+        "headings^1.0",
+        "title^3.0"
+      ],
+      "type" : "best_fields",
+      "operator" : "OR",
+      "slop" : 0,
+      "prefix_length" : 0,
+      "max_expansions" : 50,
+      "lenient" : false,
+      "zero_terms_query" : "NONE",
+      "boost" : 1.0
+    }
+  },
+  "highlight" : {
+    "fields" : {
+      "content" : {
+        "fragment_size" : 30
+      }
+    }
+  },
+  "suggest" : {
+    "completion_suggestions" : {
+      "text" : "modi",
+      "completion" : {
+        "field" : "title"
+      }
+    }
+  },
+  "ext" : { }
+}}] lastShard [true]
+org.elasticsearch.transport.RemoteTransportException: [ulljGDa][127.0.0.1:9300][indices:data/read/search[phase/query]]
+Caused by: java.lang.IllegalArgumentException: Field [title] is not a completion suggest field
+	at org.elasticsearch.search.suggest.completion.CompletionSuggestionBuilder.build(CompletionSuggestionBuilder.java:371) ~[elasticsearch-5.1.1.jar:5.1.1]
+	at org.elasticsearch.search.suggest.SuggestBuilder.build(SuggestBuilder.java:178) ~[elasticsearch-5.1.1.jar:5.1.1]
+	at org.elasticsearch.search.SearchService.parseSource(SearchService.java:740) ~[elasticsearch-5.1.1.jar:5.1.1]
+	at org.elasticsearch.search.SearchService.createContext(SearchService.java:553) ~[elasticsearch-5.1.1.jar:5.1.1]
+	at org.elasticsearch.search.SearchService.createAndPutContext(SearchService.java:529) ~[elasticsearch-5.1.1.jar:5.1.1]
+	at org.elasticsearch.search.SearchService.executeQueryPhase(SearchService.java:264) ~[elasticsearch-5.1.1.jar:5.1.1]
+	at org.elasticsearch.action.search.SearchTransportService$6.messageReceived(SearchTransportService.java:300) ~[elasticsearch-5.1.1.jar:5.1.1]
+	at org.elasticsearch.action.search.SearchTransportService$6.messageReceived(SearchTransportService.java:297) ~[elasticsearch-5.1.1.jar:5.1.1]
+	at org.elasticsearch.transport.RequestHandlerRegistry.processMessageReceived(RequestHandlerRegistry.java:69) ~[elasticsearch-5.1.1.jar:5.1.1]
+	at org.elasticsearch.transport.TransportService$6.doRun(TransportService.java:577) [elasticsearch-5.1.1.jar:5.1.1]
+	at org.elasticsearch.common.util.concurrent.ThreadContext$ContextPreservingAbstractRunnable.doRun(ThreadContext.java:527) [elasticsearch-5.1.1.jar:5.1.1]
+	at org.elasticsearch.common.util.concurrent.AbstractRunnable.run(AbstractRunnable.java:37) [elasticsearch-5.1.1.jar:5.1.1]
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1135) [?:?]
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:635) [?:?]
+	at java.lang.Thread.run(Thread.java:844) [?:?]
+[2018-08-29T15:23:21,437][DEBUG][o.e.a.s.TransportSearchAction] [ulljGDa] [articlef][2], node[ulljGDafTlqwo9lyGJYBIw], [P], s[STARTED], a[id=HNNz20XxTHe1-x5Wgf9uVw]: Failed to execute [SearchRequest{searchType=QUERY_THEN_FETCH, indices=[articlef], indicesOptions=IndicesOptions[id=38, ignore_unavailable=false, allow_no_indices=true, expand_wildcards_open=true, expand_wildcards_closed=false, allow_alisases_to_multiple_indices=true, forbid_closed_indices=true], types=[TheHindu], routing='null', preference='null', requestCache=null, scroll=null, source={
+  "from" : 0,
+  "size" : 20,
+  "query" : {
+    "multi_match" : {
+      "query" : "modi",
+      "fields" : [
+        "content^1.0",
+        "headings^1.0",
+        "title^3.0"
+      ],
+      "type" : "best_fields",
+      "operator" : "OR",
+      "slop" : 0,
+      "prefix_length" : 0,
+      "max_expansions" : 50,
+      "lenient" : false,
+      "zero_terms_query" : "NONE",
+      "boost" : 1.0
+    }
+  },
+  "highlight" : {
+    "fields" : {
+      "content" : {
+        "fragment_size" : 30
+      }
+    }
+  },
+  "suggest" : {
+    "completion_suggestions" : {
+      "text" : "modi",
+      "completion" : {
+        "field" : "title"
+      }
+    }
+  },
+  "ext" : { }
+}}] lastShard [true]
+org.elasticsearch.transport.RemoteTransportException: [ulljGDa][127.0.0.1:9300][indices:data/read/search[phase/query]]
+Caused by: java.lang.IllegalArgumentException: Field [title] is not a completion suggest field
+	at org.elasticsearch.search.suggest.completion.CompletionSuggestionBuilder.build(CompletionSuggestionBuilder.java:371) ~[elasticsearch-5.1.1.jar:5.1.1]
+	at org.elasticsearch.search.suggest.SuggestBuilder.build(SuggestBuilder.java:178) ~[elasticsearch-5.1.1.jar:5.1.1]
+	at org.elasticsearch.search.SearchService.parseSource(SearchService.java:740) ~[elasticsearch-5.1.1.jar:5.1.1]
+	at org.elasticsearch.search.SearchService.createContext(SearchService.java:553) ~[elasticsearch-5.1.1.jar:5.1.1]
+	at org.elasticsearch.search.SearchService.createAndPutContext(SearchService.java:529) ~[elasticsearch-5.1.1.jar:5.1.1]
+	at org.elasticsearch.search.SearchService.executeQueryPhase(SearchService.java:264) ~[elasticsearch-5.1.1.jar:5.1.1]
+	at org.elasticsearch.action.search.SearchTransportService$6.messageReceived(SearchTransportService.java:300) ~[elasticsearch-5.1.1.jar:5.1.1]
+	at org.elasticsearch.action.search.SearchTransportService$6.messageReceived(SearchTransportService.java:297) ~[elasticsearch-5.1.1.jar:5.1.1]
+	at org.elasticsearch.transport.RequestHandlerRegistry.processMessageReceived(RequestHandlerRegistry.java:69) ~[elasticsearch-5.1.1.jar:5.1.1]
+	at org.elasticsearch.transport.TransportService$6.doRun(TransportService.java:577) [elasticsearch-5.1.1.jar:5.1.1]
+	at org.elasticsearch.common.util.concurrent.ThreadContext$ContextPreservingAbstractRunnable.doRun(ThreadContext.java:527) [elasticsearch-5.1.1.jar:5.1.1]
+	at org.elasticsearch.common.util.concurrent.AbstractRunnable.run(AbstractRunnable.java:37) [elasticsearch-5.1.1.jar:5.1.1]
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1135) [?:?]
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:635) [?:?]
+	at java.lang.Thread.run(Thread.java:844) [?:?]
+[2018-08-29T15:23:21,437][DEBUG][o.e.a.s.TransportSearchAction] [ulljGDa] [articlef][4], node[ulljGDafTlqwo9lyGJYBIw], [P], s[STARTED], a[id=CpamivAqQPWeiZN1UVOceg]: Failed to execute [SearchRequest{searchType=QUERY_THEN_FETCH, indices=[articlef], indicesOptions=IndicesOptions[id=38, ignore_unavailable=false, allow_no_indices=true, expand_wildcards_open=true, expand_wildcards_closed=false, allow_alisases_to_multiple_indices=true, forbid_closed_indices=true], types=[TheHindu], routing='null', preference='null', requestCache=null, scroll=null, source={
+  "from" : 0,
+  "size" : 20,
+  "query" : {
+    "multi_match" : {
+      "query" : "modi",
+      "fields" : [
+        "content^1.0",
+        "headings^1.0",
+        "title^3.0"
+      ],
+      "type" : "best_fields",
+      "operator" : "OR",
+      "slop" : 0,
+      "prefix_length" : 0,
+      "max_expansions" : 50,
+      "lenient" : false,
+      "zero_terms_query" : "NONE",
+      "boost" : 1.0
+    }
+  },
+  "highlight" : {
+    "fields" : {
+      "content" : {
+        "fragment_size" : 30
+      }
+    }
+  },
+  "suggest" : {
+    "completion_suggestions" : {
+      "text" : "modi",
+      "completion" : {
+        "field" : "title"
+      }
+    }
+  },
+  "ext" : { }
+}}] lastShard [true]
+org.elasticsearch.transport.RemoteTransportException: [ulljGDa][127.0.0.1:9300][indices:data/read/search[phase/query]]
+Caused by: java.lang.IllegalArgumentException: Field [title] is not a completion suggest field
+	at org.elasticsearch.search.suggest.completion.CompletionSuggestionBuilder.build(CompletionSuggestionBuilder.java:371) ~[elasticsearch-5.1.1.jar:5.1.1]
+	at org.elasticsearch.search.suggest.SuggestBuilder.build(SuggestBuilder.java:178) ~[elasticsearch-5.1.1.jar:5.1.1]
+	at org.elasticsearch.search.SearchService.parseSource(SearchService.java:740) ~[elasticsearch-5.1.1.jar:5.1.1]
+	at org.elasticsearch.search.SearchService.createContext(SearchService.java:553) ~[elasticsearch-5.1.1.jar:5.1.1]
+	at org.elasticsearch.search.SearchService.createAndPutContext(SearchService.java:529) ~[elasticsearch-5.1.1.jar:5.1.1]
+	at org.elasticsearch.search.SearchService.executeQueryPhase(SearchService.java:264) ~[elasticsearch-5.1.1.jar:5.1.1]
+	at org.elasticsearch.action.search.SearchTransportService$6.messageReceived(SearchTransportService.java:300) ~[elasticsearch-5.1.1.jar:5.1.1]
+	at org.elasticsearch.action.search.SearchTransportService$6.messageReceived(SearchTransportService.java:297) ~[elasticsearch-5.1.1.jar:5.1.1]
+	at org.elasticsearch.transport.RequestHandlerRegistry.processMessageReceived(RequestHandlerRegistry.java:69) ~[elasticsearch-5.1.1.jar:5.1.1]
+	at org.elasticsearch.transport.TransportService$6.doRun(TransportService.java:577) [elasticsearch-5.1.1.jar:5.1.1]
+	at org.elasticsearch.common.util.concurrent.ThreadContext$ContextPreservingAbstractRunnable.doRun(ThreadContext.java:527) [elasticsearch-5.1.1.jar:5.1.1]
+	at org.elasticsearch.common.util.concurrent.AbstractRunnable.run(AbstractRunnable.java:37) [elasticsearch-5.1.1.jar:5.1.1]
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1135) [?:?]
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:635) [?:?]
+	at java.lang.Thread.run(Thread.java:844) [?:?]
+[2018-08-29T15:23:21,437][DEBUG][o.e.a.s.TransportSearchAction] [ulljGDa] [articlef][3], node[ulljGDafTlqwo9lyGJYBIw], [P], s[STARTED], a[id=Zz-eSVy3SIS5G9Iu5yR1Ww]: Failed to execute [SearchRequest{searchType=QUERY_THEN_FETCH, indices=[articlef], indicesOptions=IndicesOptions[id=38, ignore_unavailable=false, allow_no_indices=true, expand_wildcards_open=true, expand_wildcards_closed=false, allow_alisases_to_multiple_indices=true, forbid_closed_indices=true], types=[TheHindu], routing='null', preference='null', requestCache=null, scroll=null, source={
+  "from" : 0,
+  "size" : 20,
+  "query" : {
+    "multi_match" : {
+      "query" : "modi",
+      "fields" : [
+        "content^1.0",
+        "headings^1.0",
+        "title^3.0"
+      ],
+      "type" : "best_fields",
+      "operator" : "OR",
+      "slop" : 0,
+      "prefix_length" : 0,
+      "max_expansions" : 50,
+      "lenient" : false,
+      "zero_terms_query" : "NONE",
+      "boost" : 1.0
+    }
+  },
+  "highlight" : {
+    "fields" : {
+      "content" : {
+        "fragment_size" : 30
+      }
+    }
+  },
+  "suggest" : {
+    "completion_suggestions" : {
+      "text" : "modi",
+      "completion" : {
+        "field" : "title"
+      }
+    }
+  },
+  "ext" : { }
+}}]
+org.elasticsearch.transport.RemoteTransportException: [ulljGDa][127.0.0.1:9300][indices:data/read/search[phase/query]]
+Caused by: java.lang.IllegalArgumentException: Field [title] is not a completion suggest field
+	at org.elasticsearch.search.suggest.completion.CompletionSuggestionBuilder.build(CompletionSuggestionBuilder.java:371) ~[elasticsearch-5.1.1.jar:5.1.1]
+	at org.elasticsearch.search.suggest.SuggestBuilder.build(SuggestBuilder.java:178) ~[elasticsearch-5.1.1.jar:5.1.1]
+	at org.elasticsearch.search.SearchService.parseSource(SearchService.java:740) ~[elasticsearch-5.1.1.jar:5.1.1]
+	at org.elasticsearch.search.SearchService.createContext(SearchService.java:553) ~[elasticsearch-5.1.1.jar:5.1.1]
+	at org.elasticsearch.search.SearchService.createAndPutContext(SearchService.java:529) ~[elasticsearch-5.1.1.jar:5.1.1]
+	at org.elasticsearch.search.SearchService.executeQueryPhase(SearchService.java:264) ~[elasticsearch-5.1.1.jar:5.1.1]
+	at org.elasticsearch.action.search.SearchTransportService$6.messageReceived(SearchTransportService.java:300) ~[elasticsearch-5.1.1.jar:5.1.1]
+	at org.elasticsearch.action.search.SearchTransportService$6.messageReceived(SearchTransportService.java:297) ~[elasticsearch-5.1.1.jar:5.1.1]
+	at org.elasticsearch.transport.RequestHandlerRegistry.processMessageReceived(RequestHandlerRegistry.java:69) ~[elasticsearch-5.1.1.jar:5.1.1]
+	at org.elasticsearch.transport.TransportService$6.doRun(TransportService.java:577) [elasticsearch-5.1.1.jar:5.1.1]
+	at org.elasticsearch.common.util.concurrent.ThreadContext$ContextPreservingAbstractRunnable.doRun(ThreadContext.java:527) [elasticsearch-5.1.1.jar:5.1.1]
+	at org.elasticsearch.common.util.concurrent.AbstractRunnable.run(AbstractRunnable.java:37) [elasticsearch-5.1.1.jar:5.1.1]
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1135) [?:?]
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:635) [?:?]
+	at java.lang.Thread.run(Thread.java:844) [?:?]
+[2018-08-29T15:23:21,437][DEBUG][o.e.a.s.TransportSearchAction] [ulljGDa] [articlef][1], node[ulljGDafTlqwo9lyGJYBIw], [P], s[STARTED], a[id=PGCbTlEUQqmKge5SUv7osg]: Failed to execute [SearchRequest{searchType=QUERY_THEN_FETCH, indices=[articlef], indicesOptions=IndicesOptions[id=38, ignore_unavailable=false, allow_no_indices=true, expand_wildcards_open=true, expand_wildcards_closed=false, allow_alisases_to_multiple_indices=true, forbid_closed_indices=true], types=[TheHindu], routing='null', preference='null', requestCache=null, scroll=null, source={
+  "from" : 0,
+  "size" : 20,
+  "query" : {
+    "multi_match" : {
+      "query" : "modi",
+      "fields" : [
+        "content^1.0",
+        "headings^1.0",
+        "title^3.0"
+      ],
+      "type" : "best_fields",
+      "operator" : "OR",
+      "slop" : 0,
+      "prefix_length" : 0,
+      "max_expansions" : 50,
+      "lenient" : false,
+      "zero_terms_query" : "NONE",
+      "boost" : 1.0
+    }
+  },
+  "highlight" : {
+    "fields" : {
+      "content" : {
+        "fragment_size" : 30
+      }
+    }
+  },
+  "suggest" : {
+    "completion_suggestions" : {
+      "text" : "modi",
+      "completion" : {
+        "field" : "title"
+      }
+    }
+  },
+  "ext" : { }
+}}] lastShard [true]
+org.elasticsearch.transport.RemoteTransportException: [ulljGDa][127.0.0.1:9300][indices:data/read/search[phase/query]]
+Caused by: java.lang.IllegalArgumentException: Field [title] is not a completion suggest field
+	at org.elasticsearch.search.suggest.completion.CompletionSuggestionBuilder.build(CompletionSuggestionBuilder.java:371) ~[elasticsearch-5.1.1.jar:5.1.1]
+	at org.elasticsearch.search.suggest.SuggestBuilder.build(SuggestBuilder.java:178) ~[elasticsearch-5.1.1.jar:5.1.1]
+	at org.elasticsearch.search.SearchService.parseSource(SearchService.java:740) ~[elasticsearch-5.1.1.jar:5.1.1]
+	at org.elasticsearch.search.SearchService.createContext(SearchService.java:553) ~[elasticsearch-5.1.1.jar:5.1.1]
+	at org.elasticsearch.search.SearchService.createAndPutContext(SearchService.java:529) ~[elasticsearch-5.1.1.jar:5.1.1]
+	at org.elasticsearch.search.SearchService.executeQueryPhase(SearchService.java:264) ~[elasticsearch-5.1.1.jar:5.1.1]
+	at org.elasticsearch.action.search.SearchTransportService$6.messageReceived(SearchTransportService.java:300) ~[elasticsearch-5.1.1.jar:5.1.1]
+	at org.elasticsearch.action.search.SearchTransportService$6.messageReceived(SearchTransportService.java:297) ~[elasticsearch-5.1.1.jar:5.1.1]
+	at org.elasticsearch.transport.RequestHandlerRegistry.processMessageReceived(RequestHandlerRegistry.java:69) ~[elasticsearch-5.1.1.jar:5.1.1]
+	at org.elasticsearch.transport.TransportService$6.doRun(TransportService.java:577) [elasticsearch-5.1.1.jar:5.1.1]
+	at org.elasticsearch.common.util.concurrent.ThreadContext$ContextPreservingAbstractRunnable.doRun(ThreadContext.java:527) [elasticsearch-5.1.1.jar:5.1.1]
+	at org.elasticsearch.common.util.concurrent.AbstractRunnable.run(AbstractRunnable.java:37) [elasticsearch-5.1.1.jar:5.1.1]
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1135) [?:?]
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:635) [?:?]
+	at java.lang.Thread.run(Thread.java:844) [?:?]
+[2018-08-29T15:23:21,443][DEBUG][o.e.a.s.TransportSearchAction] [ulljGDa] All shards failed for phase: [query]
+org.elasticsearch.transport.RemoteTransportException: [ulljGDa][127.0.0.1:9300][indices:data/read/search[phase/query]]
+Caused by: java.lang.IllegalArgumentException: Field [title] is not a completion suggest field
+	at org.elasticsearch.search.suggest.completion.CompletionSuggestionBuilder.build(CompletionSuggestionBuilder.java:371) ~[elasticsearch-5.1.1.jar:5.1.1]
+	at org.elasticsearch.search.suggest.SuggestBuilder.build(SuggestBuilder.java:178) ~[elasticsearch-5.1.1.jar:5.1.1]
+	at org.elasticsearch.search.SearchService.parseSource(SearchService.java:740) ~[elasticsearch-5.1.1.jar:5.1.1]
+	at org.elasticsearch.search.SearchService.createContext(SearchService.java:553) ~[elasticsearch-5.1.1.jar:5.1.1]
+	at org.elasticsearch.search.SearchService.createAndPutContext(SearchService.java:529) ~[elasticsearch-5.1.1.jar:5.1.1]
+	at org.elasticsearch.search.SearchService.executeQueryPhase(SearchService.java:264) ~[elasticsearch-5.1.1.jar:5.1.1]
+	at org.elasticsearch.action.search.SearchTransportService$6.messageReceived(SearchTransportService.java:300) ~[elasticsearch-5.1.1.jar:5.1.1]
+	at org.elasticsearch.action.search.SearchTransportService$6.messageReceived(SearchTransportService.java:297) ~[elasticsearch-5.1.1.jar:5.1.1]
+	at org.elasticsearch.transport.RequestHandlerRegistry.processMessageReceived(RequestHandlerRegistry.java:69) ~[elasticsearch-5.1.1.jar:5.1.1]
+	at org.elasticsearch.transport.TransportService$6.doRun(TransportService.java:577) [elasticsearch-5.1.1.jar:5.1.1]
+	at org.elasticsearch.common.util.concurrent.ThreadContext$ContextPreservingAbstractRunnable.doRun(ThreadContext.java:527) [elasticsearch-5.1.1.jar:5.1.1]
+	at org.elasticsearch.common.util.concurrent.AbstractRunnable.run(AbstractRunnable.java:37) [elasticsearch-5.1.1.jar:5.1.1]
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1135) [?:?]
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:635) [?:?]
+	at java.lang.Thread.run(Thread.java:844) [?:?]

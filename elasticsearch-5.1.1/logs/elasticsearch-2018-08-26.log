@@ -1,0 +1,29 @@
+[2018-08-26T11:36:08,917][INFO ][o.e.c.m.MetaDataMappingService] [ulljGDa] [articles/XyeRi7AeTXOD9UJTWZF0Wg] create_mapping [TimesOfIndia]
+[2018-08-26T19:57:24,116][INFO ][o.e.n.Node               ] [ulljGDa] stopping ...
+[2018-08-26T19:57:24,159][INFO ][o.e.n.Node               ] [ulljGDa] stopped
+[2018-08-26T19:57:24,160][INFO ][o.e.n.Node               ] [ulljGDa] closing ...
+[2018-08-26T19:57:24,171][INFO ][o.e.n.Node               ] [ulljGDa] closed
+[2018-08-26T21:01:56,465][INFO ][o.e.n.Node               ] [] initializing ...
+[2018-08-26T21:01:56,562][INFO ][o.e.e.NodeEnvironment    ] [ulljGDa] using [1] data paths, mounts [[/ (/dev/disk1s1)]], net usable_space [188gb], net total_space [233.4gb], spins? [unknown], types [apfs]
+[2018-08-26T21:01:56,563][INFO ][o.e.e.NodeEnvironment    ] [ulljGDa] heap size [1.9gb], compressed ordinary object pointers [true]
+[2018-08-26T21:01:56,594][INFO ][o.e.n.Node               ] node name [ulljGDa] derived from node ID [ulljGDafTlqwo9lyGJYBIw]; set [node.name] to override
+[2018-08-26T21:01:56,600][INFO ][o.e.n.Node               ] version[5.1.1], pid[4636], build[5395e21/2016-12-06T12:36:15.409Z], OS[Mac OS X/10.13.6/x86_64], JVM["Oracle Corporation"/Java HotSpot(TM) 64-Bit Server VM/10.0.2/10.0.2+13]
+[2018-08-26T21:01:57,173][INFO ][o.e.p.PluginsService     ] [ulljGDa] loaded module [aggs-matrix-stats]
+[2018-08-26T21:01:57,173][INFO ][o.e.p.PluginsService     ] [ulljGDa] loaded module [ingest-common]
+[2018-08-26T21:01:57,174][INFO ][o.e.p.PluginsService     ] [ulljGDa] loaded module [lang-expression]
+[2018-08-26T21:01:57,174][INFO ][o.e.p.PluginsService     ] [ulljGDa] loaded module [lang-groovy]
+[2018-08-26T21:01:57,174][INFO ][o.e.p.PluginsService     ] [ulljGDa] loaded module [lang-mustache]
+[2018-08-26T21:01:57,174][INFO ][o.e.p.PluginsService     ] [ulljGDa] loaded module [lang-painless]
+[2018-08-26T21:01:57,174][INFO ][o.e.p.PluginsService     ] [ulljGDa] loaded module [percolator]
+[2018-08-26T21:01:57,174][INFO ][o.e.p.PluginsService     ] [ulljGDa] loaded module [reindex]
+[2018-08-26T21:01:57,174][INFO ][o.e.p.PluginsService     ] [ulljGDa] loaded module [transport-netty3]
+[2018-08-26T21:01:57,174][INFO ][o.e.p.PluginsService     ] [ulljGDa] loaded module [transport-netty4]
+[2018-08-26T21:01:57,175][INFO ][o.e.p.PluginsService     ] [ulljGDa] no plugins loaded
+[2018-08-26T21:01:58,637][INFO ][o.e.n.Node               ] initialized
+[2018-08-26T21:01:58,637][INFO ][o.e.n.Node               ] [ulljGDa] starting ...
+[2018-08-26T21:01:58,798][INFO ][o.e.t.TransportService   ] [ulljGDa] publish_address {127.0.0.1:9300}, bound_addresses {[fe80::1]:9300}, {[::1]:9300}, {127.0.0.1:9300}, {127.94.0.1:9300}
+[2018-08-26T21:02:01,871][INFO ][o.e.c.s.ClusterService   ] [ulljGDa] new_master {ulljGDa}{ulljGDafTlqwo9lyGJYBIw}{3EKjKR-eRCGyvaRytP-4Aw}{127.0.0.1}{127.0.0.1:9300}, reason: zen-disco-elected-as-master ([0] nodes joined)
+[2018-08-26T21:02:01,887][INFO ][o.e.h.HttpServer         ] [ulljGDa] publish_address {127.0.0.1:9200}, bound_addresses {[fe80::1]:9200}, {[::1]:9200}, {127.0.0.1:9200}, {127.94.0.1:9200}
+[2018-08-26T21:02:01,887][INFO ][o.e.n.Node               ] [ulljGDa] started
+[2018-08-26T21:02:02,124][INFO ][o.e.g.GatewayService     ] [ulljGDa] recovered [2] indices into cluster_state
+[2018-08-26T21:02:03,136][INFO ][o.e.c.r.a.AllocationService] [ulljGDa] Cluster health status changed from [RED] to [YELLOW] (reason: [shards started [[articles][0]] ...]).

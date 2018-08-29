@@ -1,0 +1,82 @@
+[2018-08-23T11:29:14,915][INFO ][o.e.n.Node               ] [ulljGDa] stopping ...
+[2018-08-23T11:29:15,008][INFO ][o.e.n.Node               ] [ulljGDa] stopped
+[2018-08-23T11:29:15,009][INFO ][o.e.n.Node               ] [ulljGDa] closing ...
+[2018-08-23T11:29:15,023][INFO ][o.e.n.Node               ] [ulljGDa] closed
+[2018-08-23T14:56:40,238][INFO ][o.e.n.Node               ] [] initializing ...
+[2018-08-23T14:56:40,318][INFO ][o.e.e.NodeEnvironment    ] [ulljGDa] using [1] data paths, mounts [[/ (/dev/disk1s1)]], net usable_space [190.1gb], net total_space [233.4gb], spins? [unknown], types [apfs]
+[2018-08-23T14:56:40,318][INFO ][o.e.e.NodeEnvironment    ] [ulljGDa] heap size [1.9gb], compressed ordinary object pointers [true]
+[2018-08-23T14:56:40,396][INFO ][o.e.n.Node               ] node name [ulljGDa] derived from node ID [ulljGDafTlqwo9lyGJYBIw]; set [node.name] to override
+[2018-08-23T14:56:40,399][INFO ][o.e.n.Node               ] version[5.1.1], pid[10725], build[5395e21/2016-12-06T12:36:15.409Z], OS[Mac OS X/10.13.6/x86_64], JVM["Oracle Corporation"/Java HotSpot(TM) 64-Bit Server VM/10.0.2/10.0.2+13]
+[2018-08-23T14:56:40,979][INFO ][o.e.p.PluginsService     ] [ulljGDa] loaded module [aggs-matrix-stats]
+[2018-08-23T14:56:40,979][INFO ][o.e.p.PluginsService     ] [ulljGDa] loaded module [ingest-common]
+[2018-08-23T14:56:40,979][INFO ][o.e.p.PluginsService     ] [ulljGDa] loaded module [lang-expression]
+[2018-08-23T14:56:40,980][INFO ][o.e.p.PluginsService     ] [ulljGDa] loaded module [lang-groovy]
+[2018-08-23T14:56:40,980][INFO ][o.e.p.PluginsService     ] [ulljGDa] loaded module [lang-mustache]
+[2018-08-23T14:56:40,980][INFO ][o.e.p.PluginsService     ] [ulljGDa] loaded module [lang-painless]
+[2018-08-23T14:56:40,980][INFO ][o.e.p.PluginsService     ] [ulljGDa] loaded module [percolator]
+[2018-08-23T14:56:40,980][INFO ][o.e.p.PluginsService     ] [ulljGDa] loaded module [reindex]
+[2018-08-23T14:56:40,980][INFO ][o.e.p.PluginsService     ] [ulljGDa] loaded module [transport-netty3]
+[2018-08-23T14:56:40,980][INFO ][o.e.p.PluginsService     ] [ulljGDa] loaded module [transport-netty4]
+[2018-08-23T14:56:40,981][INFO ][o.e.p.PluginsService     ] [ulljGDa] no plugins loaded
+[2018-08-23T14:56:42,491][INFO ][o.e.n.Node               ] initialized
+[2018-08-23T14:56:42,491][INFO ][o.e.n.Node               ] [ulljGDa] starting ...
+[2018-08-23T14:56:42,662][INFO ][o.e.t.TransportService   ] [ulljGDa] publish_address {127.0.0.1:9300}, bound_addresses {[fe80::1]:9300}, {[::1]:9300}, {127.0.0.1:9300}, {127.94.0.1:9300}
+[2018-08-23T14:56:45,738][INFO ][o.e.c.s.ClusterService   ] [ulljGDa] new_master {ulljGDa}{ulljGDafTlqwo9lyGJYBIw}{0if8P6vxQhmscDDo1l2o5Q}{127.0.0.1}{127.0.0.1:9300}, reason: zen-disco-elected-as-master ([0] nodes joined)
+[2018-08-23T14:56:45,753][INFO ][o.e.h.HttpServer         ] [ulljGDa] publish_address {127.0.0.1:9200}, bound_addresses {[fe80::1]:9200}, {[::1]:9200}, {127.0.0.1:9200}, {127.94.0.1:9200}
+[2018-08-23T14:56:45,753][INFO ][o.e.n.Node               ] [ulljGDa] started
+[2018-08-23T14:56:46,268][INFO ][o.e.g.GatewayService     ] [ulljGDa] recovered [6] indices into cluster_state
+[2018-08-23T14:56:48,297][INFO ][o.e.c.r.a.AllocationService] [ulljGDa] Cluster health status changed from [RED] to [YELLOW] (reason: [shards started [[article][0]] ...]).
+[2018-08-23T15:00:14,965][INFO ][o.e.c.m.MetaDataCreateIndexService] [ulljGDa] [articles] creating index, cause [auto(index api)], templates [], shards [5]/[1], mappings []
+[2018-08-23T15:00:15,267][INFO ][o.e.c.m.MetaDataMappingService] [ulljGDa] [articles/Y-wSvLwVSwmL2zTKbldqMQ] create_mapping [theHindu]
+[2018-08-23T15:07:10,184][INFO ][o.e.c.m.MetaDataCreateIndexService] [ulljGDa] [articles] creating index, cause [auto(index api)], templates [], shards [5]/[1], mappings []
+[2018-08-23T15:07:10,490][INFO ][o.e.c.m.MetaDataMappingService] [ulljGDa] [articles/_19_jwdUQ6mWUb1m4dQYjw] create_mapping [TheHindu]
+[2018-08-23T15:07:50,879][INFO ][o.e.c.m.MetaDataMappingService] [ulljGDa] [articles/_19_jwdUQ6mWUb1m4dQYjw] create_mapping [WebMD]
+[2018-08-23T15:19:43,800][INFO ][o.e.c.m.MetaDataCreateIndexService] [ulljGDa] [articles] creating index, cause [auto(index api)], templates [], shards [5]/[1], mappings []
+[2018-08-23T15:19:44,121][INFO ][o.e.c.m.MetaDataMappingService] [ulljGDa] [articles/RPh1UTYAS2SNZ5Fuc6oCeQ] create_mapping [TheHindu]
+[2018-08-23T15:22:54,339][INFO ][o.e.c.m.MetaDataCreateIndexService] [ulljGDa] [articles] creating index, cause [auto(index api)], templates [], shards [5]/[1], mappings []
+[2018-08-23T15:22:54,644][INFO ][o.e.c.m.MetaDataMappingService] [ulljGDa] [articles/ZeOpwi4NQvewY_xgyXeD_Q] create_mapping [TheHindu]
+[2018-08-23T16:13:10,906][INFO ][o.e.c.m.MetaDataCreateIndexService] [ulljGDa] [articles] creating index, cause [auto(index api)], templates [], shards [5]/[1], mappings []
+[2018-08-23T16:13:11,182][INFO ][o.e.c.m.MetaDataMappingService] [ulljGDa] [articles/Suycze68Q263yxRO88r23g] create_mapping [TheHindu]
+[2018-08-23T16:15:11,773][INFO ][o.e.c.m.MetaDataMappingService] [ulljGDa] [articles/Suycze68Q263yxRO88r23g] create_mapping [WebMD]
+[2018-08-23T18:41:54,511][INFO ][o.e.c.m.MetaDataCreateIndexService] [ulljGDa] [twitter] creating index, cause [auto(index api)], templates [], shards [5]/[1], mappings []
+[2018-08-23T18:41:54,828][DEBUG][o.e.a.a.i.m.p.TransportPutMappingAction] [ulljGDa] failed to put mappings on indices [[[twitter/6mNFMb-XTh-iFTFb3OvTqQ]]], type [_doc]
+org.elasticsearch.indices.InvalidTypeNameException: Document mapping type name can't start with '_', found: [_doc]
+	at org.elasticsearch.cluster.metadata.MetaDataMappingService$PutMappingExecutor.applyRequest(MetaDataMappingService.java:299) ~[elasticsearch-5.1.1.jar:5.1.1]
+	at org.elasticsearch.cluster.metadata.MetaDataMappingService$PutMappingExecutor.execute(MetaDataMappingService.java:232) ~[elasticsearch-5.1.1.jar:5.1.1]
+	at org.elasticsearch.cluster.service.ClusterService.runTasksForExecutor(ClusterService.java:581) [elasticsearch-5.1.1.jar:5.1.1]
+	at org.elasticsearch.cluster.service.ClusterService$UpdateTask.run(ClusterService.java:920) [elasticsearch-5.1.1.jar:5.1.1]
+	at org.elasticsearch.common.util.concurrent.ThreadContext$ContextPreservingRunnable.run(ThreadContext.java:458) [elasticsearch-5.1.1.jar:5.1.1]
+	at org.elasticsearch.common.util.concurrent.PrioritizedEsThreadPoolExecutor$TieBreakingPrioritizedRunnable.runAndClean(PrioritizedEsThreadPoolExecutor.java:238) [elasticsearch-5.1.1.jar:5.1.1]
+	at org.elasticsearch.common.util.concurrent.PrioritizedEsThreadPoolExecutor$TieBreakingPrioritizedRunnable.run(PrioritizedEsThreadPoolExecutor.java:201) [elasticsearch-5.1.1.jar:5.1.1]
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1135) [?:?]
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:635) [?:?]
+	at java.lang.Thread.run(Thread.java:844) [?:?]
+[2018-08-23T18:42:18,349][INFO ][o.e.c.m.MetaDataMappingService] [ulljGDa] [twitter/6mNFMb-XTh-iFTFb3OvTqQ] create_mapping [doc]
+[2018-08-23T18:42:49,544][DEBUG][o.e.a.a.i.m.p.TransportPutMappingAction] [ulljGDa] failed to put mappings on indices [[[twitter/6mNFMb-XTh-iFTFb3OvTqQ]]], type [_doc]
+org.elasticsearch.indices.InvalidTypeNameException: Document mapping type name can't start with '_', found: [_doc]
+	at org.elasticsearch.cluster.metadata.MetaDataMappingService$PutMappingExecutor.applyRequest(MetaDataMappingService.java:299) ~[elasticsearch-5.1.1.jar:5.1.1]
+	at org.elasticsearch.cluster.metadata.MetaDataMappingService$PutMappingExecutor.execute(MetaDataMappingService.java:232) ~[elasticsearch-5.1.1.jar:5.1.1]
+	at org.elasticsearch.cluster.service.ClusterService.runTasksForExecutor(ClusterService.java:581) [elasticsearch-5.1.1.jar:5.1.1]
+	at org.elasticsearch.cluster.service.ClusterService$UpdateTask.run(ClusterService.java:920) [elasticsearch-5.1.1.jar:5.1.1]
+	at org.elasticsearch.common.util.concurrent.ThreadContext$ContextPreservingRunnable.run(ThreadContext.java:458) [elasticsearch-5.1.1.jar:5.1.1]
+	at org.elasticsearch.common.util.concurrent.PrioritizedEsThreadPoolExecutor$TieBreakingPrioritizedRunnable.runAndClean(PrioritizedEsThreadPoolExecutor.java:238) [elasticsearch-5.1.1.jar:5.1.1]
+	at org.elasticsearch.common.util.concurrent.PrioritizedEsThreadPoolExecutor$TieBreakingPrioritizedRunnable.run(PrioritizedEsThreadPoolExecutor.java:201) [elasticsearch-5.1.1.jar:5.1.1]
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1135) [?:?]
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:635) [?:?]
+	at java.lang.Thread.run(Thread.java:844) [?:?]
+[2018-08-23T18:44:46,614][DEBUG][o.e.a.a.i.m.p.TransportPutMappingAction] [ulljGDa] failed to put mappings on indices [[[twitter/6mNFMb-XTh-iFTFb3OvTqQ]]], type [_doc]
+org.elasticsearch.indices.InvalidTypeNameException: Document mapping type name can't start with '_', found: [_doc]
+	at org.elasticsearch.cluster.metadata.MetaDataMappingService$PutMappingExecutor.applyRequest(MetaDataMappingService.java:299) ~[elasticsearch-5.1.1.jar:5.1.1]
+	at org.elasticsearch.cluster.metadata.MetaDataMappingService$PutMappingExecutor.execute(MetaDataMappingService.java:232) ~[elasticsearch-5.1.1.jar:5.1.1]
+	at org.elasticsearch.cluster.service.ClusterService.runTasksForExecutor(ClusterService.java:581) [elasticsearch-5.1.1.jar:5.1.1]
+	at org.elasticsearch.cluster.service.ClusterService$UpdateTask.run(ClusterService.java:920) [elasticsearch-5.1.1.jar:5.1.1]
+	at org.elasticsearch.common.util.concurrent.ThreadContext$ContextPreservingRunnable.run(ThreadContext.java:458) [elasticsearch-5.1.1.jar:5.1.1]
+	at org.elasticsearch.common.util.concurrent.PrioritizedEsThreadPoolExecutor$TieBreakingPrioritizedRunnable.runAndClean(PrioritizedEsThreadPoolExecutor.java:238) [elasticsearch-5.1.1.jar:5.1.1]
+	at org.elasticsearch.common.util.concurrent.PrioritizedEsThreadPoolExecutor$TieBreakingPrioritizedRunnable.run(PrioritizedEsThreadPoolExecutor.java:201) [elasticsearch-5.1.1.jar:5.1.1]
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1135) [?:?]
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:635) [?:?]
+	at java.lang.Thread.run(Thread.java:844) [?:?]
+[2018-08-23T18:47:46,268][INFO ][o.e.c.m.MetaDataCreateIndexService] [ulljGDa] [articles] creating index, cause [auto(index api)], templates [], shards [5]/[1], mappings []
+[2018-08-23T18:47:46,597][INFO ][o.e.c.m.MetaDataMappingService] [ulljGDa] [articles/bLEZ73i7SkKETAete1xliw] create_mapping [WebMD]
+[2018-08-23T20:03:40,553][INFO ][o.e.c.m.MetaDataCreateIndexService] [ulljGDa] [articles] creating index, cause [auto(index api)], templates [], shards [5]/[1], mappings []
+[2018-08-23T20:03:40,850][INFO ][o.e.c.m.MetaDataMappingService] [ulljGDa] [articles/7cYTrFZ1R12X1Hkr0-eKfw] create_mapping [WebMD]
