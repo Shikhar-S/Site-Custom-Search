@@ -7,13 +7,15 @@ https://www.thehindu.com/opinion/
 https://www.thehindu.com/thread/
 https://www.thehindu.com/sci-tech/science/
 https://www.thehindu.com/entertainment/
-AndrejKarpathy
-PetrMitrichev
-GeeksForGeeks
-WebMD
-WebMDhttps://www.webmd.com/news/articles
-MSN
 
-To-Do
-Forbes crawler
+
+
+PetrMitrichev => (title= h3) (reindex with wider params 50k,1000)
+GeeksForGeeks=> 
+WebMD=> (done)
+Forbes => (headings = .speakable-paragraph) (url : https://www.forbes.com/ai-big-data/ )
+TheHindu => (done) 
+MSN => (done)
+
+
 

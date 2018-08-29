@@ -7,10 +7,14 @@ from django.db import transaction
 import random
 
 def search(Crawler,user_query,num_results):
-    s=Search(using=Elasticsearch(),index=('articles'),doc_type=(Crawler))
-    q=Q("multi_match",query=user_query,fields=['title^3','content'])
+    print(Crawler, user_query)
+    idx='articlef'
+    if Crawler=="PetrMitrichev":
+        idx='article_other'
+    s=Search(using=Elasticsearch(),index=(idx),doc_type=(Crawler))
+    q=Q("multi_match",query=user_query,fields=['title^3','content','headings'])
     s=s.query(q)
-    s=s.highlight('content',fragment_size=20)
+    s=s.highlight('content',fragment_size=30)
     count=s.count()
     unique_list=[]
     ret_list=[]
@@ -23,7 +27,7 @@ def search(Crawler,user_query,num_results):
         for hit in response:
             if hit.title not in unique_list:
                 unique_list.append(hit.title)
-                highlight="..."+hit.meta.highlight.content[1]+"..."
+                highlight="..."+hit.meta.highlight.content[0]+"..."
                 ret_list.append({"title":hit.title,"description":highlight,"url":hit.url})
                 if len(unique_list)>=num_results:
                     break

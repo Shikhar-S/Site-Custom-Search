@@ -7,7 +7,7 @@ from django.db import transaction
 import random
 
 def search(Crawler,user_query,num_results):
-    s=Search(using=Elasticsearch(),index=('articles'),doc_type=(Crawler))
+    s=Search(using=Elasticsearch(),index=('articlef'),doc_type=(Crawler))
     q=Q("multi_match",query=user_query,fields=['title^2','content'])
     s=s.query(q)
     s=s.highlight('content',fragment_size=50)
