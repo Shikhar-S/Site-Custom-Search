@@ -15,11 +15,11 @@
 
 function getsearchresults() {
 	// ajax the JSON to the server
-
+var radioValue = $("input[name='searchloc']:checked").val();
   var query=document.getElementById("search_term").value;
   console.log(query);
 
-  var data = { "search_term":query };
+  var data = { "search_term":query,"searchloc":radioValue };
 
 	$.post("getresult", data, function(resp){
        var content=$(resp);
@@ -106,7 +106,7 @@ float:left;
 .footer {
     padding: 0px;
     text-align: center;
-    background: #ddd;
+    background: #18bc9c;
     margin-top: 20px;
     height:100%;
 }
@@ -263,13 +263,26 @@ label {
 {% include headerTemplate %}
 {% include bodyTemplate %}
 
-<div class="footer">
-    <div class="jumbotron" style="background:blue;height:100%"><h2>Powered</h2>
-        <h3>Team </h3>
+<!--<div class="footer" style="height:100px">-->
+    <!--<div class="jumbotron" style="background:#18bc9c;height:100%"><h2>Powered By</h2>-->
+        <!--<h3>Team </h3>-->
 
-    </div>
+    <!--</div>-->
 
-</div>
+<!--</div>-->
+<script>
+ ad1='<img src="/static/img/ad_ibm.jpeg" class="img-rounded" style="width:100%;"/>';
+ ad2='<img src="/static/img/ad_pizza.jpeg" class="img-rounded" style="width:100%;"/>';
+ ad3='<img src="/static/img/ad_car.jpeg" class="img-rounded" style="width:100%;"/>';
+ ad4='<img src="/static/img/ad_stack.jpeg" class="img-rounded" style="width:100%;"/>';
+ar=[ad1,ad2,ad3,ad4];
+var j=0;
+$('.card').each(function(i, obj) {
+    //test
+    $(obj).append(ar[j]);
+    j=(j+1)%4;
 
+});
+</script>
 </body>
 </html>

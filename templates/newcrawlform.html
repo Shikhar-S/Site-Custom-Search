@@ -2,52 +2,106 @@
 <html>
 <head>
 
-    <script src="https://code.jquery.com/jquery-1.10.2.js"></script>
-
+  <script type="text/javascript"
+	src="http://ajax.googleapis.com/ajax/libs/jquery/1.3.2/jquery.min.js"></script>
+<script type="text/javascript"
+	src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.7.2/jquery-ui.js"></script>
+<link rel="stylesheet" type="text/css"
+	href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.7.1/themes/base/jquery-ui.css"/>
     <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
     <script type="text/javascript">
+
 // setup some JSON to use
 var x=0;
+var y=0;
+var z=0;
+
+
 function addcomponent(){
 
+var idn='id_'+y;
 
-        a = '<div class="card"><img src="/static/img/ad_ibm.jpeg" class="img-rounded" style="width:100%"></div>';
-        b='<div class="card"><img src="/static/img/ad_pizza.jpeg" class="img-rounded" style="width:100%;"></div>';
-        c='<div class="card"><img src="/static/img/ad_car.jpeg" class="img-rounded" style="width:100%;"></div>';
-        var ar=[a,b,c];
+<!--a = '<div class="card" id='+idn+' ><img src="/static/img/ad_ibm.jpeg" class="img-rounded" style="width:100%;"></div>';-->
+        <!--b='<div class="card" id='+idn+'><img src="/static/img/ad_pizza.jpeg" class="img-rounded" style="width:100%;"></div>';-->
+        <!--c='<div class="card" id='+idn+' ><img src="/static/img/ad_car.jpeg" class="img-rounded" style="width:100%;"></div>';-->
+        <!--d='<div class="card" id='+idn+' ><img src="/static/img/ad_stack.jpeg" class="img-rounded" style="width:100%;"></div>';-->
+
+a = '<div class="card" id='+idn+'></div>';
+        b='<div class="card" id='+idn+'></div>';
+        c='<div class="card" id='+idn+' ></div>';
+        d='<div class="card" id='+idn+' ></div>';
+
+
+
+        var ar=[a,b,c,d];
+
+        e='<div class="card" id='+idn+'><img src="/static/img/ad_stack2.jpeg" style="width:100%"></iframe></div>';
+        f='<div class="card" id='+idn+'><img src="/static/img/banner.jpeg"  style="width:100%"></iframe></div>';
+        g='<div class="card" id='+idn+'><img src="/static/img/wp.jpeg"  style="width:100%"></iframe></div>';
+        h='<div class="card" id='+idn+'><img src="/static/img/ad_flock.jpeg" style="width:100%"></iframe></div>';
+
+
+        var br=[e,f,g,h]
+
+console.log(idn);
+
         itemToAdd=ar[x];
-        x=(x+1)%3;
-        itemToAddc='<div class="card"><img src="/static/img/banner.jpeg" class="img-rounded" style="height:200px;width:100%"></div>';
+        itemToAddc=br[z];
+
+        <!--itemToAddc='<div class="card"><img src="/static/img/banner.jpeg" class="img-rounded" style="height:100%;width:100%"></div>';-->
 
         var radioValue = $("input[name='location']:checked").val();
         if(radioValue=='Left'){
-        $(".leftcolumn").prepend(itemToAdd);
+        $(".leftcolumn").append(itemToAdd);
+
+    $("#"+idn).draggable({'containment':'.leftcolumn'});
+
+
+
+    x=(x+1)%4;
         }
         else if(radioValue=='Centert'){
-        $(".centrecolumn").prepend(itemToAddc);
+        $(".centrecolumn").append(itemToAddc);
+        z=(z+1)%4;
+
+
+        $("#"+idn).draggable({'containment':'.centrecolumn'});
+
         }
         else if(radioValue=='Centerb'){
         $(".centrecolumn").append(itemToAddc);
+        z=(z+1)%4;
+        $("#"+idn).draggable({'containment':'.centrecolumn'});
+
         }
         else {
 
-        $(".rightcolumn").prepend(itemToAdd);
+        $(".rightcolumn").append(itemToAdd);
+        $("#"+idn).draggable({'containment':'.rightcolumn'});
 
+        x=(x+1)%4;
         }
 
 
-        <!--$(".rightcolumn").prepend(itemToAdd);-->
-        <!--$(".ad_smallsquare").draggable();-->
-        <!--$(".submitform1").remove();-->
 
+ y=y+1;
 
 }
+
+function deletecomponent(){
+if(y>0){
+y=y-1;
+var idn='id_'+y;
+$("#"+idn).remove();}
+}
+
 
     </script>
     <script>
  window.onload = function() {
 	// setup the button click
 	document.getElementById("crawler_form").onsubmit = function() {
+
 		myfunction();
 	};
 	$("input:radio[name=headerTemplate]").click(function() {
@@ -84,10 +138,12 @@ $("#id_name").val(webname);
 
 }
 function myfunction() {
-
+    <!--$(".card").resizable("destroy");-->
     var name=document.getElementById("id_name").value
     var domain=document.getElementById("id_domain").value
     var domstruct=document.getElementById("tosave").innerHTML;
+    console.log("yes");
+
     console.log(domstruct);
     var data1 = { "html":domstruct,"name":name,"domain":domain};
 	$.post("savehtml", data1, function(){
@@ -95,6 +151,7 @@ function myfunction() {
 	});
 	<!--event.preventDefault();-->
 }
+
 
 
     </script>
@@ -129,6 +186,7 @@ body {
      padding-right: 20px;
 
 
+
 }
 
 /* Right column */
@@ -136,10 +194,14 @@ body {
     float: left;
     width: 20%;
     padding-left: 20px;
+
+
 }
 .centrecolumn{
     float:left;
     width:60%;
+
+
 
 
 }
@@ -153,11 +215,17 @@ body {
 
 /* Add a card effect for articles */
 .card {
-     background-color: white;
-     padding: 0px;
+     background-color: #f1f1f1;
+     padding: 20px;
      margin-top: 20px;
+     height:180px;
+     width:100%
+
+
+
 
 }
+
 
 /* Clear floats after the columns */
 .row:after {
@@ -183,78 +251,84 @@ body {
 }
 
 
+
     </style>
 
 </head>
 <body id="body">
 
 
-    <div class="submitform" align="center">
-        <form method="post" id="crawler_form" enctype="multipart/form-data">
-            {% csrf_token %}
-            <div class="form-group" hidden>
-                {{ form.name.label_tag }}
-                {{ form.name }}
+<div class="submitform" align="center">
+    <form method="post" id="crawler_form" enctype="multipart/form-data">
+        {% csrf_token %}
+        <div class="form-group" hidden>
+            {{ form.name.label_tag }}
+            {{ form.name }}
 
-            </div>
-             <div class="form-group">
-                {{ form.websiteName.label_tag }}
-                {{ form.websiteName }}
+        </div>
+        <div class="form-group">
+            {{ form.websiteName.label_tag }}
+            {{ form.websiteName }}
 
-            </div>
-            <div class="form-group">
-                {{ form.domain.label_tag }}
-                {{ form.domain }}
+        </div>
+        <div class="form-group">
+            {{ form.domain.label_tag }}
+            {{ form.domain }}
 
-            </div>
-            <div class="form-group">
-                {{ form.description.label_tag }}
-                {{ form.description }}
+        </div>
+        <div class="form-group">
+            {{ form.description.label_tag }}
+            {{ form.description }}
 
-            </div>
-
-
-            <div class="form-group">
-                {{ form.tagline.label_tag }}
-                {{ form.tagline }}
-
-            </div>
-            <div class="form-group">
-                {{ form.companyLogo.label_tag }}
-                {{ form.companyLogo }}
-
-            </div>
-
-            <div class="form-group">
-                {{ form.headerTemplate.label_tag }}
-                {{ form.headerTemplate }}
-
-                <input type="radio" name="headerTemplate" value="header1" checked>
-                <input type="radio" name="headerTemplate" value="header2">
-                <input type="radio" name="headerTemplate" value="header3">
-
-            </div>
-
-            <div class="form-group">
-                {{ form.bodyTemplate.label_tag }}
-                {{ form.bodyTemplate }}
-
-            </div>
+        </div>
 
 
-            <div class="form-group">
-                Left
-                <input type="radio" name="location" value="Left" checked>
-                Center Top<input type="radio" name="location" value="Centert">
-                Center Bottom<input type="radio" name="location" value="Centerb">
-                Right<input type="radio" name="location" value="Right">
-            </div>
+        <div class="form-group">
+            {{ form.tagline.label_tag }}
+            {{ form.tagline }}
+
+        </div>
+        <div class="form-group">
+            {{ form.companyLogo.label_tag }}
+            {{ form.companyLogo }}
+
+        </div>
+
+        <div class="form-group">
+            {{ form.headerTemplate.label_tag }}
+            {{ form.headerTemplate }}
+
+            <input type="radio" name="headerTemplate" value="header1" checked>
+            <input type="radio" name="headerTemplate" value="header2">
+            <input type="radio" name="headerTemplate" value="header3">
+
+        </div>
+        <div class="form-group">
+            {{ form.numberOfResults.label_tag }}
+            {{ form.numberOfResults }}
+
+        </div>
+        <div class="form-group">
+            {{ form.bodyTemplate.label_tag }}
+            {{ form.bodyTemplate }}
+
+        </div>
 
 
-            <input type="button" name="Add" value="Add" id="Add" onclick="addcomponent()">
-            <input type="submit" name="Submit" value="Save" id="Save">
-        </form>
-    </div>
+        <div class="form-group">
+            Left
+            <input type="radio" name="location" value="Left" checked>
+            Center Top<input type="radio" name="location" value="Centert">
+            Center Bottom<input type="radio" name="location" value="Centerb">
+            Right<input type="radio" name="location" value="Right">
+        </div>
+
+
+        <input type="button" name="Add" value="Add" id="Add" onclick="addcomponent()">
+        <input type="button" name="Delete" value="Delete" id="Delete" onclick="deletecomponent()">
+        <input type="submit" name="Submit" value="Save" id="Save">
+    </form>
+</div>
 
 <div id="header">
 
@@ -270,7 +344,7 @@ body {
             <div class="centrecolumn">
 
 
-                <div class="card" id="searchresults">
+                <div class="cardx" id="searchresults" style="width:100%">
 
 
                     <p>Some text..</p>
@@ -287,6 +361,6 @@ body {
 
 </div>
 
-
+<script>$("#searchresults").draggable({'containment':'.centrecolumn'});</script>
 </body>
 </html>

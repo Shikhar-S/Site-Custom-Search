@@ -11,7 +11,7 @@ class ResultPageX(models.Model):
     tagline = models.CharField(max_length=50)
     companyLogo = models.ImageField(upload_to='./static/pic_folder/', default='img/sample.jpeg')
     headerTemplate=models.CharField(max_length=50)
-
+    numberOfResults=models.IntegerField(default=5)
     bodyTemplate=models.CharField(max_length=50)
     crawler = models.ForeignKey(Crawler, related_name="resultpagex", on_delete=models.CASCADE)
 
