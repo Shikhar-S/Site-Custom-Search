@@ -11,6 +11,11 @@ from django.views.decorators.csrf import csrf_exempt
 from .searcher import search
 import threading
 import asyncio
+subkey='dcf13da58d784c3ab9bc479dcdd55e8a'
+search_url = "https://api.cognitive.microsoft.com/bing/v7.0/search"
+search_term = "Azure Cognitive Services"
+
+import requests
 import redis
 redisQ=redis.StrictRedis(host='localhost',port=6379,db=0)
 
@@ -99,15 +104,27 @@ def getresult(request,pk):
     if request.method=='POST':
         search_term=request.POST.get('search_term')
         search_term=search_term.lower()
+        search_loc=request.POST.get('searchloc')
         numres=crawler.resultpagex.first().numberOfResults
-        res=search(crawler.name,search_term,numres)
+
+        if search_loc=='p':
+            res=search(crawler.name,search_term,numres)
         # print(res[1]['content'])
         # print(len(res))
-        if(len(res)==0):
-            return HttpResponse("No results found for the search query")
+            if(len(res)==0):
+                return HttpResponse("No results found for the search query")
         
         
-        return render(request,'search_results.html',{'response':res})
+            return render(request,'search_results.html',{'response':res})
+
+        headers = {"Ocp-Apim-Subscription-Key": subkey}
+        params = {"q": search_term, "textDecorations": True, "textFormat": "HTML"}
+        response = requests.get(search_url, headers=headers, params=params)
+        response.raise_for_status()
+        search_results = response.json()
+
+        # print(search_results['webPages']['value'][0:numres])
+        return render(request, 'search_results_bing.html', {'response': search_results['webPages']['value'][0:numres]})
 
 @csrf_exempt
 def getheader(request):
@@ -156,3 +173,6 @@ def getelement(request):
         element_req=request.POST.get('type')
         return HttpResponse("<div class='ad_smallsquare'>small square ad</div>")
     return render(request,'test4.html')
+
+
+
