@@ -157,7 +157,7 @@ section.success{
                 <div class="intro-text">
                     <span class="name">FindStuff</span>
                     <hr class="star-light">
-                    <p class="skills">We don't track</p>
+                    <h3 class="skills">We are still in beta.</h3>
                     <p class="skills"></p>
                 </div>
             </div>
@@ -169,7 +169,7 @@ section.success{
        <div class="container">
 
     <div class="mb-4">
-        <a href="{% url 'new_crawler' %}" class="btn btn-primary">New topic</a>
+        <a href="{% url 'new_crawler' %}" class="btn btn-primary">New Search Engine</a>
     </div>
     <table class="table">
         <thead class="thead-inverse">
@@ -183,7 +183,7 @@ section.success{
         {% for crawler in crawlers %}
         <tr>
             <td>
-                <a href="{% url 'serp' crawler.pk %}">{{ crawler.name }}</a>
+                <a href="{% url 'crawlerdescription' crawler.pk %}">{{ crawler.name }}</a>
 
             </td>
             <td>{{crawler.description}}</td>
@@ -207,10 +207,10 @@ section.success{
             </div>
             <div class="row">
                 <div class="col-lg-4 col-lg-offset-2">
-                    <p>Freelancer is a free bootstrap theme created by Start Bootstrap. The download includes the complete source files including HTML, CSS, and JavaScript as well as optional LESS stylesheets for easy customization.</p>
+                    <p>We are a couple of techies who started off with a rigorous training programme and were introduced to some technologies that we found intriguing.</p>
                 </div>
                 <div class="col-lg-4">
-                    <p>Whether you're a student looking to showcase your work, a professional looking to attract clients, or a graphic artist looking to share your projects, this template is the perfect starting point!</p>
+                    <p>This project is a combined effort of us and our mentor, which aims at developing a platform to build a search engine for your website, blog, etc etc</p>
                 </div>
             </div>
         </div>

@@ -2,78 +2,59 @@
 
 <html lang="en">
 <head>
-  <script>
-  (function() {
-    var cx = '008596628419507337123:hnqhlkstjcy';
-    var gcse = document.createElement('script');
-    gcse.type = 'text/javascript';
-    gcse.async = true;
-    gcse.src = 'https://cse.google.com/cse.js?cx=' + cx;
-    var s = document.getElementsByTagName('script')[0];
-    s.parentNode.insertBefore(gcse, s);
-  })();
-</script>
+
+    <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+  <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 
 
-  <!--<meta charset="utf-8" />-->
-  <!--<title>jQuery UI Resizable - Default functionality</title>-->
-  <!--<link rel="stylesheet" href="http://code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css" />-->
-  <!--<script src="http://code.jquery.com/jquery-1.9.1.js"></script>-->
-  <!--<script src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>-->
-
-  <!--<style>-->
-
-  <!--#iframe {-->
-  <!--width: 100%;-->
-  <!--height: 100%;-->
-  <!--border: none;-->
-
-  <!--background: #eee ;-->
 
 
-  <!--z-index: 1;-->
-<!--}-->
 
-<!--#resizable {-->
-  <!--width: 100px;-->
-  <!--height: 100px;-->
-  <!--background: #fff;-->
-  <!--border: 1px solid #ccc;-->
-  <!--padding:10px;-->
 
-  <!--z-index: 9;-->
-<!--}-->
-  <!--</style>-->
-  <!--<script>-->
-  <!--$(function() {-->
-    <!--$('#resizable').resizable({-->
-      <!--start: function(event, ui) {-->
-        <!--$('iframe').css('pointer-events','none');-->
-         <!--},-->
-    <!--stop: function(event, ui) {-->
-        <!--$('iframe').css('pointer-events','auto');-->
-      <!--}-->
-  <!--});-->
 
-  <!--$('#resizable').draggable({-->
-      <!--start: function(event, ui) {-->
-        <!--$('iframe').css('pointer-events','none');-->
-         <!--},-->
-    <!--stop: function(event, ui) {-->
-        <!--$('iframe').css('pointer-events','auto');-->
-      <!--}-->
-  <!--});-->
-
-  <!--});-->
-  <!--</script>-->
 </head>
 <body>
-<gcse:search></gcse:search>
+
 <!--<div id="resizable">-->
   <!--<iframe src="test.html" id="iframe"></iframe>-->
 
 <!--</div>-->
 
+<div class="container">
+    <br/>
+    <div class="row justify-content-center">
+        <div class="col-12 col-md-10 col-lg-8">
+            <form id="search_query" method="Post">
+              {% csrf_token %}
+                <div class="row">
 
+                    <!--end of col-->
+                    <div class="col-9" style="float:left">
+                        <input type="search"
+                               placeholder="Search topics or keywords" id="search_term">
+                    </div>
+                    <!--end of col-->
+                    <div class="col-3" style="float:left">
+                        <input type="submit" value="Search">
+                    </div>
+                    <!--end of col-->
+                </div>
+            </form>
+        </div>
+        <!--end of col-->
+    </div>
+
+</div>
+
+<div id="dialog" title="">
+<div id="searchresults"></div>
+</div>
+
+
+
+
+
+
+<script src="http://localhost:8000/static/js/abc.js"></script>
 </body>
 </html>

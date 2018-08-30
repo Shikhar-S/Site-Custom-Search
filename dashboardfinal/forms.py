@@ -28,7 +28,7 @@ class NewCrawlerFormX(forms.ModelForm):
     description=forms.CharField(max_length=100,label='description')
     domain=forms.CharField(max_length=100,required=True,label='domain')
 
-    tagline=forms.CharField(max_length=50,initial="Science behind adverd",required=True,label="Tagline")
+    tagline=forms.CharField(max_length=50,required=True,label="Tagline")
     websiteName=forms.CharField(max_length=50,label="Website Name")
     headerTemplate=forms.CharField(widget = forms.TextInput(attrs={'readonly':'readonly'}))
 

@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html>
+<title>W3.CSS Template</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Montserrat">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<style>
+body,h1,h2,h3,h4,h5,h6 {font-family: "Lato", sans-serif}
+.w3-bar,h1,button {font-family: "Montserrat", sans-serif}
+.fa-anchor,.fa-coffee {font-size:200px}
+header {background:#18bc9c}
+</style>
+<body>
+
+<!-- Navbar -->
+
+
+<!-- Header -->
+<header class="w3-container w3-center" style="padding:128px 16px;background:#18bc9c">
+  <table class="w3-table w3-bordered w3-xlarge">
+   <tr>
+       <td>Crawler name</td>
+       <td>{{crawler.name}}</td>
+   </tr>
+    <tr>
+        <td>Crawler id</td>
+        <td>{{crawler.id}}</td>
+    </tr>
+    <tr>
+        <td>Crawler domain</td>
+        <td>{{crawler.domain}}</td>
+    </tr>
+
+</table>
+</header>
+
+<!-- First Grid -->
+<div class="w3-row-padding w3-padding-64 w3-container">
+  <div class="w3-content">
+    <div class="w3-twothird">
+      <h1>Public URL:<a href="{% url 'serp' crawler.pk %}"> http://127:0.0.1:8000/crawler/{{crawler.pk}}</a></h1>
+
+
+      <p class="w3-text-grey">You can use the above link to access your public search URL. You can incorporate the above in an iframe and add it to your website, or you can redirect your users to this page while they search on your page. <br>
+        <h6>*Our ad partner <b>Media.net</b> will have exclusive rights to serve ads on this page.</h6> </p>
+    </div>
+
+
+  </div>
+</div>
+
+<!-- Second Grid -->
+<div class="w3-row-padding w3-light-grey w3-padding-64 w3-container">
+  <div class="w3-content">
+
+    <div class="w3-twothird">
+      <h1>Search API</h1>
+    <p>We also provide a search API, which returns JSON response corresponding to your search queries. Below is a short example on how to use this service.
+        Experienced web developers can use this service if they want complete control over the design of the search landing page.
+    </p>
+      <p class="w3-text-grey"><xmp>import requests
+search_url = "http://127.0.0.1:8000/search/"
+search_term = "hello"
+
+import requests
+
+
+params  = {"search_term": search_term,"crawler_id":"Your Crawler ID" ,"numres":5 }
+response = requests.post(search_url,data=params)
+# response.raise_for_status()
+search_results = response.json()
+
+print(search_results)</xmp>.</p>
+    </div>
+  </div>
+</div>
+
+<div class="w3-row-padding w3-padding-64 w3-container">
+  <div class="w3-content">
+    <div class="w3-twothird">
+      <h1>Just Search Bar with popup results</h1>
+        This feature lets you put our search bar on top of any of your web pages.
+        Just add the below script in your head tag.
+
+      <p class="w3-text-grey"><xmp><script src="http://127.0.0.1/static/js/{{crawler.name}}.js"></script></xmp>
+<xmp><div class="container">
+    <br/>
+    And add the below code wherever you want the search bar to appear. The results will just pop open when you search using this bar.
+    <div class="row justify-content-center">
+        <div class="col-12 col-md-10 col-lg-8">
+            <form id="search_query" method="Post">
+              {% csrf_token %}
+                <div class="row">
+                    <div class="col-9" style="float:left">
+                        <input type="search"
+                               placeholder="Search topics or keywords" id="search_term">
+                    </div>
+                    <div class="col-3" style="float:left">
+                        <input type="submit" value="Search">
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+
+</div></xmp></p>
+    </div>
+
+
+  </div>
+</div>
+
+
+
+
+</body>
+</html>

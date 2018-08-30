@@ -18,6 +18,7 @@
 
 function searchOpen() {
     var search = $('#search_term').val()
+    console.log(search);
     var data = {
         search: search
     };
@@ -27,23 +28,8 @@ function searchOpen() {
            console.log(content[0].data);
            $("#search_term").autocomplete({source: content[0].data});
            });
-    
-<!--    $.ajax({-->
-<!--           url: 'ajax/get_completion',-->
-<!--           data: data,-->
-<!--           dataType: 'jsonp',-->
-<!--           jsonp: 'callback',-->
-<!--           jsonpCallback: 'searchResult'-->
-<!--           });-->
 }
-    
-    
-<!--    function searchResult(data) {-->
-<!--        console.log("callback hua??")-->
-<!--        $( "#search_term" ).autocomplete ({-->
-<!--                                        source: data-->
-<!--                                        });-->
-<!--    }-->
+
     
     
     
@@ -303,20 +289,42 @@ label {
 
     <!--</div>-->
 
-<!--</div>-->
+</div>
 <script>
- ad1='<img src="/static/img/ad_ibm.jpeg" class="img-rounded" style="width:100%;"/>';
- ad2='<img src="/static/img/ad_pizza.jpeg" class="img-rounded" style="width:100%;"/>';
- ad3='<img src="/static/img/ad_car.jpeg" class="img-rounded" style="width:100%;"/>';
- ad4='<img src="/static/img/ad_stack.jpeg" class="img-rounded" style="width:100%;"/>';
-ar=[ad1,ad2,ad3,ad4];
-var j=0;
-$('.card').each(function(i, obj) {
-    //test
-    $(obj).append(ar[j]);
-    j=(j+1)%4;
-
-});
-</script>
+    ad1='<img src="/static/img/ad_ibm.jpeg" class="img-rounded" style="width:100%;height:100%"/>';
+    ad2='<img src="/static/img/ad_pizza.jpeg" class="img-rounded" style="width:100%;height:100%"/>';
+    ad3='<img src="/static/img/ad_car.jpeg" class="img-rounded" style="width:100%;height:100%"/>';
+    ad4='<img src="/static/img/ad_stack.jpeg" class="img-rounded" style="width:100%;height:100%"/>';
+    
+    ad5='<img src="/static/img/ad_stack2.jpeg" class="img-rounded" style="width:100%;height:100%"/>';
+    ad6='<img src="/static/img/banner.jpeg" class="img-rounded" style="width:100%;height:100%"/>';
+    ad7='<img src="/static/img/ad_wp.jpeg" class="img-rounded" style="width:100%;height:100%"/>';
+    ad8='<img src="/static/img/ad_flock.jpeg" class="img-rounded" style="width:100%;height:100%"/>';
+    ar=[ad1,ad2,ad3,ad4];
+    br=[ad5,ad6,ad7,ad8];
+    var j=0;
+    var k=0;
+    $('.card').each(function(i, obj) {
+                    //test
+                    if($(obj).hasClass("ressx")){
+                    
+                    }
+                    else if($(obj).hasClass("card-sm")){
+                    
+                    }
+                    
+                    else if($(obj).hasClass("c")){
+                    $(obj).append(br[k]);
+                    k=(k+1)%4;
+                    }
+                    else
+                    {
+                    $(obj).append(ar[j]);
+                    j=(j+1)%4;
+                    }
+                    
+                    
+                    });
+    </script>
 </body>
 </html>

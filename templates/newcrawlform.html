@@ -4,11 +4,12 @@
 
   <script type="text/javascript"
 	src="http://ajax.googleapis.com/ajax/libs/jquery/1.3.2/jquery.min.js"></script>
+     <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
 <script type="text/javascript"
 	src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.7.2/jquery-ui.js"></script>
 <link rel="stylesheet" type="text/css"
 	href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.7.1/themes/base/jquery-ui.css"/>
-    <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
+
     <script type="text/javascript">
 
 // setup some JSON to use
@@ -21,10 +22,6 @@ function addcomponent(){
 
 var idn='id_'+y;
 
-<!--a = '<div class="card" id='+idn+' ><img src="/static/img/ad_ibm.jpeg" class="img-rounded" style="width:100%;"></div>';-->
-        <!--b='<div class="card" id='+idn+'><img src="/static/img/ad_pizza.jpeg" class="img-rounded" style="width:100%;"></div>';-->
-        <!--c='<div class="card" id='+idn+' ><img src="/static/img/ad_car.jpeg" class="img-rounded" style="width:100%;"></div>';-->
-        <!--d='<div class="card" id='+idn+' ><img src="/static/img/ad_stack.jpeg" class="img-rounded" style="width:100%;"></div>';-->
 
 a = '<div class="card" id='+idn+'></div>';
         b='<div class="card" id='+idn+'></div>';
@@ -35,10 +32,10 @@ a = '<div class="card" id='+idn+'></div>';
 
         var ar=[a,b,c,d];
 
-        e='<div class="cardx" id='+idn+'><img src="/static/img/ad_stack2.jpeg" style="width:100%"></iframe></div>';
-        f='<div class="cardx" id='+idn+'><img src="/static/img/banner.jpeg"  style="width:100%"></iframe></div>';
-        g='<div class="cardx" id='+idn+'><img src="/static/img/wp.jpeg"  style="width:100%"></iframe></div>';
-        h='<div class="cardx" id='+idn+'><img src="/static/img/ad_flock.jpeg" style="width:100%"></iframe></div>';
+        e='<div class="card c" id='+idn+'></div>';
+        f='<div class="card c" id='+idn+'></div>';
+        g='<div class="card c" id='+idn+'></div>';
+        h='<div class="card c" id='+idn+'></div>';
 
 
         var br=[e,f,g,h]
@@ -48,13 +45,14 @@ console.log(idn);
         itemToAdd=ar[x];
         itemToAddc=br[z];
 
-        <!--itemToAddc='<div class="card"><img src="/static/img/banner.jpeg" class="img-rounded" style="height:100%;width:100%"></div>';-->
+
 
         var radioValue = $("input[name='location']:checked").val();
         if(radioValue=='Left'){
         $(".leftcolumn").append(itemToAdd);
 
-    $("#"+idn).draggable({'containment':'.leftcolumn'});
+    <!--$("#"+idn).draggable({'containment':'.leftcolumn'});-->
+    $("#"+idn).resizable({'maxWidth':208});
 
 
 
@@ -65,19 +63,21 @@ console.log(idn);
         z=(z+1)%4;
 
 
-        $("#"+idn).draggable({'containment':'.centrecolumn'});
-
+        <!--$("#"+idn).draggable({'containment':'.centrecolumn'});-->
+        $("#"+idn).resizable({'maxWidth':684});
         }
         else if(radioValue=='Centerb'){
         $(".centrecolumn").append(itemToAddc);
         z=(z+1)%4;
-        $("#"+idn).draggable({'containment':'.centrecolumn'});
+        <!--$("#"+idn).draggable({'containment':'.centrecolumn'});-->
+        $("#"+idn).resizable({'maxWidth':684});
 
         }
         else {
 
         $(".rightcolumn").append(itemToAdd);
-        $("#"+idn).draggable({'containment':'.rightcolumn'});
+        <!--$("#"+idn).draggable({'containment':'.rightcolumn'});-->
+        $("#"+idn).resizable({'maxWidth':208});
 
         x=(x+1)%4;
         }
@@ -138,7 +138,7 @@ $("#id_name").val(webname);
 
 }
 function myfunction() {
-    <!--$(".card").resizable("destroy");-->
+    $(".card").resizable("destroy");
     var name=document.getElementById("id_name").value
     var domain=document.getElementById("id_domain").value
     var domstruct=document.getElementById("tosave").innerHTML;
@@ -159,9 +159,9 @@ function myfunction() {
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <style>
 
-* {
-    box-sizing: border-box;
-}
+<!--* {-->
+    <!--box-sizing: border-box;-->
+<!--}-->
 
 /* Add a gray background color with some padding */
 body {
@@ -184,7 +184,7 @@ body {
     float: left;
     width: 20%;
      padding-right: 20px;
-
+    height:500px;
 
 
 }
@@ -194,12 +194,14 @@ body {
     float: left;
     width: 20%;
     padding-left: 20px;
+    height:500px;
 
 
 }
 .centrecolumn{
     float:left;
     width:60%;
+    height:500px;
 
 
 
@@ -219,12 +221,27 @@ body {
      padding: 20px;
      margin-top: 20px;
      height:180px;
-     width:100%
+
 
 
 
 
 }
+.card-c {
+
+     background-color: #f1f1f1;
+     padding: 20px;
+     margin-top: 20px;
+     height:180px;
+     width:100%
+    border-style:solid;
+    boder-color=black;
+    border-width=1px;
+
+
+
+}
+
 
 
 /* Clear floats after the columns */
@@ -308,18 +325,13 @@ body {
             {{ form.numberOfResults }}
 
         </div>
-        <div class="form-group">
-            {{ form.bodyTemplate.label_tag }}
-            {{ form.bodyTemplate }}
-
-        </div>
 
 
         <div class="form-group">
             Left
             <input type="radio" name="location" value="Left" checked>
-            Center Top<input type="radio" name="location" value="Centert">
-            Center Bottom<input type="radio" name="location" value="Centerb">
+            Top<input type="radio" name="location" value="Centert">
+            Bottom<input type="radio" name="location" value="Centerb">
             Right<input type="radio" name="location" value="Right">
         </div>
 
@@ -344,15 +356,11 @@ body {
             <div class="centrecolumn">
 
 
-                <div class="cardx" id="searchresults" style="width:100%">
+                <div class="card ressx" id="searchresults" style="width:100%">
 
 
-                    <p>Some text..</p>
-                    <p>Sunt in culpa qui officia deserunt mollit anim id est laborum consectetur adipiscing elit, sed do
-                        eiusmod
-                        tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud
-                        exercitation
-                        ullamco.</p>
+
+                    <p><br><br><br><br></p>
                 </div>
             </div>
             <div class="rightcolumn"></div>
@@ -361,6 +369,6 @@ body {
 
 </div>
 
-<script>$("#searchresults").draggable({'containment':'.centrecolumn'});</script>
+
 </body>
 </html>

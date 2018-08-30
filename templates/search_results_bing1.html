@@ -1,0 +1,30 @@
+{% load static %}<!DOCTYPE html>
+<html lang="en">
+<head>
+
+</head>
+<body>
+<table class="table">
+
+
+          {% for json in response %}
+            <tr>
+              <td style="border-bottom: 1px solid #ddd; padding-top:10px;padding-bottom:10px">
+                  <a href="{{json.url}}" target="_blank">{{json.name}}</a><br>
+                  <small class="text-muted d-block">
+
+                  {{ json.snippet}}
+
+                  </small>
+
+
+              </td>
+
+
+            </tr>
+
+          {% endfor %}
+
+      </table>
+</body>
+</html>
