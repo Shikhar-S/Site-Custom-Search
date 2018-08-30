@@ -11,8 +11,10 @@ from elasticsearch_dsl import Search
 # Create your views here.
 from django.http import JsonResponse
 
+import random
+
 from django.views.decorators.csrf import csrf_exempt
-from .searcher import search
+from .searcher import search, storeMetric, compactMetrics
 import threading
 import asyncio
 subkey='dcf13da58d784c3ab9bc479dcdd55e8a'
@@ -32,7 +34,7 @@ jstop="""$( function() {
     },
     width: "90%",
     maxWidth: "768px",
-    top:"0px"
+   
     });
     })
     
@@ -103,8 +105,6 @@ def new_crawlerx(request):
     if request.method == 'POST':
         form = NewCrawlerFormX(request.POST,request.FILES)
         if form.is_valid():
-            
-            
             if not crawler_already_exists(form):
                 crawlerX = form.save(commit=False)
                 crawlerX.save()
@@ -114,7 +114,7 @@ def new_crawlerx(request):
                 websitename=form.cleaned_data.get('websiteName'),
                 headerTemplate=form.cleaned_data.get('headerTemplate'),
                 companyLogo=form.cleaned_data.get('companyLogo'),
-                
+                numberOfResults=form.cleaned_data.get('numberOfResults'),
                 
                 crawler=crawlerX
                 
@@ -124,8 +124,8 @@ def new_crawlerx(request):
                 #Adding message to Redis Q
                 url=form.cleaned_data.get('domain')
                 crawler=form.cleaned_data.get('name')
-                #while(redisQ.publish('messagequeue',crawler+" "+url)==0):
-                #continue
+#                while(redisQ.publish('messagequeue3',crawler+" "+url)==0):
+#                    continue
                 print('added to redis Queue')
             
             return redirect('home')
@@ -143,8 +143,8 @@ def serp(request,pk):
     headerTemplate=res.headerTemplate+".html"
     bodyTemplate='body_'+crawler.name+'.html'
     
-    print(logopath)
-    
+#    print(logopath)
+
     
     return render(request,'searchlandingpage.html',{'name':crawler.name,'domain':crawler.domain,'logo':logopath,'tagline':tagline,'websitename':websitename,
                   'headerTemplate':headerTemplate,'bodyTemplate':bodyTemplate
@@ -178,12 +178,15 @@ def getresult(request,pk):
         response = requests.get(search_url, headers=headers, params=params)
         response.raise_for_status()
         search_results = response.json()
-        print(search_results)
+#        print(search_results)
         # print(search_results['webPages']['value'][0:numres])
+        storeMetric(Crawler,search_term)
+        if(random.randint(1,10000)<=10):
+            compactMetrics(Crawler)
         return render(request, 'search_results_bing.html', {'response': search_results['webPages']['value'][0:numres]})
 
 
-
+@csrf_exempt
 def getresultpop(request):
     
     if request.method == 'POST':
@@ -191,23 +194,18 @@ def getresultpop(request):
         search_term = search_term.lower()
         crawlername = request.POST.get('crawlername')
         numres = 10
-        #
-        #
-        # res = search(crawlername, search_term, numres)
-        # # print(res[1]['content'])
-        # # print(len(res))
-        # if (len(res) == 0):
-        #     return HttpResponse("No results found for the search query")
-        #
-        # return render(request, 'search_results.html', {'response': res})
-        headers = {"Ocp-Apim-Subscription-Key": subkey}
-        params = {"q": search_term, "textDecorations": True, "textFormat": "HTML"}
-        response = requests.get(search_url, headers=headers, params=params)
-        response.raise_for_status()
-        search_results = response.json()
-        
-        # print(search_results['webPages']['value'][0:numres])
-        return render(request, 'search_results_bing1.html', {'response': search_results['webPages']['value'][0:numres]})
+        res = search(crawlername.strip(), search_term, numres)
+        if (len(res) == 0):
+            return HttpResponse("No results found for the search query")
+        return render(request, 'search_results.html', {'response': res})
+#        headers = {"Ocp-Apim-Subscription-Key": subkey}
+#        params = {"q": search_term, "textDecorations": True, "textFormat": "HTML"}
+#        response = requests.get(search_url, headers=headers, params=params)
+#        response.raise_for_status()
+#        search_results = response.json()
+#
+#        # print(search_results['webPages']['value'][0:numres])
+#        return render(request, 'search_results_bing1.html', {'response': search_results['webPages']['value'][0:numres]})
 
 @csrf_exempt
 def getheader(request):
@@ -225,9 +223,9 @@ def show_metrics(request,pk):
     if(request.method=='GET'):
         try:
             result=Metrics.objects.filter(crawlerName=crawler.name)
-            print(result)
+#            print(result)
             result=result.order_by('-queryCount')[:10]
-            print(result)
+#            print(result)
             res=[]
             for entry in result:
                 res.append({'Query':entry.userQuery,'Count':entry.queryCount})
@@ -237,10 +235,10 @@ def show_metrics(request,pk):
 
 @csrf_exempt
 def savehtml(request):
-    print('yes')
+#    print('yes')
     if request.method=='POST':
         htmlcontent=request.POST.get('html')
-        print(htmlcontent)
+#        print(htmlcontent)
         name = request.POST.get('name')
         domain = request.POST.get('domain')
         
@@ -294,10 +292,13 @@ def crawldesc(request,pk):
 def autocomplete(request,pk):
     query=request.POST.get("search")
     crawler=get_object_or_404(Crawler,pk=pk)
-    s=Search(using=Elasticsearch(),index=crawler.name.lower(),doc_type="articles")
+    s=Search(using=Elasticsearch(),index=crawler.name.lower()+"_",doc_type="articles")
     s=s.suggest("title_suggester",query, completion={'field': 'completion_suggester'})
     suggestions=s.execute()
-    ret_list=[opt.text for opt in suggestions.suggest.title_suggester[0].options]
+    ret_list=list(set([opt.text+"..." for opt in suggestions.suggest.title_suggester[0].options]))
     return JsonResponse({'data':ret_list})
+
+def testsite(request):
+    return render(request,"testingsite.html")
 
 
