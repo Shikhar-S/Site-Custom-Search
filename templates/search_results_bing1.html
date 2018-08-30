@@ -10,10 +10,10 @@
           {% for json in response %}
             <tr>
               <td style="border-bottom: 1px solid #ddd; padding-top:10px;padding-bottom:10px">
-                  <a href="{{json.url}}" target="_blank">{{json.name}}</a><br>
+                  <a href="{{json.url}}" target="_blank">{{json.name|safe}}</a><br>
                   <small class="text-muted d-block">
 
-                  {{ json.snippet}}
+                  {{ json.snippet|safe}}
 
                   </small>
 

@@ -294,8 +294,8 @@ def crawldesc(request,pk):
 def autocomplete(request,pk):
     query=request.POST.get("search")
     crawler=get_object_or_404(Crawler,pk=pk)
-    s=Search(using=Elasticsearch(),index="suggesting_index",doc_type=crawler.name)
-    s=s.suggest("title_suggester",query, completion={'field': 'title_suggester'})
+    s=Search(using=Elasticsearch(),index=crawler.name.lower(),doc_type="articles")
+    s=s.suggest("title_suggester",query, completion={'field': 'completion_suggester'})
     suggestions=s.execute()
     ret_list=[opt.text for opt in suggestions.suggest.title_suggester[0].options]
     return JsonResponse({'data':ret_list})

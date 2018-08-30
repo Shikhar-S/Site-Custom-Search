@@ -11,12 +11,11 @@ def search(Crawler,user_query,num_results):
     idx='articlef'
     if Crawler=="PetrMitrichev":
         idx='article_other'
-    s=Search(using=Elasticsearch(),index=(idx),doc_type=(Crawler))
+    s=Search(using=Elasticsearch(),index=Crawler.lower(),doc_type="articles")
     q=Q("multi_match",query=user_query,fields=['title^3','content','headings'])
     s=s.query(q)
-    #s= s.suggest('completion_suggestions', user_query, completion={'field': 'title'})
     print(s.to_dict())
-    s=s.highlight('content',fragment_size=30)
+    s=s.highlight('title',fragment_size=30)
     count=s.count()
     unique_list=[]
     ret_list=[]
@@ -28,14 +27,14 @@ def search(Crawler,user_query,num_results):
         c+=1
         s=s[current_pos:current_pos + batch_size]
         response=s.execute()
-#        suggestions = s.execute_suggest()
-#        print("Suggestion-------")
-#        for suggestion in suggestions.completion_suggestions:
-#            print(suggestion)
+
         for hit in response:
             if hit.title not in unique_list:
                 unique_list.append(hit.title)
-                highlight="..."+hit.meta.highlight.content[0]+"..."
+                print(hit.meta)
+                print()
+                print()
+                highlight="..."+hit.meta.highlight.title[0]+"..."
                 ret_list.append({"title":hit.title,"description":highlight,"url":hit.url})
                 if len(unique_list)>=num_results:
                     break
