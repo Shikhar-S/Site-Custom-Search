@@ -45,5 +45,8 @@ urlpatterns=[
              url(r'^crawler/(?P<pk>\d+)/$',dviews.serp,name='serp'),
              url(r'crawler/(?P<pk>\d+)/getresult$',dviews.getresult,name='getresult'),
              url(r'crawler/(?P<pk>\d+)/metric/$',dviews.show_metrics,name='metrics_page'),
-             url(r'new_crawler/getheader$',dviews.getheader,name='getheader')
+             url(r'new_crawler/getheader$',dviews.getheader,name='getheader'),
+            url(r'search/$',dviews.searchs,name='search'),
+            url(r'getresultpop$',dviews.getresultpop,name='getresultpop'),
+            url(r'crawlerdescription/(?P<pk>\d+)$',dviews.crawldesc,name='crawlerdescription')
              ]

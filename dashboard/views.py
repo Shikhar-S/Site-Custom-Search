@@ -17,7 +17,7 @@ redisQ=redis.StrictRedis(host='localhost',port=6379,db=0)
 def home(request):
 
     crawlers=Crawler.objects.all()
-    return render(request,'home.html',{'crawlers':crawlers})
+    return render(request,'xyz.html',{'crawlers':crawlers})
 
 def crawler_already_exists(form):
         dummy_result = Crawler.objects.filter(name=form.cleaned_data.get('domain'))
