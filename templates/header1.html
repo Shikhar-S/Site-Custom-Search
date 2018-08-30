@@ -127,7 +127,7 @@ group {
 .dropdown-menu p{
     color:#000; margin: 0 10px; cursor:pointer;
 }
-
+    
 </style>
 <section style="background: url('https://d32d8xzgnjxuvk.cloudfront.net/places/1-0/img/hero-bg.jpg') no-repeat;" class="hero d-flex align-items-center">
   <div class="container">
@@ -148,7 +148,7 @@ group {
             <input type="search" name="search" placeholder="What are you searching for?" id="search_term">
           </div>
           <div class="form-group col-lg-2  col-sm-2 col-md-2">
-            <input type="submit" value="Search" class="submit">
+            <input type="submit" id="search_term" value="Search" class="submit" onKeyup="searchOpen()">
           </div>
         </div>
 

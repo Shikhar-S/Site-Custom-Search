@@ -14,6 +14,8 @@ def search(Crawler,user_query,num_results):
     s=Search(using=Elasticsearch(),index=(idx),doc_type=(Crawler))
     q=Q("multi_match",query=user_query,fields=['title^3','content','headings'])
     s=s.query(q)
+    #s= s.suggest('completion_suggestions', user_query, completion={'field': 'title'})
+    print(s.to_dict())
     s=s.highlight('content',fragment_size=30)
     count=s.count()
     unique_list=[]
@@ -21,9 +23,15 @@ def search(Crawler,user_query,num_results):
     total_matches=s.count()
     batch_size=20
     current_pos=0
+    c=0
     while len(unique_list)<num_results and current_pos<total_matches:
+        c+=1
         s=s[current_pos:current_pos + batch_size]
         response=s.execute()
+#        suggestions = s.execute_suggest()
+#        print("Suggestion-------")
+#        for suggestion in suggestions.completion_suggestions:
+#            print(suggestion)
         for hit in response:
             if hit.title not in unique_list:
                 unique_list.append(hit.title)
@@ -33,14 +41,14 @@ def search(Crawler,user_query,num_results):
                     break
         current_pos+=batch_size
         print(current_pos)
-        if current_pos>=num_results*num_results:
+        if current_pos>=max(num_results*num_results,200):
             print(len(ret_list))
             ret_list=[]
             break
-
+    print("done in :"+str(c)+" iterations")
     storeMetric(Crawler,user_query)
     if(random.randint(1,10000)<=10):
-       compactMetrics(Crawler)
+        compactMetrics(Crawler)
     return ret_list
 
 

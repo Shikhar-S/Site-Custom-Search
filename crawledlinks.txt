@@ -1,12 +1,4 @@
-https://www.thehindu.com/news/international/
-https://www.thehindu.com/business/
-https://www.thehindu.com/news/national/
-https://www.thehindu.com/opinion/editorial/
-https://www.thehindu.com/news/
-https://www.thehindu.com/opinion/
-https://www.thehindu.com/thread/
-https://www.thehindu.com/sci-tech/science/
-https://www.thehindu.com/entertainment/
+
 
 
 
@@ -16,6 +8,12 @@ WebMD=> (done)
 Forbes => (headings = .speakable-paragraph) (url : https://www.forbes.com/ai-big-data/ )
 TheHindu => (done) 
 MSN => (done)
+
+
+{'took': 11, 'timed_out': False, '_shards': {'total': 5, 'successful': 5, 'failed': 0}, 'hits': {'total': 0, 'max_score': 0.0, 'hits': []}, 'suggest': {'title_suggester': [{'text': 'Center', 'offset': 0, 'length': 6, 'options': []}]}}
+
+print(resp.suggest.title_suggester[0].options[1].text)
+
 
 
 

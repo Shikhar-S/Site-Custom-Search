@@ -3,16 +3,50 @@
 <head>
     <link href="https://code.jquery.com/ui/1.10.4/themes/ui-lightness/jquery-ui.css"
           rel="stylesheet">
-    <script src="https://code.jquery.com/jquery-1.10.2.js"></script>
-
+<!--    <script src="https://code.jquery.com/jquery-1.10.2.js"></script>-->
+<!--<script src="https://code.jquery.com/jquery-3.3.1.js" integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60=" crossorigin="anonymous"></script>-->
+<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 
     <script>
        window.onload = function() {
 	// setup the button click
 	document.getElementById("search_query").onsubmit=function(){getsearchresults();};
 }
+    
+<!--Autocomplete code-->
 
-
+function searchOpen() {
+    var search = $('#search_term').val()
+    var data = {
+        search: search
+    };
+    
+    $.post("autocomplete_page", data, function(resp){
+           var content=$(resp);
+           console.log(content[0].data);
+           $("#search_term").autocomplete({source: content[0].data});
+           });
+    
+<!--    $.ajax({-->
+<!--           url: 'ajax/get_completion',-->
+<!--           data: data,-->
+<!--           dataType: 'jsonp',-->
+<!--           jsonp: 'callback',-->
+<!--           jsonpCallback: 'searchResult'-->
+<!--           });-->
+}
+    
+    
+<!--    function searchResult(data) {-->
+<!--        console.log("callback hua??")-->
+<!--        $( "#search_term" ).autocomplete ({-->
+<!--                                        source: data-->
+<!--                                        });-->
+<!--    }-->
+    
+    
+    
 function getsearchresults() {
 	// ajax the JSON to the server
 var radioValue = $("input[name='searchloc']:checked").val();

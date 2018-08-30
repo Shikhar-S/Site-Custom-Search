@@ -35,10 +35,10 @@ a = '<div class="card" id='+idn+'></div>';
 
         var ar=[a,b,c,d];
 
-        e='<div class="card" id='+idn+'><img src="/static/img/ad_stack2.jpeg" style="width:100%"></iframe></div>';
-        f='<div class="card" id='+idn+'><img src="/static/img/banner.jpeg"  style="width:100%"></iframe></div>';
-        g='<div class="card" id='+idn+'><img src="/static/img/wp.jpeg"  style="width:100%"></iframe></div>';
-        h='<div class="card" id='+idn+'><img src="/static/img/ad_flock.jpeg" style="width:100%"></iframe></div>';
+        e='<div class="cardx" id='+idn+'><img src="/static/img/ad_stack2.jpeg" style="width:100%"></iframe></div>';
+        f='<div class="cardx" id='+idn+'><img src="/static/img/banner.jpeg"  style="width:100%"></iframe></div>';
+        g='<div class="cardx" id='+idn+'><img src="/static/img/wp.jpeg"  style="width:100%"></iframe></div>';
+        h='<div class="cardx" id='+idn+'><img src="/static/img/ad_flock.jpeg" style="width:100%"></iframe></div>';
 
 
         var br=[e,f,g,h]
@@ -61,7 +61,7 @@ console.log(idn);
     x=(x+1)%4;
         }
         else if(radioValue=='Centert'){
-        $(".centrecolumn").append(itemToAddc);
+        $(".centrecolumn").prepend(itemToAddc);
         z=(z+1)%4;
 
 

@@ -5,6 +5,9 @@ from .models import ResultPageX
 from .models import Metrics
 from django.shortcuts import render, redirect, get_object_or_404
 from .forms import NewCrawlerFormX
+from elasticsearch import Elasticsearch
+from elasticsearch_dsl import Search
+from django.http import JsonResponse
 # Create your views here.
 
 from django.views.decorators.csrf import csrf_exempt
@@ -20,7 +23,6 @@ import redis
 redisQ=redis.StrictRedis(host='localhost',port=6379,db=0)
 
 def home(request):
-
     crawlers=Crawler.objects.all()
     return render(request,'hometemplate.html',{'crawlers':crawlers})
 
@@ -173,6 +175,17 @@ def getelement(request):
         element_req=request.POST.get('type')
         return HttpResponse("<div class='ad_smallsquare'>small square ad</div>")
     return render(request,'test4.html')
+
+
+@csrf_exempt
+def autocomplete(request,pk):
+    query=request.POST.get("search")
+    crawler=get_object_or_404(Crawler,pk=pk)
+    s=Search(using=Elasticsearch(),index="suggesting_index",doc_type=crawler.name)
+    s=s.suggest("title_suggester",query, completion={'field': 'title_suggester'})
+    suggestions=s.execute()
+    ret_list=[opt.text for opt in suggestions.suggest.title_suggester[0].options]
+    return JsonResponse({'data':ret_list})
 
 
 
